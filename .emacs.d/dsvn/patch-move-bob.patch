@@ -1,0 +1,16 @@
+Index: dsvn.el
+===================================================================
+--- dsvn.el     (revision 1374385)
++++ dsvn.el     (working copy)
+@@ -1016,7 +1016,10 @@
+       (accept-process-output proc 2 10000)))
+   ;; The sentinel isn't run by a-p-o, so we hack around it
+   (setq svn-running nil)
+-  (svn-refresh)
++  (let ((proc (svn-refresh)))
++    (while (eq (process-status proc) 'run)
++      (accept-process-output proc 2 10000)))
++  (goto-char (point-min))
+   (message
+    (substitute-command-keys
+     "Welcome to dsvn. Press \\[svn-status-help] for keyboard help summary.")))

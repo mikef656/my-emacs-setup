@@ -1,0 +1,28 @@
+alias mystat svn st|grep -v '\?'
+alias m svn st|grep -v '\?'
+alias url svn info|gawk '/URL/{print $2}'
+alias fixurl svn info|gawk '/URL/{gsub(/URL: /,""); orig_url=$0;gsub(/vcs/,"chivcs.tmriusa.com");fixed_url=$0;svn_operation="svn switch --relocate";print  svn_operation,orig_url,fixed_url}'|bash
+alias l ls -CF --color=tty $*
+alias o sr-follow-viewer
+alias t ls -lrt $*
+alias la ls -A $*
+alias lsd ls -d */ $*
+alias h history
+alias p pwd
+alias his history
+alias c clear
+alias cls clear
+alias ll ls -l $*
+alias h history $*
+alias log6 svn info|gawk '/URL/{gsub(/URL: /,"");print "svn log -vl 6  " $0}'|bash
+alias log5 svn info|gawk '/URL/{gsub(/URL: /,"");print "svn log -vl 5  " $0}'|bash
+alias log4 svn info|gawk '/URL/{gsub(/URL: /,"");print "svn log -vl 4  " $0}'|bash
+alias log3 svn info|gawk '/URL/{gsub(/URL: /,"");print "svn log -vl 3  " $0}'|bash
+alias log2 svn info|gawk '/URL/{gsub(/URL: /,"");print "svn log -vl 2  " $0}'|bash
+alias log1 svn info|gawk '/URL/{gsub(/URL: /,"");print "svn log -vl 1  " $0}'|bash
+alias .. cd ..
+alias ... cd ../../../
+alias .... cd ../../../../
+alias ..... cd ../../../../../
+alias ...... cd ../../../../../../
+alias ....... cd ../../../../../../../

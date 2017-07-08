@@ -1,0 +1,698 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun insert-signal ()
+  "Insert a signal using a copied port"
+(interactive)
+      (let (p1 p2)
+      
+      ;locate inputs, assume cursor on input 
+      ;capture two lines starting at the comment above the port
+      (previous-line)
+      (beginning-of-line)
+      (setq p1 (point))
+      
+      ;Capture line containing port and its comment(assumed above)
+      (next-line)
+      (end-of-line)
+      (setq p2 (point))
+      (setq myStr (buffer-substring p1 p2)))
+
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;look at the captured string to determine the type
+      ;general form is (if test true-action false-action)
+      ;(if a b)   ;a is the test
+      ;
+      ;(if a b c) ;a is the test
+      ;
+      ;(if a b (if c d e)) ;a is the first test, c is the second
+      ;
+        (if (string-match " std_logic_vector" myStr )
+            (setq tempstr "std_logic_vector")
+            (if (string-match " std_logic" myStr)
+                (setq tempstr "std_logic")
+                (if (string-match "unsigned" myStr) 
+                   (setq tempstr "unsigned") 
+                   (setq tempstr "boolean")))        )
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+      ;Locate the begining of the signals region and position to insert
+      (re-search-forward "^[ ]*signal[ ]+.*:.*;")
+      (beginning-of-line)
+      (previous-line)
+      (previous-line)
+      (newline)
+      (insert  myStr)
+      (beginning-of-line)
+      
+      ;remove leading spaces fron both lines
+      (let (p1 p2)
+         (end-of-line)
+         (setq p2 (point))
+         (beginning-of-line)
+         (previous-line)
+         (setq p1 (point))
+         (replace-regexp "^[ ]*" "" nil p1 p2)
+         (insert  "signal " )
+
+         ;grab the original port name into myStr
+         (setq myStr (thing-at-point 'symbol))
+         (downcase-word 1)
+
+         ;remove the direction
+         (replace-regexp " in " "" nil p1 p2)
+         (beginning-of-line)
+       )
+
+     ;add, _d assume point is in the same line as the signal
+     (let (p1 p2)
+        (re-search-forward " ")
+        (re-search-forward " ")
+        (backward-char)
+        (insert "_d")
+        (setq myStr_alt (thing-at-point 'symbol))
+      )
+      (end-of-line)
+      (newline)
+
+      (beginning-of-line)
+
+      ;Locate the correct insertion position in the sync proc
+      (re-search-forward "sync_proc")
+      (re-search-forward "then")
+      ;(newline)
+      (end-of-line)
+      
+      ;Find the beginning of the first signal name in the reset area
+      ;Indent new sig insertion above
+      (re-search-forward "^[ ]+[a-z]")
+      (insert-and-indent-line-above)
+      (insert  myStr_alt "                                   " )
+
+      ;Find the <, will indent new sig insertion above
+      (re-search-forward "<")
+      (previous-line)
+      (backward-char 2)
+      
+      ;use the correct type on the RHS of the assignment
+      (
+      if (string= tempstr "std_logic_vector")   
+      (insert   " <= (others => '0') "   " ;") 
+      (if (string= tempstr "std_logic") 
+         (insert   " <= '0' "   " ;")  
+            (if (string= tempstr "boolean") 
+               (insert   " <= false "   " ;")
+               (if (string= tempstr "unsigned") (insert   " <= (others => '0') "   " ;"))))
+      )
+
+)
+
+(insert tempstr)
+
+(insert tempstr)std_logic_vector
+
+(global-set-key (kbd "<f11>") 'insert-signal)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun forward-block ()
+  "Move cursor forward to next occurrence of double newline char.
+In most major modes, this is the same as `forward-paragraph', however,
+this function behaves the same in any mode.
+forward-paragraph is mode dependent, because it depends on
+syntax table that has different meaning for paragraph."
+  (interactive)
+  (skip-chars-forward "\n")
+  (when (not (search-forward-regexp "\n[[:blank:]]*\n" nil t))
+    (goto-char (point-max)) ) )
+
+(defun backward-block ()
+  "Move cursor backward to previous occurrence of double newline char.
+See: `forward-block'"
+  (interactive)
+  (skip-chars-backward "\n")
+  (when (not (search-backward-regexp "\n[[:blank:]]*\n" nil t))
+    (goto-char (point-min))
+    )
+  )
+(global-set-key (kbd "S-<f12>") 'backward-block) ;
+(global-set-key (kbd "<f12>") 'forward-block) ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;; setting the PC keyboard's various keys to
+;; Super or Hyper, for emacs running on Windows.
+(setq w32-pass-lwindow-to-system nil 
+      w32-pass-rwindow-to-system nil 
+      w32-pass-apps-to-system nil 
+      w32-lwindow-modifier 'super ; Left Windows key 
+      w32-rwindow-modifier 'super ; Right Windows key 
+      w32-apps-modifier 'hyper) ; Menu key
+
+
+-- =============================================================================
+-- TOSHIBA MEDICAL RESEARCH INSTITUTE USA
+--
+-- This confidential and proprietary software may be used only as
+-- authorized by a licensing agreement from Toshiba Medical Research Institute USA.
+-- In the event of publication, the following notice is applicable
+--
+--  © COPYRIGHT 2010 TOSHIBA MEDICAL RESEARCH INSTITUTE USA.
+--  ALL RIGHTS RESERVED
+--
+-- The entire notice above must be reproduced on all authorized copies.
+--
+--
+-- =============================================================================
+-- $Workfile::                     $   $Revision:    $
+--
+-- Last checked in by $Author               :   :                   $
+--
+-- $Date: 2012-06-27 12:44:52 -0500 (Wed, 27 Jun 2012) $
+-- =============================================================================
+--
+-- Abstract:
+-- The purpose of the Scancntrl Interface function is to facilitate timing
+-- synchronization across multiple AFEs as mastered by the PAM in the PET system.
+-- Additionally it can communicate sideband information from PAM to AFE.
+-- Synchronization and communications are provided by
+-- outputs Scanexe and Ctu_update.
+--
+-- Clock Domains:
+-- Clk_500, Clk_250
+-- Rx data from the line is 500 MHz,
+-- Scanexe is asserted as a 1 clock wide pulse is the Clk_500 domain.
+-- Ctu_data and its 1 clock wide enable are on the Clk_250 domain.
+
+-- Notes :
+--
+-- =============================================================================
+library ieee;
+  use ieee.numeric_std.all;
+  use ieee.std_logic_1164.all;
+
+--library work;
+  use work.scancntl_if_common_util_pkg.all;
+  use work.scancntl_if_pkg.all;
+
+library altera;
+   use altera.all;
+
+entity scancntl_if is
+   port
+   (
+   -------------------------------------------------------------------------------------
+   --------------------
+   --Clocks and Resets
+   --------------------
+   --Used for Scancntrl data
+   Clk_500                                  : in std_logic;
+
+   --Used for Processing
+   Clk_250                                  : in std_logic;
+
+   --FPGA System Reset
+   Arst_500                                 : in std_logic;
+
+   --FPGA System Reset
+   Arst_250                                 : in std_logic;
+   -------------------------------------------------------------------------------------
+   --------------------
+   --Inputs
+   --------------------
+   --System control signal, PAM <-> AFE via RocketLink GPIO. Initiates training.
+   --Allow a register write to force training
+   Scancntrl_train_force                    : in std_logic;
+
+   --Allow a register write to force appearance of trained state
+   --System control signal, PAM <-> AFE via RocketLink GPIO. Initiates training.
+   Scancntrl_sync_force                    : in std_logic;
+
+   --System control signal, PAM <-> AFE via RocketLink GPIO. Initiates training.
+   Scancntrl_train_gpio                     : in std_logic;
+
+   --System control signal provides fine grained timing control, to synchronize 500 MHz
+   --counters in the leaf nodes.
+   --Also used to communicate sideband data.
+   Scancntrl_n                              : in std_logic;
+   Scancntrl_p                              : in std_logic;
+
+   --Force the DQS mux to be 0, std_logic active low
+   Scancntl_bypass_n                        : in std_logic;
+
+   --Value used as phase delay upon assertion of Dqs_delay_ctrl_override_d AND
+   --de-assertion of Scancntl_bypass_n
+   Dqs_delay_ctrl_override                  : in std_logic_vector(cDQS_DELAY_CTRL_SIZE-1 downto 0);
+
+   --Enable override (manual control) of the DQS control via register map
+   --Scancntl_bypass_n must be set to not bypass to enable override
+   Override_automatic_mode                  : in std_logic;
+   -------------------------------------------------------------------------------------
+
+
+   --------------------
+   --Outputs
+   --------------------
+   --System control signal, PAM <-> AFE via RocketLink GPIO.Indicates training done.
+   Scancntrl_sync                           : out std_logic;
+
+   --Indicates sync to the bit training pattern successful.
+   Bit_sync                                 : out std_logic;
+
+   --Provides the "go" command to execute the currently written acquisition state.
+   Scanexe                                  : out std_logic;
+
+   --NEW CTU value ready to read, one clock wide
+   Ctu_ready_250                            : out std_logic;
+
+   --Course Timestamp Update
+   Ctu_data                                 : out std_logic_vector(cCTU_ARRAY_SIZE-1 downto 0);
+
+   --Line Error Flags
+   Mnchstr_err_bucket_pe                    : out std_logic;
+   Mnchstr_err_bucket_pf                    : out std_logic; --
+   Parity_err_bucket_pe                     : out std_logic;
+   Parity_err_bucket_pf                     : out std_logic;
+
+   -------------------------------------------------------------------------------------
+   --------------------
+   --Instrumentation
+   --------------------
+   --Delay value
+   Dqs_delay_ctrl_instrmnt                  : out std_logic_vector(cDQS_DELAY_CTRL_SIZE-1 downto 0);
+
+   --Scancntrl_train are functionally an input, however it gets combined in this
+   --design therefore instrument the wet version and bring it out as instrumentation.
+   Scancntrl_train_inst                     : out std_logic;
+
+   --Either (O"1: or O"3") serial pattern
+   Pattern_matchl_instrmnt                  : out std_logic;
+
+   --De Serializer aligned to the 18 bit training pattern
+   Byte_alignment                           : out std_logic;
+
+   --BIT counters
+   Scancntrl_sync_cnt                       : out std_logic_vector(cBIT_COUNTER_SIZE-1 downto 0);
+   Scancntrl_train_cnt                      : out std_logic_vector(cBIT_COUNTER_SIZE-1 downto 0);
+
+   --Window Results
+   Best_window_size                         : out std_logic_vector(cDQS_DELAY_CTRL_SIZE downto 0);
+   Best_window_start                        : out std_logic_vector(cDQS_DELAY_CTRL_SIZE-1 downto 0);
+   Best_window_end                          : out std_logic_vector(cDQS_DELAY_CTRL_SIZE-1 downto 0);
+
+   Second_best_window_size                  : out std_logic_vector(cDQS_DELAY_CTRL_SIZE downto 0);
+   Second_best_window_start                 : out std_logic_vector(cDQS_DELAY_CTRL_SIZE-1 downto 0);
+   Second_best_window_end                   : out std_logic_vector(cDQS_DELAY_CTRL_SIZE-1 downto 0);
+
+   --Version
+   Scancntrl_if_version                     : out std_logic_vector(cVERSION_SIZE-1 downto 0);
+
+   --Create a strobe to be samples on slower clock domains 
+   Dqs_strobe                               : out std_logic;
+
+   --AKA BYTE sync
+   Enough_training_words                    : out std_logic;
+
+   --Raw SR Data
+   De_serialized_data_sr_250                : out std_logic_vector(cTRAINING_WORD_SIZE-1 downto 0);
+
+   --count scanexe pulses as BIT, Let It Roll
+   Cnt_scanexe_pulses                       : out std_logic_vector(cSCANEXEPULSES_BIT_COUNTER_SIZE-1 downto 0);
+
+   --Value driven to the Altera dqs block to adjust incomings phase
+   --Mux output holds either the candidate phase or calculated phase
+   Dqs_delay_ctrl_gray_d                    : out std_logic_vector(cDQS_DELAY_CTRL_SIZE-1 downto 0);
+
+   --Array elements indicate post training that each above or below threshold
+   Pat_match_thres_array_instrmnt           : out std_logic_vector(2**cDQS_DELAY_CTRL_SIZE-1 downto 0)
+   -------------------------------------------------------------------------------------
+
+   );
+end scancntl_if;
+
+architecture struct of scancntl_if is
+
+
+---------------------------------------------------------------
+--Altera Primitive
+component alt_inbuf_diff
+ generic(
+   io_standard           : string := "none";
+   location              : string := "none";
+   enable_bus_hold       : string := "none";
+   weak_pull_up_resistor : string := "none";
+   termination           : string := "none";
+   lpm_type              : string := "alt_inbuf_diff");
+
+ port(
+   i                                        : in   std_logic;
+   ibar                                     : in    std_logic;
+   o                                        : out std_logic);
+end component;
+---------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+--Begin signals
+
+--Allow a register write to force trag
+signal Scancntrl_tra_force_d                    :  std_logic;
+
+--Allow a register write to force trag
+signal Scancntrl_tra_force_d                    :  std_logic;
+
+--FPGA System Reset
+signal Arst_250_d                                 :  std_logic;
+
+--Scanexe received
+signal decode_scanexe_250                   : std_logic;
+
+--Scanexe one FF stage prior to drive out
+signal scanexe_int                          : std_logic;
+
+-- Force the DQS mux to be 0, std_logic active low
+signal scancntl_bypass_d                  : boolean;
+
+--Error Flags
+signal no_line_errors                       : boolean;
+signal line_errors                          : boolean;
+signal mnchstr_err_bucket_pe_int            : boolean;
+signal mnchstr_err_bucket_pf_int            : boolean;
+signal parity_err_bucket_pe_int             : boolean;
+signal parity_err_bucket_pf_int             : boolean;
+
+--Control strobe indicated new CTU value ready to be read-used. 1 clock wide on the 250 MHz domain
+signal ctu_ready                            : boolean;
+
+--Result of a bit wise vote across the same bit in an array
+signal ctu_data_post_vote                   : unsigned(cCTU_ARRAY_SIZE-1 downto 0);
+
+signal most_recent_window                   : tWindow_ARRAY;
+
+--Holds the most recent 5 CTUs received
+signal ctu_candidate_array                  : tCTU_CANDIDATE_ARRAY;
+
+signal de_serialized_data_sr_250_int        : unsigned(cTRAINING_WORD_SIZE-1 downto 0);
+
+--count scanexe pulses as BIT, Let It Roll
+signal cnt_scanexe_pulses_int               : unsigned(cSCANEXEPULSES_BIT_COUNTER_SIZE-1 downto 0);
+
+--select scanexe or dqs_del_out
+signal scanexe_mux_out                     : std_logic;
+
+--select scanexe or dqs_del_out
+signal scancntrl_train_force_d             : boolean;
+
+--select scanexe or dqs_del_out
+signal scancntrl_train_gpio_d              : boolean;
+
+--end signals
+-------------------------------------------------------------------------------
+
+alias candidates                            is ctu_candidate_array;
+alias bypass                                is scancntl_bypass_d;
+
+begin
+
+scanexe_ibuf:
+alt_inbuf_diff
+port map
+   (
+   o                                        => scancntrl_uni,
+   ibar                                     => Scancntrl_n,
+   i                                        => Scancntrl_p
+   );
+
+u1:
+entity work.scancntl_if_ser_pat_det(rtl)
+port map
+   (
+   Clk_500                                  => Clk_500,
+   Arst                                     => Arst_500,
+   Serial_in                                => dqs_del_out,
+   Scancntrl_word_data                      => Scancntrl_word_data,
+   De_serialized_data_sr                    => de_serialized_data_sr_250_int,
+   Scancntrl_word_sync                      => Scancntrl_word_sync_500_1w,
+   Scanexe_strobe                           => scanexe_strobe_500_1w,
+   Match_Either                             => match_either_thin
+   );
+
+
+u11:
+entity work.scancntl_if_decoder(rtl)
+port map
+   (
+   Clk_250                                  => Clk_250,
+   Arst                                     => Arst_250,
+   Scancntrl_word_data                      => Scancntrl_word_data,
+   Scancntrl_word_sync                      => Scancntrl_word_sync_500_2w,
+   No_line_errors                           => no_line_errors,
+   Line_errors                              => line_errors,
+   Mnchstr_err_bucket_pe                    => mnchstr_err_bucket_pe_int,
+   Mnchstr_err_bucket_pf                    => mnchstr_err_bucket_pf_int,
+   Parity_err_bucket_pe                     => parity_err_bucket_pe_int ,
+   Parity_err_bucket_pf                     => parity_err_bucket_pf_int ,
+   Ctu_ready                                => ctu_ready    ,
+   Ctu_candidate_array                      => ctu_candidate_array,
+   Enough_training_words                    => enough_training_words_int,
+   Ctu_processing                           => ctu_processing,
+   Decode_scanexe                           => decode_scanexe_250
+   );
+
+	
+u2:
+entity work.scancntl_if_pulse_stretch(rtl)
+port map
+   (
+   Clk_500                                  => Clk_500,
+   Arst                                     => Arst_500,
+   Thin_pulse_in                            => match_either_thin,
+   Fat_pulse_out                            => match_either_fat
+   );
+
+
+u21:
+entity work.scancntl_if_pulse_stretch(rtl)
+port map
+   (
+   Clk_500                                  => Clk_500,
+   Arst                                     => Arst_500,
+   Thin_pulse_in                            => Scancntrl_word_sync_500_1w,
+   Fat_pulse_out                            => Scancntrl_word_sync_500_2w
+   );
+
+
+u3:
+entity work.dqs_test_block_dq_dqs(rtl)
+port map
+   (
+   dqs_input_data_in(0)                     => scancntrl_uni,
+   core_delayctrlin                         => std_logic_vector(dqs_delay_ctrl_gray),
+   dqs_bus_out(0)                           => dqs_del_out
+   );
+
+
+u4:
+entity work.scancntl_if_analyze_windows(rtl)
+port map
+   (
+   Clk_250                                  => Clk_250,
+   Arst_250                                 => Arst_250,
+   Begin_analyze                            => begin_analyze,
+   Pattern_match_thres_array                => pattern_match_thres_array,
+   Pattern_match_thres_array_rd_addr        => open,
+   Calculated_phase                         => Calculated_phase,
+   Calculated_window_strength               => open,
+   Analyze_complete                         => analyze_complete,
+   Calculated_window_good_enough            => calculated_window_good_enough,
+   Most_recent_window                       => most_recent_window
+   );
+
+
+u41:
+entity work.scancntl_if_main_sm(rtl)
+port map (
+   Clk_250                                  => Clk_250,
+   Arst_250                                 => Arst_250,
+   Scancntrl_train_d                        => scancntrl_train_d,
+   Analyze_complete                         => analyze_complete,
+   Calculated_window_good_enough            => calculated_window_good_enough,
+   Enough_training_words                    => enough_training_words_int,
+   No_line_errors                           => no_line_errors,
+   Line_errors                              => line_errors,
+   Scancntrl_sync                           => scancntrl_sync_int,
+   Byte_alignment                           => byte_alignment_int,
+   Dqs_delay_ctrl                           => dqs_delay_ctrl,
+   Begin_analyze                            => begin_analyze,
+   Pattern_match_thres_array                => pattern_match_thres_array,
+   Calculated_phase                         => calculated_phase,
+   Match_either_fat                         => match_either_fat,
+   Scancntrl_sync_cnt                       => scancntrl_sync_cnt ,
+   Scancntl_bypass_n                        => Scancntl_bypass_n,
+   Scancntrl_train_cnt                      => scancntrl_train_cnt,
+   Override_automatic_mode                  => Override_automatic_mode,
+   Dqs_delay_ctrl_override                  => Dqs_delay_ctrl_override,
+   Dqs_strobe                               => Dqs_strobe,
+   Bit_sync                                 => bit_sync_int
+   );
+    
+
+sync_proc_general_500_domain:
+process (Arst_500, Clk_500)
+begin
+
+   if (Arst_500 = cARESET_LEVEL) then
+
+      scanexe_int                           <= '0';
+      scancntl_bypass_d                     <= false;
+      Scanexe                               <= '0';
+      scanexe_mux_out                       <= '0';
+      cnt_scanexe_pulses_int                <= (others => '0');
+
+   elsif rising_edge(Clk_500) then
+
+      --simple reclock
+      scancntl_bypass_d                     <= std_log_2_bol_func(not(Scancntl_bypass_n));
+      Scanexe                               <= scanexe_mux_out;
+
+      ------------------------------------------------------------------------------------------------------------
+      --Scanexe asserted when 3 conditions true
+         --decode received  Scanexe message
+         --byte sync
+         --not a CTU payload message that may accidentally match Scanexe
+      if(scanexe_strobe_500_1w='1'  and decode_scanexe_250='1' and byte_alignment_int and not ctu_processing) then
+         scanexe_int                        <= '1';
+      else
+         scanexe_int                        <= '0';
+      end if;
+      ------------------------------------------------------------------------------------------------------------
+
+      ------------------------------------------------------------------------------------------------------------
+      --mux selects normal or bypass
+      if(bypass) then
+         scanexe_mux_out                            <= dqs_del_out;
+      else
+         scanexe_mux_out                            <= scanexe_int;
+      end if;
+      ------------------------------------------------------------------------------------------------------------
+
+      ------------------------------------------------------------------------------------------------------------
+      --count scanexe pulses as BIT, Let It Roll
+      if(scanexe_int='1') then
+         cnt_scanexe_pulses_int             <= cnt_scanexe_pulses_int + 1;
+      end if;
+      ------------------------------------------------------------------------------------------------------------
+
+   end if;
+end process  sync_proc_general_500_domain;
+
+
+sync_proc_general:
+process (Arst_250, Clk_250)
+begin
+
+   if (Arst_250 = cARESET_LEVEL) then
+
+      Dqs_delay_ctrl_instrmnt               <= (others => '0');
+      Pat_match_thres_array_instrmnt        <= (others => '0');
+      Pattern_matchl_instrmnt               <= '0';
+      Ctu_ready_250                         <= '0';
+      scancntrl_train_force_d               <= false;
+      scancntrl_train_gpio_d                <= false;
+      scancntrl_train_d                     <= false;
+      ctu_data_post_vote                    <= (others => '0');
+      De_serialized_data_sr_250             <= (others => '0');
+      dqs_delay_ctrl_gray_d                 <= (others => '0');
+      Scancntrl_train_inst                  <= '0';
+      Scancntrl_sync                        <= '0';
+      scancntrl_sync_force_d                <= false ;
+
+   elsif rising_edge(Clk_250) then
+
+
+      -------------------------------------------------------------------------------------
+      --simple reclocks
+      --In
+      dqs_delay_ctrl_gray_d                 <= std_logic_vector(dqs_delay_ctrl_gray);
+      scancntrl_train_force_d               <= std_log_2_bol_func(Scancntrl_train_force) ;
+      scancntrl_train_gpio_d                <= std_log_2_bol_func(Scancntrl_train_gpio) ;
+      scancntrl_sync_force_d                <= std_log_2_bol_func(Scancntrl_sync_force) ;
+
+      scancntrl_train_d                     <= scancntrl_train_force_d xor scancntrl_train_gpio_d;
+      --Out
+      Scancntrl_train_inst                  <= bol_2_std_log_func(scancntrl_train_d);
+      Scancntrl_sync                        <= bol_2_std_log_func(
+                                               scancntrl_sync_int xor scancntrl_sync_force_d);
+
+      Pattern_matchl_instrmnt               <= match_either_fat;
+      Dqs_delay_ctrl_instrmnt               <= std_logic_vector(dqs_delay_ctrl);
+      Pat_match_thres_array_instrmnt        <= std_logic_vector(pattern_match_thres_array);
+      De_serialized_data_sr_250             <= std_logic_vector(de_serialized_data_sr_250_int);
+
+      -------------------------------------------------------------------------------------
+
+
+      -------------------------------------------------------------------------------------
+      --bit-wise vote across buffered CTU candidates
+      myloop:
+      for k in 0 to cCTU_ARRAY_SIZE-1 loop
+         ctu_data_post_vote(k)              <= voter_func(
+                                                    candidates(0)(k) &
+                                                       candidates(1)(k) &
+                                                          candidates(2)(k) &
+                                                             candidates(3)(k) &
+                                                                candidates(4)(k)
+                                                              );
+      end loop;
+      -------------------------------------------------------------------------------------
+
+
+      -------------------------------------------------------------------------------------
+      --assert when sync has been achieved, prevents random assertions
+      Ctu_ready_250                         <= bol_2_std_log_func(ctu_ready and byte_alignment_int);
+      -------------------------------------------------------------------------------------
+
+
+   end if;
+end process  sync_proc_general;
+
+
+------------------------------------------------------------------------------------------------------------------------
+--Combinational
+--Gray Encode the DQS delay value
+dqs_delay_ctrl_gray(0)                      <= dqs_delay_ctrl(0) xor dqs_delay_ctrl(1);
+dqs_delay_ctrl_gray(1)                      <= dqs_delay_ctrl(1) xor dqs_delay_ctrl(2);
+dqs_delay_ctrl_gray(2)                      <= dqs_delay_ctrl(2) xor dqs_delay_ctrl(3);
+dqs_delay_ctrl_gray(3)                      <= dqs_delay_ctrl(3) xor dqs_delay_ctrl(4);
+dqs_delay_ctrl_gray(4)                      <= dqs_delay_ctrl(4) xor dqs_delay_ctrl(5);
+dqs_delay_ctrl_gray(5)                      <= dqs_delay_ctrl(5);
+-- Combinational
+------------------------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------------------------
+--buffers
+Bit_sync                                    <= bol_2_std_log_func(bit_sync_int);
+Byte_alignment                              <= bol_2_std_log_func(byte_alignment_int);
+Ctu_data                                    <= std_logic_vector(ctu_data_post_vote);
+mnchstr_err_bucket_pe                       <= bol_2_std_log_func(mnchstr_err_bucket_pe_int);
+mnchstr_err_bucket_pf                       <= bol_2_std_log_func(mnchstr_err_bucket_pf_int);
+parity_err_bucket_pe                        <= bol_2_std_log_func(parity_err_bucket_pe_int);
+parity_err_bucket_pf                        <= bol_2_std_log_func(parity_err_bucket_pf_int);
+Enough_training_words                       <= bol_2_std_log_func(enough_training_words_int);
+
+scancntrl_if_version                        <= std_logic_vector(to_unsigned(cSCANCNTRL_INTF_VERSION,cVERSION_SIZE));
+
+Best_window_size                            <=std_logic_vector(most_recent_window(cBEST).size);
+Best_window_start                           <=std_logic_vector(most_recent_window(cBEST).start);
+Best_window_end                             <=std_logic_vector(most_recent_window(cBEST).term);
+
+Second_best_window_size                    <=std_logic_vector(most_recent_window(cSECOND_BEST).size);
+Second_best_window_start                   <=std_logic_vector(most_recent_window(cSECOND_BEST).start);
+Second_best_window_end                     <=std_logic_vector(most_recent_window(cSECOND_BEST).term);
+
+Cnt_scanexe_pulses                          <=std_logic_vector(cnt_scanexe_pulses_int);
+-- buffers
+------------------------------------------------------------------------------------------------------------------------
+
+
+end struct;

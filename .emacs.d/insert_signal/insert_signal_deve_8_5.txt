@@ -1,0 +1,118 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun insert-signal ()
+  "Insert a signal using a copied port"
+(interactive)
+      
+      (let (p1 p2)
+      ;Start with point on line with input port
+      ;capture lines starting at the comment above the port
+      (find-comment-begin)      
+      (setq p1 (point))
+      (find-end-of-line-with-in-port)
+      (setq p2 (point))
+      (setq in_port_capture_str (buffer-substring p1 p2)))
+ 
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;look at the captured string to determine the type
+        (if (string-match " std_logic_vector" in_port_capture_str )
+            (setq tempstr "std_logic_vector")
+            (if (string-match " std_logic" in_port_capture_str)
+                (setq tempstr "std_logic")
+                (if (string-match "unsigned" in_port_capture_str) 
+                   (setq tempstr "unsigned") 
+                   (setq tempstr "boolean")))        )
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
+      ;1-Locate the begining of the signals region and position to insert
+      ;2-insert
+      ;3-leave  newline between inserted and previous signal, point at the end of this line
+      (re-search-forward "^[ ]*signal[ ]+.*:.*;")
+      (find-comment-begin)
+      (previous-line)
+      (newline)
+      (insert  in_port_capture_str)
+      (newline)
+ 
+      ;Find  region that needs to be operated on
+      (find-comment-begin)
+      (setq inserted_port_begin (point))
+      (re-search-forward ";")
+      (setq inserted_port_end (point))  
+      
+      ;remove leading whitespace
+      (replace-regexp "^[ ]*" "" nil inserted_port_begin inserted_port_end)
+ 
+      ;Format as a signal
+      (insert  "signal " )    
+ 
+      ;grab the original port name
+      (setq my_port_name (thing-at-point 'symbol))
+      (downcase-word 1)
+      
+     ;remove the direction
+     (replace-regexp " in " "" nil inserted_port_begin inserted_port_end)
+     (beginning-of-line)
+
+     ;add, _d assume point is in the same line as the signal
+     (let (p1 p2)
+       (re-search-forward " ")
+       (re-search-forward " ")
+       (backward-char)
+       (insert "_d")
+       (setq myStr_alt (thing-at-point 'symbol))
+     )
+
+     ;Locate the correct insertion position in the sync proc
+     (re-search-forward "sync_proc")
+     (re-search-forward "then")
+     ;(newline)
+     (end-of-line)
+
+      
+      ;Find the beginning of the first signal name in the reset area
+      ;Indent new sig insertion above
+      (re-search-forward "^[ ]+[a-z]")
+      (insert-and-indent-line-above)
+      (insert  myStr_alt "                                   " )
+
+      ;Find the <, will indent new sig insertion above
+      (re-search-forward "<")
+      (previous-line)
+      (backward-char 2)
+      
+      ;use the correct type on the RHS of the assignment
+      (
+      if (string= tempstr "std_logic_vector")   
+      (insert   " <= (others => '0') "   " ;") 
+      (if (string= tempstr "std_logic") 
+         (insert   " <= '0' "   " ;")  
+            (if (string= tempstr "boolean") 
+               (insert   " <= false "   " ;")
+               (if (string= tempstr "unsigned") (insert   " <= (others => '0') "   " ;"))))
+      )
+
+
+)
+
+(global-set-key (kbd "<f11>") 'insert-signal)
+(global-set-key (kbd "<f12> ") 'find-comment-begin)
+(global-set-key (kbd "<f10>") 'find-end-of-line-with-in-port)
+
+(insert tempstr)
+
+
+(defun find-comment-begin () 
+"Issues: 1- no comment exists 2- --- style comment"  (interactive)
+(re-search-backward "\n[ ]*\n")
+;(re-search-backward ";\\|(")
+(skip-chars-forward "\n")
+(re-search-forward "[ ]*--")
+(beginning-of-line)
+)
+
+(defun find-end-of-line-with-in-port () 
+"start on port line" (interactive)
+(re-search-forward ";")
+)
+
+

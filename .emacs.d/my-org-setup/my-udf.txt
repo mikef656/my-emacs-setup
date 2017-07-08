@@ -1,0 +1,28 @@
+--- C:/Users/family/AppData/Local/Temp/my-org-setup.el-revBASE.svn000.tmp.el	Wed Aug 15 11:51:07 2012
++++ C:/Users/family/AppData/Roaming/.emacs.d/my-org-setup/my-org-setup.el	Mon Aug 20 21:59:05 2012
+@@ -82,13 +82,20 @@
+ (if (eq home-work 'work)
+ ;Search Path
+ ;Note no / at the end of the path
+-(setq org-agenda-files (quote (
+-			       "~/org"
+-                               "h:/surecom"
++  (setq org-agenda-files (quote (
++                                "~/org"
++                                "h:/surecom"
+                                 "c:/Users/mfitzgerald/Desktop/stuff/Subversion"
+-                                "c:/Users/mfitzgerald/Desktop/stuff/windows"
+-			       ))))
++                                "c:/Users/mfitzgerald/Desktop/stuff/windows")))
++   
++  (setq org-agenda-files (quote (
++                                "c:/Users/family/Documents/org"
++                                "c:/Users/family/Documents/life"
++                                "c:/Users/family/Documents/muffins"
++                                "c:/Users/family/downloads")))
+ 
++)
++
+ ;
+ ;This is how to point to multiple folders
+ ;; (setq org-agenda-files (quote ("~/git/org"

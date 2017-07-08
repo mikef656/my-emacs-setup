@@ -1,0 +1,6 @@
+# put me in the users ~ folder
+--ignore-dir=cores
+--type-set=hdl:ext:vhd,v,vh,sv,svh,svp,do,tcl,xdc
+--type-set=verilog:ext:v,vh,sv,svh,svp
+--type-set=script:ext:rb,py,sh,csh,do,tcl,bat
+--type-set=scripts:ext:rb,py,sh,csh,do,tcl,bat
