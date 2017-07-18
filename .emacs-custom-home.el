@@ -81,7 +81,7 @@
  '(cua-rectangle-mark-key [C-f1])
  '(custom-safe-themes
    (quote
-    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "79a3f477ac0cb4a106f78b6109614e991564a5c2467c36e6e854d4bc1102e178" default)))
+    ("d8cec8251169ccfe192aa87d69b9378bc81599330f31498f85deaef633721302" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "79a3f477ac0cb4a106f78b6109614e991564a5c2467c36e6e854d4bc1102e178" default)))
  '(default-input-method "english-dvorak")
  '(dired-details-invisible-lines
    (quote
