@@ -453,7 +453,7 @@
 (setq load-simp                         (and nil exp_did_not_work_out))
 ;
 (if  (>= emacs-major-version 24 )
-  (setq load-projectile                   (and t   load-essentials_2))
+  (setq load-projectile                   (and nil   load-essentials_2))
   (setq load-projectile                   (and nil   load-essentials_2)))
 ;
 (setq load-fuzzy-find-in-project        (and nil exp_did_not_work_out))
@@ -507,7 +507,7 @@
 (setq load-ibuffer              (and t   load-essentials_2))
 ;
 (if  (>= emacs-major-version 24 )
-     (setq load-clearcase            (and t   load-essentials_5))
+     (setq load-clearcase            (and nil   load-essentials_5))
      (setq load-clearcase            (and nil   load-essentials_5)))
 ;
 (setq load-start-emacs-server   (and t   load-essentials_5))
