@@ -92,7 +92,10 @@
  '(bmkp-light-left-fringe-bitmap (quote right-arrow))
  '(bmkp-light-style-autonamed (quote lfringe))
  '(bmkp-light-style-non-autonamed (quote lfringe))
- '(bmkp-tags-for-completion (quote (current (bmkfile . "~/save/bmk_current_project.bmk"))))
+ '(bmkp-tags-for-completion
+   (quote
+    (current
+     (bmkfile . "~/save/bmk_current_project.bmk"))))
  '(bookmark-save-flag nil)
  '(browse-kill-ring-quit-action (quote save-and-restore))
  '(buffer-stack-frame-local t)
@@ -541,7 +544,7 @@
  '(iswitchb-default-method (quote maybe-frame))
  '(iswitchb-use-virtual-buffers t nil (recentf))
  '(max-lisp-eval-depth 600)
- '(menu-bar-mode t)
+ '(menu-bar-mode nil)
  '(minibuffer-auto-raise t)
  '(moccur-grep-default-word-near-point t)
  '(moccur-split-word nil)
@@ -565,119 +568,7 @@
  '(safe-local-variable-values
    (quote
     ((clearcase-version-stamp-active . t)
-     (folded-file . t)))
- '(saint/iswitchb-highlight-modes-alist
-   (quote
-    (("Dired" . 1)
-     ("vhdl-mode" . 2)
-     ("Fundamental" . 3)
-     ("Completions" . 3))))
- '(save-interprogram-paste-before-kill t)
- '(savehist-additional-variables
-   (quote
-    (sr-history-registry urls-cached svn-ls-output-as-big-strings-list filesets-data)))
- '(savehist-file "~/.emacs.d/history_work.txt")
- '(search/replace-region-as-default-flag t)
- '(shell-file-name "/bin/tcsh")
- '(smart-tab-disabled-major-modes (quote (org-mode term-mode vhdl-mode)))
- '(sml/name-width (quote (12 . 40)))
- '(sml/shorten-directory t)
- '(sml/vc-mode-show-backend t)
- '(solarized-contrast (quote normal))
- '(sr-tabs-max-tabsize 20)
- '(tab-width 3)
- '(thing-types
-   (quote
-    ("word" "line" "paragraph" "sexp" "button" "char" "char-same-line" "comment" "decimal-number" "defun" "email" "filename" "hex-number" "line" "list" "non-nil-symbol-name" "number" "overlay" "page" "paragraph" "region-or-word" "sentence" "string" "symbol" "unquoted-list" "url" "whitespace" "whitespace-&-newlines" "word")))
- '(truncate-lines t)
- '(uniquify-min-dir-content 0)
- '(uniquify-separator ":")
- '(uniquify-strip-common-suffix nil)
- '(verilog-auto-indent-on-newline nil)
- '(verilog-auto-newline nil)
- '(verilog-compiler "ncvlog -SV")
- '(verilog-indent-begin-after-if t)
- '(verilog-indent-level 2)
- '(verilog-indent-level-behavioral 2)
- '(verilog-indent-level-declaration 2)
- '(verilog-indent-level-directive 2)
- '(verilog-indent-level-module 2)
- '(verilog-tab-always-indent nil)
- '(vhdl-basic-offset 3)
- '(vhdl-compiler-alist
-   (quote
-    (("Cadence Leapfrog" "cv" "-work \\1 -file" "make" "-f \\1" nil "mkdir \\1" "./" "work/" "Makefile" "leapfrog"
-      ("duluth: \\*E,[0-9]+ (\\(.+\\),\\([0-9]+\\)):" 1 2 0)
-      ("" 0)
-      ("\\1/entity" "\\2/\\1" "\\1/configuration" "\\1/package" "\\1/body" downcase))
-     ("Cadence NC" "ncvhdl" "-work \\1" "make" "-f \\1" nil "mkdir \\1" "./" "work/" "Makefile" "ncvhdl"
-      ("ncvhdl_p: \\*E,\\w+ (\\(.+\\),\\([0-9]+\\)|\\([0-9]+\\)):" 1 2 3)
-      ("" 0)
-      ("\\1/entity/pc.db" "\\2/\\1/pc.db" "\\1/configuration/pc.db" "\\1/package/pc.db" "\\1/body/pc.db" downcase))
-     ("Ikos" "analyze" "-l \\1" "make" "-f \\1" nil "mkdir \\1" "./" "work/" "Makefile" "ikos"
-      ("E L\\([0-9]+\\)/C\\([0-9]+\\):" 0 1 2)
-      ("^analyze +\\(.+ +\\)*\\(.+\\)$" 2)
-      nil)
-     ("ModelSim" "vcom" "-93 -work \\1" "make" "-f \\1" nil "vlib \\1; vmap \\2 \\1" "m:/VHDL/fpga_designs/mfitzgerald/my_working_copies/svcont/trunk/sim/" "work/" "Makefile" "modelsim"
-      ("\\(ERROR\\|WARNING\\|\\*\\* Error\\|\\*\\* Warning\\)[^:]*: \\(.+\\)(\\([0-9]+\\)):" 2 3 0)
-      ("" 0)
-      ("\\1/_primary.dat" "\\2/\\1.dat" "\\1/_primary.dat" "\\1/_primary.dat" "\\1/body.dat" downcase))
-     ("LEDA ProVHDL" "provhdl" "-w \\1 -f" "make" "-f \\1" nil "mkdir \\1" "./" "work/" "Makefile" "provhdl"
-      ("\\([^ 	
-]+\\):\\([0-9]+\\): " 1 2 0)
-      ("" 0)
-      ("ENTI/\\1.vif" "ARCH/\\1-\\2.vif" "CONF/\\1.vif" "PACK/\\1.vif" "BODY/BODY-\\1.vif" upcase))
-     ("QuickHDL" "qvhcom" "-work \\1" "make" "-f \\1" nil "mkdir \\1" "./" "work/" "Makefile" "quickhdl"
-      ("\\(ERROR\\|WARNING\\)[^:]*: \\(.+\\)(\\([0-9]+\\)):" 2 3 0)
-      ("" 0)
-      ("\\1/_primary.dat" "\\2/\\1.dat" "\\1/_primary.dat" "\\1/_primary.dat" "\\1/body.dat" downcase))
-     ("Savant" "scram" "-publish-cc -design-library-name \\1" "make" "-f \\1" nil "mkdir \\1" "./" "work._savant_lib/" "Makefile" "savant"
-      ("\\([^ 	
-]+\\):\\([0-9]+\\): " 1 2 0)
-      ("" 0)
-      ("\\1_entity.vhdl" "\\2_secondary_units._savant_lib/\\2_\\1.vhdl" "\\1_config.vhdl" "\\1_package.vhdl" "\\1_secondary_units._savant_lib/\\1_package_body.vhdl" downcase))
-     ("Simili" "vhdlp" "-work \\1" "make" "-f \\1" nil "mkdir \\1" "./" "work/" "Makefile" "simili"
-      ("\\(Error\\|Warning\\): \\w+: \\(.+\\): (line \\([0-9]+\\)): " 2 3 0)
-      ("" 0)
-      ("\\1/prim.var" "\\2/_\\1.var" "\\1/prim.var" "\\1/prim.var" "\\1/_body.var" downcase))
-     ("Speedwave" "analyze" "-libfile vsslib.ini -src" "make" "-f \\1" nil "mkdir \\1" "./" "work/" "Makefile" "speedwave"
-      ("^ *ERROR[[0-9]+]::File \\(.+\\) Line \\([0-9]+\\):" 1 2 0)
-      ("" 0)
-      nil)
-     ("Synopsys" "vhdlan" "-nc -work \\1" "make" "-f \\1" nil "mkdir \\1" "./" "work/" "Makefile" "synopsys"
-      ("\\*\\*Error: vhdlan,[0-9]+ \\(.+\\)(\\([0-9]+\\)):" 1 2 0)
-      ("" 0)
-      ("\\1.sim" "\\2__\\1.sim" "\\1.sim" "\\1.sim" "\\1__.sim" upcase))
-     ("Synopsys Design Compiler" "vhdlan" "-nc -spc -work \\1" "make" "-f \\1" nil "mkdir \\1" "./" "work/" "Makefile" "synopsys_dc"
-      ("\\*\\*Error: vhdlan,[0-9]+ \\(.+\\)(\\([0-9]+\\)):" 1 2 0)
-      ("" 0)
-      ("\\1.syn" "\\2__\\1.syn" "\\1.syn" "\\1.syn" "\\1__.syn" upcase))
-     ("Synplify" "n/a" "n/a" "make" "-f \\1" nil "mkdir \\1" "./" "work/" "Makefile" "synplify"
-      ("@[EWN]:\"\\(.+\\)\":\\([0-9]+\\):\\([0-9]+\\):" 1 2 3)
-      ("" 0)
-      nil)
-     ("Vantage" "analyze" "-libfile vsslib.ini -src" "make" "-f \\1" nil "mkdir \\1" "./" "work/" "Makefile" "vantage"
-      ("\\*\\*Error: LINE \\([0-9]+\\) \\*\\*\\*" 0 1 0)
-      ("^ *Compiling \"\\(.+\\)\" " 1)
-      nil)
-     ("VeriBest" "vc" "vhdl" "make" "-f \\1" nil "mkdir \\1" "./" "work/" "Makefile" "veribest"
-      ("^ +\\([0-9]+\\): +[^ ]" 0 1 0)
-      ("" 0)
-      nil)
-     ("Viewlogic" "analyze" "-libfile vsslib.ini -src" "make" "-f \\1" nil "mkdir \\1" "./" "work/" "Makefile" "viewlogic"
-      ("\\*\\*Error: LINE \\([0-9]+\\) \\*\\*\\*" 0 1 0)
-      ("^ *Compiling \"\\(.+\\)\" " 1)
-      nil))))
- '(vhdl-end-comment-column 120)
- '(vhdl-indent-tabs-mode nil)
- '(vhdl-index-menu t)
- '(vhdl-project-auto-load nil)
- '(vhdl-project-file-name (quote ("\\1.my_prj")))
- '(vhdl-source-file-menu t)
- '(vhdl-underscore-is-part-of-word t)
- '(wg-prefix-key "z")
- '(window-min-height 8)
- '(window-min-width 40))
+     (folded-file . t))) nil ((save-interprogram-paste-before-kill t)))
  '(winner-dont-bind-my-keys t)
  '(wrap-region-except-modes (quote (calc-mode dired-mode sr-mode))))
 (custom-set-faces
@@ -685,24 +576,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ace-jump-face-foreground ((t (:foreground "yellow" :weight ultra-bold))))
- '(aw-leading-char-face ((t (:background "white" :foreground "red"))))
- '(bmkp-heading ((t (:foreground "azure1"))))
- '(bmkp-local-directory ((t (:background "#4c7073" :foreground "#dcdccc"))))
- '(bmkp-local-file-without-region ((t (:foreground "#dcdccc"))))
- '(bmkp-non-file ((t (:background "dark green" :foreground "white"))))
- '(bmkp-t-mark ((t (:foreground "medium spring green"))))
- '(ediff-current-diff-B ((t (:background "#3f3f4d"))))
- '(ediff-fine-diff-B ((t (:background "#3f3fCA"))))
- '(lazy-highlight ((t (:inherit isearch))))
- '(mode-line ((t (:background "#1e2320" :foreground "#acbc90" :inverse-video nil :box (:line-width 2 :color "#1e2320") :height 1.0 :width normal))))
- '(replacep-msg-emphasis ((t (:foreground "red"))))
- '(replacep-msg-emphasis2 ((t (:foreground "yellow"))))
- '(sml/filename ((t (:inherit sml/global :foreground "gold" :weight bold))))
- '(sml/folder ((t (:inherit sml/global :background "gray20" :foreground "gold3" :weight normal))))
- '(sml/modes ((t (:foreground "light slate gray"))))
- '(sml/position-percentage ((t (:foreground "light slate gray"))))
- '(sml/vc ((t (:foreground "medium spring green"))))
- '(sml/vc-edited ((t (:foreground "indian red")))))
+ )
 
 
