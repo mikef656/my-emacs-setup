@@ -565,7 +565,7 @@
  '(safe-local-variable-values
    (quote
     ((clearcase-version-stamp-active . t)
-     (folded-file . t)
+     (folded-file . t)))
  '(saint/iswitchb-highlight-modes-alist
    (quote
     (("Dired" . 1)
@@ -679,6 +679,7 @@
  '(window-min-height 8)
  '(window-min-width 40))
  '(winner-dont-bind-my-keys t)
+ '(wrap-region-except-modes (quote (calc-mode dired-mode sr-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
