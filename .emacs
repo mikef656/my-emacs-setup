@@ -2930,19 +2930,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(message "reached before load-rebox")
-(when  load-rebox;
-  (unless
-    (ignore-errors ;if an error occurs return nil
-    ;
-    (add-to-list 'load-path "~/.emacs.d/clearcase/")
-    (load "clearcase")
-    t)
-    ;
-  (message "--Error in load-clearcase")))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; https://kb.iu.edu/d/abun
 ; # csh commands:
 ; setenv EDITOR emacsclient
