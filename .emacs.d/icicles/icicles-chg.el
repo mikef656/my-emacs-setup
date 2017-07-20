@@ -6,11 +6,11 @@
 ;; Maintainer: Drew Adams (concat "drew.adams" "@" "oracle" ".com")
 ;; Copyright (C) 2007-2017, Drew Adams, all rights reserved.
 ;; Created: Tue Nov 27 07:47:53 2007
-;; Last-Updated: Fri Jun  9 09:10:15 2017 (-0700)
+;; Last-Updated: Fri Jul  7 06:08:22 2017 (-0700)
 ;;           By: dradams
-;;     Update #: 11703
+;;     Update #: 11727
 ;; URL: https://www.emacswiki.org/emacs/download/icicles-chg.el
-;; Doc URL: http://www.emacswiki.org/Icicles
+;; Doc URL: https://www.emacswiki.org/emacs/Icicles
 ;; Keywords: extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
 ;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x
@@ -85,6 +85,8 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-cmd1.el'")
 ;;
+;; 2017/06/25 dadams
+;;     icicle-kmacro, icicle-kmacro-action: Soft-require kmacro.el.
 ;; 2017/06/09 dadams
 ;;     icicle-file-of-content-apropos-complete-match:
 ;;       Raise use of icicle-file-skip-functions: do not lose image-file etc. candidate if skipping.
@@ -2279,6 +2281,8 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-fn.el'")
 ;;
+;; 2017/06/25 dadams
+;;     Added: icicle-custom-rogue-p.
 ;; 2017/01/15 dadams
 ;;     Use icicle-string-match-p, not its expansion, everywhere.
 ;; 2016/12/21 dadams
@@ -4633,6 +4637,11 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-mcmd.el'")
 ;;
+;; 2017/07/04 dadams
+;;     icicle-add/update-saved-completion-set: By default, use last set name and its file.
+;; 2017/06/25 dadams
+;;     Added: icicle-toggle-completion-mode-keys.
+;;     icicle-help-string-completion: Added icicle-toggle-completion-mode-keys.
 ;; 2017/05/22 dadams
 ;;     Added: icicle-keep-buffer-cands-for-modified, icicle-remove-buffer-cands-for-modified,
 ;;            icicle-keep/remove-buffer-cands-for-modified.
@@ -6431,6 +6440,8 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-mode.el'")
 ;;
+;; 2017/06/25 dadams
+;;     icicle-options-toggle-menu-map: Added icicle-toggle-completion-mode-keys.
 ;; 2017/04/09 dadams
 ;;     icicle-define-icicle-maps: Updated for new Dired+ names:
 ;;       diredp-menu-bar-multiple-menu, diredp-menu-bar-dir-menu.
@@ -7749,6 +7760,10 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-opt.el'")
 ;;
+;; 2017/06/25 dadams
+;;     icicle-Completions-toggle-submenu: Added: icicle-toggle-completion-mode-keys.
+;;     icicle-completion-key-bindings: Bind icicle-toggle-completion-mode-keys to C-S-TAB.
+;;     icicle-kmacro-ring-max: Soft-require kmacro.el.
 ;; 2017/06/09 dadams
 ;;     Added: icicle-file-search-dir-as-dired-flag.
 ;; 2017/05/22 dadams
@@ -8712,6 +8727,9 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-var.el'")
 ;;
+;; 2017/06/25 dadams
+;;     icicle-toggle-map: Bind TAB to icicle-toggle-completion-mode-keys.
+;;     icicle-kmacro-alist, icicle-kmacro-history, icicle-saved-kmacro-ring-max: Soft-require kmacro.el
 ;; 2016/10/07 dadams
 ;;     icicle-read-expression-map: Bind icicle-lisp-complete-symbol, not alias lisp-complete-symbol.
 ;; 2016/06/12 dadams
@@ -9185,6 +9203,8 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles.el'")
 ;;
+;; 2017/07/07 dadams
+;;     Version 2017.07.07
 ;; 2016/12/21 dadams
 ;;     Version 2016.12.21.
 ;; 2016/06/12 dadams

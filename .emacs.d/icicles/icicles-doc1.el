@@ -6,11 +6,11 @@
 ;; Maintainer: Drew Adams (concat "drew.adams" "@" "oracle" ".com")
 ;; Copyright (C) 1996-2017, Drew Adams, all rights reserved.
 ;; Created: Tue Aug  1 14:21:16 1995
-;; Last-Updated: Fri Jun  9 10:16:44 2017 (-0700)
+;; Last-Updated: Fri Jul  7 11:04:46 2017 (-0700)
 ;;           By: dradams
-;;     Update #: 28550
+;;     Update #: 28580
 ;; URL: https://www.emacswiki.org/emacs/download/icicles-doc1.el
-;; Doc URL: http://www.emacswiki.org/Icicles
+;; Doc URL: https://www.emacswiki.org/emacs/Icicles
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
 ;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x
@@ -1249,7 +1249,7 @@
 ;;
 ;;  You will become acquainted with a few of these toggle keys and
 ;;  remember them, but you will forget others.  What is important to
-;;  point out here is that `M-?'  (`icicle-minibuffer-help') is your
+;;  point out here is that `M-?' (`icicle-minibuffer-help') is your
 ;;  friend in the minibuffer.  During completion, the help it displays
 ;;  includes, near the top, a list of the toggle keys and the
 ;;  corresponding current values of their options.
@@ -1336,7 +1336,24 @@
 ;;
 ;;  You can get the standard Emacs "prefix" completion, instead of the
 ;;  "apropos" completion just described, by using `TAB' instead of
-;;  `S-TAB'.  You can cycle prefix-completion candidates by using the
+;;  `S-TAB'.
+;;
+;;  Icicles documentation always refers to the key that does this as
+;;  `TAB'.  But actually it is only `TAB' by default.  You can
+;;  customize it, using option `icicle-prefix-complete-keys'.
+;;  Similarly, you can customize which keys perform apropos completion
+;;  using option `icicle-apropos-complete-keys' (`S-TAB' by default).
+;;
+;;  You can also swap the keys used for these two modes of completion
+;;  dynamically, using command `icicle-toggle-completion-mode-keys',
+;;  which is bound to `C-S-TAB' during completion.  This also toggles
+;;  the value of option `icicle-default-cycling-mode' (see next).
+;;  When it switches away from whatever persistent values you have for
+;;  the completion-mode key options, it asks you whether you want to
+;;  save the new values.  (That means that using `C-S-TAB' is an easy
+;;  way to customize all five of these options.)
+;;
+;;  You can cycle prefix-completion candidates by using the
 ;;  `end' and `home' keys instead of `next' and `prior'.  (All four of
 ;;  these keys are typically together in a central keypad to the right
 ;;  of the main keyboard.)
@@ -2335,10 +2352,13 @@
 ;;  * If `M-.' would normally grab an alternative thing of a different
 ;;    type, then numeric N tells Icicles to grab the particular thing
 ;;    at point and then evaluate it as a Lisp sexp and insert the
-;;    result of that evaluation in the minibuffer.
+;;    result of that evaluation in the minibuffer.  (The use of a
+;;    numeric prefix arg to evaluate a Lisp sexp does require that you
+;;    know when the particular thing-grabbing function that you want
+;;    is coming up next.)
 ;;
-;;  So for example, returning to the example above, with the cursor is
-;;  at the beginning of the word "use" in the first paragraph of this
+;;  So for example, returning to the example above, with the cursor at
+;;  the beginning of the word "use" in the first paragraph of this
 ;;  section, if you used `M-- M-. M-. M-.', then the successive
 ;;  insertions would be as follows:
 ;;
@@ -2349,13 +2369,6 @@
 ;;
 ;;  And if you instead used `M--3 M-.', then you would immediately
 ;;  insert `differently if you'.
-;;
-;;  The use of a numeric prefix arg to evaluate a Lisp sexp does
-;;  require that you know when the particular thing-grabbing function
-;;  that you want is coming up next.  So if, for example, you want to
-;;  evaluate the active region and insert the resulting value, then
-;;  you use `M-. C-9 M-.', since (by default) it is the second `M-.'
-;;  that grabs the region text.
 ;;
 ;;  There are thus lots of possibilities when you use `M-.'
 ;;  repeatedly.  You need not bother with them until you need them.

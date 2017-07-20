@@ -6,9 +6,9 @@
 ;; Maintainer: Drew Adams (concat "drew.adams" "@" "oracle" ".com")
 ;; Copyright (C) 2000-2017, Drew Adams, all rights reserved.
 ;; Created: Fri Sep 15 07:58:41 2000
-;; Last-Updated: Fri May 12 16:30:33 2017 (-0700)
+;; Last-Updated: Wed Jul 19 21:45:08 2017 (-0700)
 ;;           By: dradams
-;;     Update #: 16323
+;;     Update #: 16343
 ;; URL: https://www.emacswiki.org/emacs/download/bookmark%2b-chg.el
 ;; Doc URL: http://www.emacswiki.org/BookmarkPlus
 ;; Keywords: bookmarks, bookmark+
@@ -146,6 +146,19 @@
  
 ;;;(@* "CHANGE LOG FOR `bookmark+-1.el'")
 ;;
+;; 2017/07/19 dadams
+;;     Put back bmkp-info-cp, as an obsolete alias, temporarily.
+;; 2017/07/03 dadams
+;;     Added: bmkp-info-position-cp, bmkp-info-sort-ignores-directories-flag.
+;;     Renamed: bmkp-info-cp to bmkp-info-node-name-cp.
+;;     bmkp-sort-comparer: Applied renaming of bmkp-info-cp.
+;;     bmkp-info-node-name-cp: Respect bmkp-info-sort-ignores-directories-flag (default: manual names)
+;; 2017/06/26 dadams
+;;     Added: bmkp-kmacro-list-bookmark-p.
+;;     bmkp-bookmark-description: Handle bmkp-kmacro-list-bookmark-p.
+;; 2017/06/25 dadams
+;;     Added: bmkp-set-kmacro-bookmark, bmkp-set-kmacro-list-bookmark, bmkp-jump-kmacro-list,
+;;            bmkp-make-kmacro-list-record.
 ;; 2017/05/12 dadams
 ;;     Added: bmkp-eww-auto-bookmark-mode, bmkp-set-eww-bookmark-here, bmkp-toggle-eww-auto-type,
 ;;            bmkp-eww-auto-type.  Thx to Charles Roelli.
@@ -1307,6 +1320,15 @@
  
 ;;;(@* "CHANGE LOG FOR `bookmark+-bmu.el'")
 ;;
+;; 2017/07/03 dadams
+;;     Added: bmkp-bmenu-sort-by-Info-position.
+;;     Renamed bmkp-bmenu-sort-by-Info-location to bmkp-bmenu-sort-by-Info-node-name.
+;;     bookmark-bmenu-mode: Updated doc string for Info-bookmark sorting.
+;;     bmkp-bmenu-sort-by-bookmark-type, bmkp-bmenu-sort-by-Info-node-name:
+;;       Applied renaming of bmkp-info-cp to bmkp-info-node-name-cp.
+;;     Bind bmkp-bmenu-sort-by-Info-position to s I.
+;;     bmkp-bmenu-sort-menu:
+;;       Added bmkp-bmenu-sort-by-Info-position.  Renamed By Info Node to By Info Node Name.
 ;; 2017/03/30 dadams
 ;;     bmkp-bmenu-mark-*-bookmarks:
 ;;       Added optional arg MSGP.  Pass it to bmkp-bmenu-mark-bookmarks-satisfying.
