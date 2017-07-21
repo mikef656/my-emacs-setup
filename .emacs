@@ -352,10 +352,10 @@
 (setq load-my-icicle-setup              (and t load-icicles))
 ;
 (setq load-icomplete+                   (and t load-icicles_helpers_2))
-(setq load-oneonone                     (and t load-icicles_helpers_1))
+(setq load-oneonone                     (and nil load-icicles_helpers_1))
 ;
 ;make this nil for light themes
-(setq load-oneonone-params              (and t load-icicles_helpers_1));fix bad backgrounds in light themes
+(setq load-oneonone-params              (and nil load-icicles_helpers_1));fix bad backgrounds in light themes
 ;
 
 (setq load-icicles-iswitchb             (and t load-icicles_helpers_2));
@@ -3115,6 +3115,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+;adding this line
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; final message
 (message "---REACHED END OF THE %s for %s system---" (buffer-name) home-work)
