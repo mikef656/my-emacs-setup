@@ -1250,7 +1250,7 @@
     (add-to-list 'drag-stuff-except-modes 'org-mode)
     (add-to-list 'drag-stuff-except-modes 'sr-mode))
     ;
-  (message "--Error in load-ack-and-a-half")))
+  (message "--Error in load drag-stuff")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1777,7 +1777,7 @@
     (autoload 'ack-find-same-file "full-ack" nil t)
     (autoload 'ack-find-file "full-ack" nil t))
   ;
-  (message "--Error in load-ack-and-a-half")))
+  (message "--Error in load full-ack")))
     ;(setq ack-executable "ackl"))
     ;has troulble calling the executable, perhaps try on LINUX when we get emacs
     ;on linux at work.
@@ -1811,24 +1811,6 @@
     ;
   (message "--Error in load-column-marker")))
     ;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(message "reached before ack-and-a-half")
-(when nil
-  (unless
-    (ignore-errors ;if an error occurs return nil
-    ;
-    (add-to-list 'load-path "~/.emacs.d/ack-and-a-half")
-    (require 'ack-and-a-half)
-    (defalias 'ack 'ack-and-a-half)
-    (defalias 'ack-same 'ack-and-a-half-same)
-    (defalias 'ack-find-file 'ack-and-a-half-find-file)
-    (defalias 'ack-find-file-same 'ack-and-a-half-find-file-same))
-    ;goes around forever looking for nix file system root /
-    ; ack-and-a-half-guess-project-root
-    ;
-    (message "--Error in load-ack-and-a-half")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -3090,6 +3072,10 @@
     (ignore-errors ;if an error occurs return nil
     (add-to-list 'load-path "~/.emacs.d/ack-and-a-half/")
     (require 'ack-and-a-half)
+    (defalias 'ack 'ack-and-a-half)
+    (defalias 'ack-same 'ack-and-a-half-same)
+    (defalias 'ack-find-file 'ack-and-a-half-find-file)
+    (defalias 'ack-find-file-same 'ack-and-a-half-find-file-same))
     ;
     t)
     ;
