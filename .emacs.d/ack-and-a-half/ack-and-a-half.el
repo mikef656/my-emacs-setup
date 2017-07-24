@@ -509,6 +509,8 @@ prompted, if `ack-and-a-half-prompt-for-directory' is set.`"
                (apply 'ack-and-a-half-list-files directory (ack-and-a-half-type)))
               directory)))
 
-;;; End ack-and-a-half.el ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (provide 'ack-and-a-half)
+  (message "---REACHED END OF %s ---" (buffer-name))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(provide 'ack-and-a-half)
