@@ -645,11 +645,11 @@ boundaries until a newline is encountered"
    ; set the mark
    (cua-set-rectangle-mark nil)
    ; move the row
-   (while (not ( eq (current-line) ace-jump-end-line))
+   (while (not ( equal (current-line) ace-jump-end-line))
      (cua-resize-rectangle-down 1))
    (cua-resize-rectangle-down 1)
    ;move the column
-   (while (not ( eq (current-column) ace-jump-end-column))
+   (while (not ( equal (current-column) ace-jump-end-column))
      (cua-resize-rectangle-right 1))
    (message "got here after"))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -657,7 +657,7 @@ boundaries until a newline is encountered"
     ;aoeu
     ;aoeu
     ;aoeu
-    ;aoeu
+    ;aoeuaoeuaoeuhtns
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (message "reached the end of my-rectangles.el")
