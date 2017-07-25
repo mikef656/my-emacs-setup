@@ -1,19 +1,18 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;New binding to toggle editing rectangle
 ;http://trey-jackson.blogspot.com/2008/10/emacs-tip-26-cua-mode-specifically.html
-;I'm a big fan of cua-rectangles. But when I first started using them, 
-;I found it very awkward to have two different keybindings for starting a 
+;I'm a big fan of cua-rectangles. But when I first started using them,
+;I found it very awkward to have two different keybindings for starting a
 ;region and a rectangle. I wanted to have them both on C-SPC... So here's what
 ; I came up with:
 ;MTF also changed the binding in cua-base.el like this
   ;;remove: ; MTF (defcustom cua-rectangle-mark-key [(control return)]
   ;;add    (defcustom cua-rectangle-mark-key [(control f1)]
-;control return is now free to do other things as in Icicles and w32browser  
+;control return is now free to do other things as in Icicles and w32browser
 ;
 ;consider using
 ;tap-bounds-of-string-at-point
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;sequential-command
@@ -27,7 +26,6 @@
     ;
   (message "--Error is load sequential-command--")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;make a new syntax table, that adds . to a word definition to tempororily
@@ -51,15 +49,12 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;(setq a ())
 ;(push "A" a)
 ;(listp a)
 
-
 ;(setq temp-result my-parse-lines)
-
 
 (defun my-parse-lines (&optional arg-decend-raged)
    "select a col as a cua-rectangle, dont' go thur
@@ -77,7 +72,7 @@
       (push one-line-result-list all-lines-list)
       (forward-line)
       (move-to-column my-current-column))
-   ;   
+   ;
    ;(setq temp started-here)
    (goto-char started-here)
    ;
@@ -87,14 +82,13 @@
    all-lines-list))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-       
 ;reverse
 
 ;(setq all-lines-list ())
 ;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun parse-one-line ()   
+(defun parse-one-line ()
    (interactive)
    (with-syntax-table my-rectangle-syntax-table
    (let (my-list)
@@ -105,9 +99,8 @@
    (reverse my-list))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (defun edge-check ()   
+;; (defun edge-check ()
 ;;   (interactive)
 ;;     (let (current-not-at-blank previous-is-blank)
 ;;     (when (not (looking-at "\\s-+")) (setq current-not-at-blank t))
@@ -118,25 +111,21 @@
 ;;     edge)
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun edge-check ()   
+(defun edge-check ()
   (interactive)
     (save-excursion
     (backward-char 1)
-    (if  (looking-at "\\S-\\S-") 
+    (if  (looking-at "\\S-\\S-")
     t
     nil)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;   k
 ;;   k
 ;; kkk
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
 
 ;(setq my-list-reverse (nreverse my-list))
 ;(length my-list-reverse)
@@ -169,9 +158,8 @@
    (cua-resize-rectangle-left 1))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun next-line-is-almost-blank-se-p (&optional arg-verbose arg-decend-raged) 
+(defun next-line-is-almost-blank-se-p (&optional arg-verbose arg-decend-raged)
       ""
       (interactive "*")
       arg-decend-raged
@@ -186,7 +174,6 @@
        (jump-to-mark)
        (setq my-temp next-line-blank)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;add a prefix arg to so the user can choose to check the before space part
@@ -211,12 +198,17 @@
      (or almost-blank-termitate char-before-space)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;    aoe
+;    aoeu
+;    aoeu
+;
+;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-rect-col-sel (&optional arg-decend-raged)
    "select a col as a cua-rectangle, dont' go thur
    blank or almost blank (blank from current col to eol) lines"
-   (interactive)
+   (interactive "P")
    arg-decend-raged
    (cua-set-rectangle-mark)
    ;
@@ -231,7 +223,6 @@
    ;one more time in case the last line is the longest
    (my-longest-rect-block-line))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-longest-rect-block-line ()
@@ -252,8 +243,8 @@
 ;;      (message "Almost")))
 ;
 ;
-;CUA Rect with mouse, 
-;S-mouse1 to set top left corner 
+;CUA Rect with mouse,
+;S-mouse1 to set top left corner
 ;then S-mouse1 to set bot rt corner
 ;http://askubuntu.com/questions/117522/
 ;  emacs-column-editing-cua-mode-is-it-possible-to-select-rectangular-region-with
@@ -273,19 +264,18 @@
 ;;(define-key cua--rectangle-keymap (kbd "<S-mouse-1>") 'hkb-mouse-mark-cua-rectangle)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-blank-rect(arg &optional arg-decend-raged)
    "Make blank rectangles 1 col wide
     With no arg rect bottom is defined by the first blank line
     With numeric arg rect is that number of rows high"
-   (interactive "p") 
+   (interactive "p")
    (cua-set-rectangle-mark)
    ;
    ;interactive p with no arg->1
    (if (eq arg 1)
       (progn
-        ;(while (line-is-not-blank-p)        
+        ;(while (line-is-not-blank-p)
         ;
         ;
         (while  (not (next-line-is-almost-blank-se-p nil arg-decend-raged))
@@ -293,23 +283,22 @@
        ;;
        (progn
          (let ((counter arg))
-         (while (> counter 0)        
+         (while (> counter 0)
            (cua-resize-rectangle-down 1)
            (setq counter (1- counter)))))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;New binding to toggle editing rectangle
 ;http://trey-jackson.blogspot.com/2008/10/emacs-tip-26-cua-mode-specifically.html
-;I'm a big fan of cua-rectangles. But when I first started using them, 
-;I found it very awkward to have two different keybindings for starting a 
+;I'm a big fan of cua-rectangles. But when I first started using them,
+;I found it very awkward to have two different keybindings for starting a
 ;region and a rectangle. I wanted to have them both on C-SPC... So here's what
 ; I came up with:
 ;MTF also changed the binding in cua-base.el like this
   ;;remove: ; MTF (defcustom cua-rectangle-mark-key [(control return)]
   ;;add    (defcustom cua-rectangle-mark-key [(control f1)]
-;control return is now free to do other things as in Icicles and w32browser  
+;control return is now free to do other things as in Icicles and w32browser
 (global-set-key (kbd "C-SPC") 'my-big-rect-defun)
 ;
 (defun my-big-rect-defun (&optional arg-ragged-decent)
@@ -319,26 +308,26 @@ Third call : move down, creating a single column rectatgle, not wider left
   than the curent column.
 Fourth call: Auto select a block, using the width of the widest line.
 
-With any prefix arg just prior to the third call, move down thru ragged 
+With any prefix arg just prior to the third call, move down thru ragged
 boundaries until a newline is encountered"
   (interactive "P")
      (if (or (not mark-active) nil)
        ;T, first call, mark not active-set it
-       (progn 
-         (cua-set-mark nil) 
-         (setq editing_rect nil) 
+       (progn
+         (cua-set-mark nil)
+         (setq editing_rect nil)
          (setq orig_pos (point)))
        ;F, second call, mark active,start rect
        (if cua--rectangle
          ;T,third call already in a rect
-         (progn (message "in a rect") 
-            (if editing_rect 
+         (progn (message "in a rect")
+            (if editing_rect
                ;T,have run block sel->clear block, make a blank strip.
-               (progn 
+               (progn
                  (cua-toggle-rectangle-mark) ;clear exitsting
                  (goto-char orig_pos)        ;go back to the orig point
-                  (my-rect-block-sel) 
-                 )          
+                  (my-rect-block-sel)
+                 )
                ;F have not run block sel ->run it
                (progn
                  arg-ragged-decent
@@ -352,14 +341,12 @@ boundaries until a newline is encountered"
 (cua-toggle-rectangle-mark)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-rect-test-1 (&optional arg-ragged-decent)
 "Narrow strip"
   (interactive "P")
   (my-blank-rect 1))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-rect-test-2 (&optional arg-ragged-decent)
@@ -368,10 +355,9 @@ boundaries until a newline is encountered"
   (my-rect-block-sel))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-rect-long-word-sel (&optional arg-decend-raged)
-   "select a block where the rhs of the block is the rt most char of 
+   "select a block where the rhs of the block is the rt most char of
    words going down.  Don't go thru blank lines."
    (interactive)
    (let ((target-column nil))
@@ -399,7 +385,6 @@ boundaries until a newline is encountered"
    ;"How many additional columns rt to move"
    (cua-resize-rectangle-right (-  target-column orig-column 1))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-last-col-of-word ()
@@ -430,20 +415,17 @@ boundaries until a newline is encountered"
 ; use12 this t o get the word bound (bounds-of-thing-at-point 'symbol)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;New binding to toggle editing rectangle
 ;http://trey-jackson.blogspot.com/2008/10/emacs-tip-26-cua-mode-specifically.html
-;I'm a big fan of cua-rectangles. But when I first started using them, 
-;I found it very awkward to have two different keybindings for starting a 
+;I'm a big fan of cua-rectangles. But when I first started using them,
+;I found it very awkward to have two different keybindings for starting a
 ;region and a rectangle. I wanted to have them both on C-SPC... So here's what
 ; I came up with:
 ;MTF also changed the binding in cua-base.el like this
   ;;remove: ; MTF (defcustom cua-rectangle-mark-key [(control return)]
   ;;add    (defcustom cua-rectangle-mark-key [(control f1)]
-;control return is now free to do other things as in Icicles and w32browser  
+;control return is now free to do other things as in Icicles and w32browser
 (global-set-key (kbd "C-SPC") 'my-big-rect-defun)
 ;
 ;
@@ -456,9 +438,6 @@ boundaries until a newline is encountered"
 (cua-set-rectangle-mark)
 (cua-toggle-rectangle-mark)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-
 
  ;;    aoeu
  ;;     aoeu
@@ -480,7 +459,6 @@ boundaries until a newline is encountered"
  ;;        1234
  ;;        1234
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;http://ergoemacs.org/emacs/emacs_copy_rectangle_text_to_clipboard.html
 (defun youngfrog/copy-rectangle-to-kill-ring (start end)
@@ -496,7 +474,6 @@ boundaries until a newline is encountered"
       (kill-ring-save (point-min) (point-max)))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-rect-wrap-set-cua-mark (&optional arg-ragged-decent)
 "Set the regular mark"
@@ -504,7 +481,6 @@ boundaries until a newline is encountered"
   (setq orig-rect-start (point))
   (cua-set-mark))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-     
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-rect-wrap-set-rect-mark (&optional arg-ragged-decent)
@@ -512,7 +488,6 @@ boundaries until a newline is encountered"
   (interactive "P")
   (cua-toggle-rectangle-mark))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-     
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-rect-wrap-thin-strip (&optional arg-ragged-decent)
@@ -520,7 +495,6 @@ boundaries until a newline is encountered"
   (interactive "P")
   (my-blank-rect 1 arg-ragged-decent))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-rect-wrap-end-of-words (&optional arg-ragged-decent)
@@ -530,7 +504,6 @@ boundaries until a newline is encountered"
   (goto-char orig-rect-start)
   (my-rect-long-word-sel  arg-ragged-decent))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-     
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-rect-wrap-block-to-end-of-line (&optional arg-ragged-decent)
@@ -541,7 +514,6 @@ boundaries until a newline is encountered"
   (my-rect-block-sel))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun clean-up-from-last-rert ()
   "Helpful"
@@ -549,7 +521,6 @@ boundaries until a newline is encountered"
   (cua-toggle-rectangle-mark)
   (goto-char orig-rect-start))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-     
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (define-sequential-command seq-rect
@@ -565,7 +536,6 @@ boundaries until a newline is encountered"
 ;;(global-set-key (kbd "<M-f9>") 'seq-rect)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; rectangle to register
 ; use
@@ -577,46 +547,45 @@ boundaries until a newline is encountered"
   M-x view-register
   C-x r i  which prompts the user to which rectangle register to paste"
   (interactive)
-  (copy-rectangle-to-register 
+  (copy-rectangle-to-register
    (string-to-char (number-to-string 1)) (mark) (point) nil))
 ;
 (defun rtr2 ()
-  "Rectangle to register                                               
-  use                                                                  
-  M-x view-register                                                    
+  "Rectangle to register
+  use
+  M-x view-register
   C-x r i  which prompts the user to which rectangle register to paste"
   (interactive)
-  (copy-rectangle-to-register 
+  (copy-rectangle-to-register
    (string-to-char (number-to-string 2)) (mark) (point) nil))
 ;
 (defun rtr3 ()
-  "Rectangle to register                                               
-  use                                                                  
-  M-x view-register                                                    
+  "Rectangle to register
+  use
+  M-x view-register
   C-x r i  which prompts the user to which rectangle register to paste"
   (interactive)
-  (copy-rectangle-to-register 
+  (copy-rectangle-to-register
    (string-to-char (number-to-string 3)) (mark) (point) nil))
 ;
 (defun rtr4 ()
-  "Rectangle to register                                               
-  use                                                                  
-  M-x view-register                                                    
+  "Rectangle to register
+  use
+  M-x view-register
   C-x r i  which prompts the user to which rectangle register to paste"
   (interactive)
-  (copy-rectangle-to-register 
+  (copy-rectangle-to-register
    (string-to-char (number-to-string 4)) (mark) (point) nil))
 ;
 (defun rtr5 ()
-  "Rectangle to register                                               
-  use                                                                  
-  M-x view-register                                                    
+  "Rectangle to register
+  use
+  M-x view-register
   C-x r i  which prompts the user to which rectangle register to paste"
   (interactive)
-  (copy-rectangle-to-register 
+  (copy-rectangle-to-register
    (string-to-char (number-to-string 5)) (mark) (point) nil))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun position-prior-to-ace-jump ()
@@ -625,14 +594,14 @@ boundaries until a newline is encountered"
     (setq my-orig-position (point)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun ace-jump-rectangle()
+(defun my-ace-jump-rectangle()
   (interactive)
-    (add-hook 'ace-jump-mode-end-hook 'get/save-position-end-of-ace-jump)
-    (call-interactively 'ace-jump-char-mode))
+  (cua-cancel)
+  (add-hook 'ace-jump-mode-end-hook 'get/save-position-end-of-ace-jump)
+  (call-interactively 'ace-jump-char-mode))
+  ;; (call-interactively  'ace-jump-rect-set-and-movement))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun get/save-position-end-of-ace-jump ()
@@ -643,32 +612,57 @@ boundaries until a newline is encountered"
     (setq ace-jump-end-column (current-column))
     (setq ace-jump-end-line  (line-number-at-pos))
     ;
-    (goto-char my-orig-position)
+    (goto-char my-orig-position))
     ;
-    (setq ace-jump-mode-end-hook nil))
+    ;; (setq ace-jump-mode-end-hook nil))
+    ;(setq ace-jump-mode-end-hook nil))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (eval-after-load ace-jump-mode
   (add-hook 'ace-jump-mode-before-jump-hook 'position-prior-to-ace-jump 'append))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun goto-orig-end-of-ace-jump (&optional arg)
   "return the position of where ace jumps to"
   (interactive)
-    (if arg (goto-char my-orig-position) (message "no arg")) 
+    (if arg (goto-char my-orig-position) (message "no arg"))
     (setq my-go-back nil))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+(defun foo ()
+  (interactive)
+  (my-ace-jump-rectangle)
+  (ace-jump-rect-set-and-movement))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun ace-jump-rect-set-and-movement (&optional arg)
+   ""
+   (interactive "p")
+   (message "got here before")
+   ; set the mark
+   (cua-set-rectangle-mark nil)
+   ; move the row
+   (while (not ( equal (current-line) ace-jump-end-line))
+     (cua-resize-rectangle-down 1))
+   (cua-resize-rectangle-down 1)
+   ;move the column
+   (while (not ( equal (current-column) ace-jump-end-column))
+     (cua-resize-rectangle-right 1))
+   (message "got here after"))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+    ;aoeu
+    ;aoeu
+    ;aoeu
+    ;aoeuaoeuaoeuhtns
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (message "reached the end of my-rectangles.el")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-     
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'my-rectangles)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
