@@ -573,7 +573,8 @@
  '(savehist-additional-variables
    (quote
     (sr-history-registry urls-cached svn-ls-output-as-big-strings-list filesets-data)))
-
+ '(sml/show-frame-identification nil)
+ '(truncate-lines t)
  '(winner-dont-bind-my-keys t)
  '(wrap-region-except-modes (quote (calc-mode dired-mode sr-mode))))
 (custom-set-faces
@@ -582,7 +583,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ace-jump-face-foreground ((t (:foreground "yellow" :weight ultra-bold))))
- '(aw-leading-char-face ((t (:background "white" :foreground "red"))))
+ '(aw-leading-char-face ((t (:background "white" :foreground "red"))) t)
  '(bmkp-heading ((t (:foreground "azure1"))))
  '(bmkp-local-directory ((t (:background "#4c7073" :foreground "#dcdccc"))))
  '(bmkp-local-file-without-region ((t (:foreground "#dcdccc"))))
@@ -594,8 +595,8 @@
  '(mode-line ((t (:background "#1e2320" :foreground "#acbc90" :inverse-video nil :box (:line-width 2 :color "#1e2320") :height 1.0 :width normal))))
  '(replacep-msg-emphasis ((t (:foreground "red"))))
  '(replacep-msg-emphasis2 ((t (:foreground "yellow"))))
- '(sml/filename ((t (:inherit sml/global :foreground "gold" :weight bold))))
- '(sml/folder ((t (:inherit sml/global :background "gray20" :foreground "gold3" :weight normal))))
+ '(sml/filename ((t (:inherit sml/global :foreground "khaki" :weight bold))))
+ '(sml/folder ((t (:inherit sml/global :background "gray20" :foreground "pale goldenrod" :weight normal))))
  '(sml/modes ((t (:foreground "light slate gray"))))
  '(sml/position-percentage ((t (:foreground "light slate gray"))))
  '(sml/vc ((t (:foreground "medium spring green"))))
