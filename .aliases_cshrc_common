@@ -115,4 +115,3 @@ alias startserver 'vncserver -depth 24 -geometry 1970x1055'
 # However the instructions require the installation of packages which
 # do not seem to be installable thru ubuntu.
 # alias ag 'ag --path-to-ignore ~/.agignore'
-echo reached the endXvv
