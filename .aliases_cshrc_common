@@ -1,0 +1,118 @@
+
+alias cp            'cp -i'
+alias rm            'rm -i'
+alias mv            'mv -i'
+
+alias ls            'ls -F --color'
+alias ll            'ls -lh'
+alias lls           'ls -lSh'
+alias llt           'ls -lt'
+alias la            'ls -aF'
+alias lal           'ls -al'
+alias lst           'ls -alt'
+
+alias d              'ls -l  --color=always| egrep ^d'
+alias ld             'ls -l  --color=always| egrep ^d'
+alias ldir           'ls -l  --color=always| egrep ^d'
+alias t              'ls -alrt --color=always'
+alias l              'ls -l --color=always'
+
+alias ctdiff        'cleartool diff -pred -serial'
+
+alias h             'history 30'
+alias pwd           'echo $cwd'
+
+alias sv            'simvision waves.shm'
+alias svi           'simvision waves.shm -INPUT simvision.svcf'
+
+alias cdgr          'cd $GIT_ROOT'
+alias cdpar         'cd $PROJ_HOME/par/vivado'
+alias cdph          'cd $PROJ_HOME'
+alias cdsim         'cd $PROJ_HOME/sim'
+alias cdsim         'cd $PROJ_HOME/sim'
+
+#------------------------------------------------------------------------
+# VNC aliases
+#------------------------------------------------------------------------
+alias new_vnc 'vncserver -randr 1920x1000'
+
+###############################################################################
+## a quick way to get out of current directory ##
+alias .. 'cd ..'
+alias ... 'cd ../../'
+alias .... 'cd ../../../'
+alias ..... 'cd ../../../../'
+alias ...... 'cd ../../../../../'
+alias ....... 'cd ../../../../../../'
+alias .4 'cd ../../../../'
+alias .5 'cd ../../../../..'
+###############################################################################
+
+# display path
+# broken quoting alias show_path "echo  $PATH\ | sed 's/:/\n   /g' | sort"
+
+#pwd
+alias p pwd
+
+# better less
+alias less 'less -gIMNX'
+
+# clear the console
+alias c clear
+
+# reverse isearcrh
+bindkey "^r" i-search-back
+
+# ack
+alias ack 'ack --pager="less -FRSXM"'
+
+# readlink
+alias rl 'readlink -f'
+
+alias rlw 'readlink -f \!$ | sed "s/\//\\/g" | sed "s/\\home\\ptgd73/z:/g"'
+
+# svn st
+alias ms 'svn status | grep -v \? '
+
+# grep
+alias agrepi   'alias|grep -i --color'
+alias agrep    'alias|grep  --color'
+alias agrepv  'alias|grep  --color'
+
+#emacs general
+alias ec 'emacsclient \!^ &'
+# -c starts a new emacs frame
+alias ecc 'emacsclient -c \!^ &'
+
+#emacs 25.1
+alias e25 '/usr/bin/emacs-25.1.50-snapshot'
+
+#emacs 24.3
+alias e24 '/usr/bin/emacs24-x & '
+
+# find
+alias fin 'find . -iname'
+alias fn 'find . -name'
+
+# grep
+alias g 'grep --color'
+alias gi 'grep -i --color'
+alias giv 'grep -i -v --color'
+alias gvi 'grep -i -v --color'
+
+#git
+alias gs 'git status -s'
+alias mystat 'git status -suno'
+alias m 'git status -suno'
+
+# Start vncserver session
+alias startserver 'vncserver -depth 24 -geometry 1970x1055'
+
+# Silver Searcher
+# Note the the version of the SS which I have on Ubuntu appears to
+# be older than one which supports this option.  Tried to download
+# the SS from it's github.  It needs to be built and provides instructions.
+# However the instructions require the installation of packages which
+# do not seem to be installable thru ubuntu.
+# alias ag 'ag --path-to-ignore ~/.agignore'
+echo reached the endXvv
