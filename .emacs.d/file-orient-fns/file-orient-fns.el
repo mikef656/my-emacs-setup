@@ -396,7 +396,7 @@ save to kill ring. In sunrise do the same 4 the file or dir pointed to"
   "Do what it says"
   (interactive)
   ;; (find-file  "~/cheat.org"))
-  (find-file  "~/cheat.org"))
+  (find-file  "~/stuff/cheat.org"))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; (setq my-buffer-list (buffer-list))
