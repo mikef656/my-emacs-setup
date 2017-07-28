@@ -476,6 +476,8 @@
       (setq load-melpa-packages       (and nil load-essentials_2)))
 ;
 (setq load-rainbow-delimiters   (and t   load-essentials_2))
+; Magit troubles over TRAMP, can't run git-status
+(setq load-magit                (and nil   load-essentials_2))
 (setq modify-rainbow-colors     (and t   load-essentials_2))
 (setq load-rebox                (and t   load-essentials_3))
 (setq load-my-paren-setup       (and t   load-essentials_3))
@@ -581,6 +583,13 @@
  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ; my custom-set-faces go missing found this bug, maybe fix? 7/26/2017
+ ;https://debbugs.gnu.org/cgi/bugreport.cgi?bug=25228#152
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ (define-key special-event-map [config-changed-event] 'ignore)
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Elpa/Melpa
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -592,7 +601,10 @@
     (setq package-enable-at-startup nil)
     ; 
     (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-    (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+    ;
+    ; seems to be an error contacting this computer when running package-refresh-contents
+    ;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+    ;
     (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
     ; 
     (package-initialize)
@@ -622,6 +634,11 @@
  ;;   :ensure t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; don't wrap lines
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq-default truncate-lines t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; emacs 24.4 had this disabled, no idea why they believe it's confusing
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (when t
@@ -649,6 +666,41 @@
         ;; try-expand-list
         ;; try-expand-line
         )))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; magit
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(message "reached before loading magit")
+(when  load-magit;
+    (unless
+      (ignore-errors ;if an error occurs return nil
+
+      (use-package magit
+        :ensure t
+        :bind(( "C-x g"   . magit-status)
+              ( "C-x M-g" . magit-dispatch-popup)))
+
+        t)
+      (global-set-key (kbd "C-x g") 'magit-status)
+      (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
+      ;
+      (message "--Reached before loading magit")))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Only load dash this way if magit is not used, bc Magit uses the elpa version
+;of dash.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(message "reached before load-dash")
+(when (not load-magit)
+  (unless
+    (ignore-errors ;if an error occurs return nil
+      (add-to-list 'load-path "~/.emacs.d/dash")
+      (require 'dash)
+      t)
+    ;
+  (message "--Error in load-dash")))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; rainbow-delimiters
@@ -863,12 +915,12 @@
     (add-to-list 'load-path "~/.emacs.d/string-utils")
     (add-to-list 'load-path "~/.emacs.d/s")
     (add-to-list 'load-path "~/.emacs.d/f")
-    (add-to-list 'load-path "~/.emacs.d/dash")
+    ;(add-to-list 'load-path "~/.emacs.d/dash")
     (add-to-list 'load-path "~/.emacs.d/f")
     ;
     (when load-several-string-and-list-utils
       (require 'string-utils)
-      (require 'dash)
+      ;(require 'dash)
       (require 's)
       (require 'f)))
     ;

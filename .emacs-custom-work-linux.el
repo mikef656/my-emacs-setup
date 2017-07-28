@@ -88,7 +88,7 @@
      ("\\.xls" . w32-browser)
      ("\\.xlsx" . w32-browser)
      ("\\.lnk" . w32-browser))))
- '(bmkp-last-as-first-bookmark-file "~/save/bmk_current_project.bmk")
+ '(bmkp-last-as-first-bookmark-file "~/save/jira_613_tx_drop")
  '(bmkp-light-left-fringe-bitmap (quote right-arrow))
  '(bmkp-light-style-autonamed (quote lfringe))
  '(bmkp-light-style-non-autonamed (quote lfringe))
@@ -573,7 +573,11 @@
  '(savehist-additional-variables
    (quote
     (sr-history-registry urls-cached svn-ls-output-as-big-strings-list filesets-data)))
-
+ '(sml/show-frame-identification nil)
+ '(tramp-remote-path
+   (quote
+    ("/bin" "/usr/git/bin/git" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin" "/local/bin" "/local/freeware/bin" "/local/gnu/bin" "/usr/freeware/bin" "/usr/pkg/bin" "/usr/contrib/bin" "/opt/bin" "/opt/sbin" "/opt/local/bin")))
+ '(truncate-lines t)
  '(winner-dont-bind-my-keys t)
  '(wrap-region-except-modes (quote (calc-mode dired-mode sr-mode))))
 (custom-set-faces
