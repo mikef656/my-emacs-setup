@@ -3079,7 +3079,6 @@
     (add-to-list 'load-path "~/.emacs.d/zygospore/")
     (require 'zygospore)
     t)
-    ;
   (message "--Error in load-zygospore")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -3093,7 +3092,6 @@
     ;
     (setq tramp-default-method "ssh")
     t)
-    ;
   (message "--Error in load-tramp")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -3104,9 +3102,7 @@
     (ignore-errors ;if an error occurs return nil
     (add-to-list 'load-path "~/.emacs.d/my-mode/")
     (require 'my-mode)
-    ;
     t)
-    ;
   (message "--Error in load-my-mode")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -3121,9 +3117,7 @@
     (defalias 'ack-same 'ack-and-a-half-same)
     (defalias 'ack-find-file 'ack-and-a-half-find-file)
     (defalias 'ack-find-file-same 'ack-and-a-half-find-file-same)
-    ;
     t)
-    ;
   (message "--Error in load-ack-an-a-half")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -3155,7 +3149,6 @@
     (add-hook  'emacs-startup-hook 'my-foo-fn)
     ;
     t)
-    ;
   (message "--Error in load bookmarks at init")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
