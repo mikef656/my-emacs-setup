@@ -2258,6 +2258,10 @@
 ; "Remove the current project's files from `projectile-projects-cache'.
 ; With a prefix argument ARG prompts for the name of the project whose cache
 ; to invalidate."
+;
+; This discusses using projectile with git submodules
+; https://www.bountysource.com/issues/11208594-use-only-topmost-git-as-project
+; In particular the comment by jgkamat ("My final adjustments to solve...")
 (message "reached before load-projectile")
 (when load-projectile                   ;
   (unless
