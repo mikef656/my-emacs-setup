@@ -71,6 +71,10 @@
    ;(move-frame-to-screen-right)
    ;
    ; this does not work (smart-mode-line-mode)
+   ;  
+   (define-key sr-mode-map (kbd "f")    'sr-scroll-quick-view)
+   (define-key sr-mode-map (kbd "b")    'sr-scroll-quick-view-down)
+   ;
    (define-key sr-mode-map (kbd "<f2>") 'sr-editable-pane)
    (define-key sr-mode-map (kbd "<f3>") 'nil)
    (define-key sr-mode-map (kbd "<f4>") 'nil)
