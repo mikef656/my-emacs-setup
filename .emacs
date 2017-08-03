@@ -1,4 +1,5 @@
-﻿;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+﻿
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; global minor mode or bindkey for keymap
 ;https://emacs.stackexchange.com/
 ;questions/352/how-to-override-major-mode-bindings
@@ -256,7 +257,7 @@
 (setq load-ido nil)
 ;
 (setq load-icicles  t)
-(setq load-icy-mode t)
+(setq load-icy-mode nil)
 (setq load-icicles_helpers_1 t)
 (setq load-icicles_helpers_2 t)
 (setq load-icicles_helpers_3 t)
@@ -3090,10 +3091,14 @@
 ; this promets for remote's (based on flies in history) password at emacs start
 ; maybe a defun which contains the (setq tramp-default-method "ssh") line
 (message "reached before load tramp")
-(when  load-tramp
+;; (when  load-tramp
+; MTF 8/3/2017, setting (setq tramp-default-method "ssh") causes tramp to
+; fail to connect, saying "cant' find ls"
+(when nil
   (unless
     (ignore-errors ;if an error occurs return nil
     ;
+    (setq tramp-verbose 6)
     (setq tramp-default-method "ssh")
     t)
   (message "--Error in load-tramp")))
