@@ -257,7 +257,7 @@
 (setq load-ido nil)
 ;
 (setq load-icicles  t)
-(setq load-icy-mode nil)
+(setq load-icy-mode t)
 (setq load-icicles_helpers_1 t)
 (setq load-icicles_helpers_2 t)
 (setq load-icicles_helpers_3 t)
@@ -2909,7 +2909,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "reached before beacon")
-(when  load-beacon;
+
+(when  (and load-beacon   (>= emacs-major-version 24 ));
   (unless
     (ignore-errors ;if an error occurs return nil
     ;
