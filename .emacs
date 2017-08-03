@@ -1,4 +1,4 @@
-﻿
+﻿
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; global minor mode or bindkey for keymap
 ;https://emacs.stackexchange.com/
@@ -516,9 +516,8 @@
 (setq load-peep-dired           (and t   load-essentials_5))
 (setq load-zygospore            (and t   load-essentials_5))
 ;
-(if   (>= emacs-major-version 24 )
-  (setq load-tramp                (and t   load-essentials_5))
-  (setq load-tramp                (and nil load-essentials_5)))
+;(setq load-settings-tramp      (and t   load-essentials_5))
+(setq load-tramp-settings       (and nil load-essentials_5))
 ;  
 (setq load-my-mode              (and t   load-essentials_5))
 (setq load-ack-and-a-half       (and t   load-essentials_5))
@@ -3092,17 +3091,27 @@
 ; this promets for remote's (based on flies in history) password at emacs start
 ; maybe a defun which contains the (setq tramp-default-method "ssh") line
 (message "reached before load tramp")
-;; (when  load-tramp
+;; (when  load-tramp-settings
 ; MTF 8/3/2017, setting (setq tramp-default-method "ssh") causes tramp to
 ; fail to connect, saying "cant' find ls"
-(when nil
+; Also this started with emacs 24.3
+; I uninstalled all emacs then re-installed 25
+; Was able to get to the point where tramp was workintg as long as I don's set
+; the variable.
+; Then I re-instaled emacs24.4, and I was not longer able to get tramp to
+; connect at all (can't find ls issue).
+; To recover after this I removed all emacs and re-installed emacs25 and
+; removed the .emacs.d/tramp file which is some kind of buffered settings
+; for tramp to remember connections.  It seems as if it can rember bad settings
+; then those bad settings prevent future connections.
+(when load-tramp-settings
   (unless
     (ignore-errors ;if an error occurs return nil
     ;
     (setq tramp-verbose 6)
     (setq tramp-default-method "ssh")
     t)
-  (message "--Error in load-tramp")))
+  (message "--Error in load-tramp-settings")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
