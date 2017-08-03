@@ -167,7 +167,8 @@
   (define-key verilog-mode-map [(control meta g)] 'my-hdl-left-syntax-or-subword) 
   (define-key verilog-mode-map [(meta next)]      'vlog-find-inst-fwd) 
   (define-key verilog-mode-map [(meta prior)]  'vlog-find-inst-back) 
-  (company-mode 1)
+  (if  (>= emacs-major-version 24 )
+    (company-mode 1))
   ;
   ; realted to compile
   (setq verilog-tool 'verilog-compiler)
