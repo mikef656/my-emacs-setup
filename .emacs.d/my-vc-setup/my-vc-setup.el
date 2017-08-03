@@ -1078,8 +1078,8 @@ PROMPT is as for `y-or-n-p'."
 ;(define-key vc-dir-mode-map [(u)] 'my-vc-git-reset)
 
 ;; hide up to date files after refreshing in vc-dir
-(define-key vc-dir-mode-map [(g)]
-  (lambda () (interactive) (vc-dir-refresh) (vc-dir-hide-up-to-date)))
+;(define-key vc-dir-mode-map [(g)]
+;  (lambda () (interactive) (vc-dir-refresh) (vc-dir-hide-up-to-date)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'my-vc-setup)
