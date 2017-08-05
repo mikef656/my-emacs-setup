@@ -357,7 +357,6 @@
 ;make this nil for light themes
 (setq load-oneonone-params              (and nil load-icicles_helpers_1));fix bad backgrounds in light themes
 ;
-
 (setq load-icicles-iswitchb             (and t load-icicles_helpers_2));
 (setq load-replace+                     (and t load-icicles_helpers_3));
 ;
@@ -465,7 +464,7 @@
 (setq load-winpoint                     (and nil exp_did_not_work_out))
 (setq load-workgroups                   (and nil exp_did_not_work_out))
 (setq load-hl-defined                   (and nil exp_did_not_work_out))
-
+;
 (setq load-smartparens                  (and nil exp_did_not_work_out))
 (setq load-hrb-mode                     (and nil exp_did_not_work_out))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -533,10 +532,10 @@
 ;; ; `((delimiters-load ,rainbow-delimiters-version-all) and)
 ;; ;
   ;(when (emacs (>= major-version-24 load) rainbow-melpa-packages load-essentials_3)
-
+  ;
   ;; (
   ;; (require 'package)
-
+  ;
   ;; (when nil
   ;; (setq package-load-list
   ;;   `((rainbow-delimiters ,load-rainbow-delimiters-version) )))
@@ -550,7 +549,7 @@
 ;; MTF I don't always want this stuff, its usually more trouble than it's worth
 (when nil
   (require 'package) ;; You might already have this line
-
+   ; 
   (when (< emacs-major-version 24)
     ;; For important compatibility libraries like cl-lib
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -562,7 +561,7 @@
     (add-to-list 'package-archives
                '("melpa-stable" . "https://stable.melpa.org/packages/") t)
   )
-
+  ;
   ;;;;http://cachestocaches.com/2015/8/getting-started-use-package/
   ;(setq package-enable-at-startup nil)
   ;(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
@@ -573,22 +572,20 @@
   ;(package-install 'use-package)
   ;(package-initialize)
   )
-
+  ;
 ;(unless (package-installed-p 'use-package)
  ; (package-refresh-contents)
   ;(package-install 'use-package))
-
+  ;
   ;(global-set-key (kbd "C-x g") 'magit-status)
   ;(global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
  ; my custom-set-faces go missing found this bug, maybe fix? 7/26/2017
  ;https://debbugs.gnu.org/cgi/bugreport.cgi?bug=25228#152
  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
  (define-key special-event-map [config-changed-event] 'ignore)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Elpa/Melpa
@@ -626,9 +623,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;fix
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-
 
  ;; (use-package projectile
  ;;   :ensure t)
@@ -674,12 +668,11 @@
 (when  load-magit;
     (unless
       (ignore-errors ;if an error occurs return nil
-
+      ;  
       (use-package magit
         :ensure t
         :bind(( "C-x g"   . magit-status)
               ( "C-x M-g" . magit-dispatch-popup)))
-
         t)
       (global-set-key (kbd "C-x g") 'magit-status)
       (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
@@ -2265,6 +2258,10 @@
 ; "Remove the current project's files from `projectile-projects-cache'.
 ; With a prefix argument ARG prompts for the name of the project whose cache
 ; to invalidate."
+;
+; This discusses using projectile with git submodules
+; https://www.bountysource.com/issues/11208594-use-only-topmost-git-as-project
+; In particular the comment by jgkamat ("My final adjustments to solve...")
 (message "reached before load-projectile")
 (when load-projectile                   ;
   (unless
@@ -3086,7 +3083,6 @@
     (add-to-list 'load-path "~/.emacs.d/zygospore/")
     (require 'zygospore)
     t)
-    ;
   (message "--Error in load-zygospore")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -3100,7 +3096,6 @@
     ;
     (setq tramp-default-method "ssh")
     t)
-    ;
   (message "--Error in load-tramp")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -3111,9 +3106,7 @@
     (ignore-errors ;if an error occurs return nil
     (add-to-list 'load-path "~/.emacs.d/my-mode/")
     (require 'my-mode)
-    ;
     t)
-    ;
   (message "--Error in load-my-mode")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -3128,9 +3121,7 @@
     (defalias 'ack-same 'ack-and-a-half-same)
     (defalias 'ack-find-file 'ack-and-a-half-find-file)
     (defalias 'ack-find-file-same 'ack-and-a-half-find-file-same)
-    ;
     t)
-    ;
   (message "--Error in load-ack-an-a-half")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -3151,7 +3142,7 @@
       (make-frame-command)
       (message "%s" (selected-frame))
       (call-interactively 'mike/sunrise))
-
+    ;
     (defun my-foo-fn ()
           (interactive)
           (message "foo"))
@@ -3162,12 +3153,9 @@
     (add-hook  'emacs-startup-hook 'my-foo-fn)
     ;
     t)
-    ;
   (message "--Error in load bookmarks at init")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-;adding this line
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; final message
 (message "---REACHED END OF THE %s for %s system---" (buffer-name) home-work)
