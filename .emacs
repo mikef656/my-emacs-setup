@@ -419,7 +419,7 @@
 (setq load-macro-math                   (and t   load-essentials_2))
 ;
 (setq load-eshell-setup                 (and t   load-essentials_2))
-(setq load-ack-full                     (and nil exp_did_not_work_out))
+(setq load-ack-full                     (and nil load-essentials_3))
 (setq load-column-marker                (and t   load-essentials_2))
 ;
 (setq load-my-ruby-setup                (and t   load-essentials_2))
@@ -517,7 +517,7 @@
 (setq load-zygospore            (and t   load-essentials_5))
 ;
 ;(setq load-settings-tramp      (and t   load-essentials_5))
-(setq load-tramp-settings       (and nil load-essentials_5))
+(setq load-tramp-settings       (and t load-essentials_5))
 ;  
 (setq load-my-mode              (and t   load-essentials_5))
 (setq load-ack-and-a-half       (and t   load-essentials_5))
@@ -3040,6 +3040,14 @@
     ;
     (message "--Error in diminish slime-nav"))
   ;
+  (unless
+    (ignore-errors ;if an error occurs return nil
+    ;
+    (when load-my-mode
+      (diminish 'my-mode)) t)
+    ;
+    (message "--Error in diminish slime-nav"))
+  ;
   ; Moved the diminish of company to where it gets autoloaded in this file
   ; the autoload seemed trickey to work with diminish.
   ; I was trying the code below, but it always errored triggering the message.
@@ -3116,8 +3124,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "reached before load my-mode")
-(when  
-  (unless load-my-mode
+(when  load-my-mode
+  (unless 
     (ignore-errors ;if an error occurs return nil
     (add-to-list 'load-path "~/.emacs.d/my-mode/")
     (require 'my-mode)
@@ -3127,8 +3135,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "reached before load ack-and-a-half")
-(when  
-  (unless load-ack-and-a-half
+(when  load-ack-and-a-half
+  (unless 
     (ignore-errors ;if an error occurs return nil
     (add-to-list 'load-path "~/.emacs.d/ack-and-a-half/")
     (require 'ack-and-a-half)
