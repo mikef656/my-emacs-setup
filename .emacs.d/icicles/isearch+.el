@@ -8,9 +8,9 @@
 ;; Created: Fri Dec 15 10:44:14 1995
 ;; Version: 0
 ;; Package-Requires: ()
-;; Last-Updated: Wed Jun 14 09:27:12 2017 (-0700)
+;; Last-Updated: Sun Jul 23 18:26:12 2017 (-0700)
 ;;           By: dradams
-;;     Update #: 5846
+;;     Update #: 5891
 ;; URL: https://www.emacswiki.org/emacs/download/isearch%2b.el
 ;; Doc URL: https://www.emacswiki.org/emacs/IsearchPlus
 ;; Doc URL: https://www.emacswiki.org/emacs/DynamicIsearchFiltering
@@ -19,10 +19,10 @@
 ;;
 ;; Features that might be required by this library:
 ;;
-;;   `avoid', `backquote', `bytecomp', `cconv', `cl', `cl-extra',
-;;   `cl-lib', `color', `frame-fns', `gv', `help-fns', `hexrgb',
-;;   `isearch-prop', `macroexp', `misc-cmds', `misc-fns', `strings',
-;;   `thingatpt', `thingatpt+', `zones'.
+;;   `avoid', `backquote', `button', `bytecomp', `cconv', `cl',
+;;   `cl-extra', `cl-lib', `color', `frame-fns', `gv', `help-mode',
+;;   `hexrgb', `isearch-prop', `macroexp', `misc-cmds', `misc-fns',
+;;   `strings', `thingatpt', `thingatpt+', `zones'.
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -171,6 +171,7 @@
 ;;    `isearchp-assoc-delete-all', `isearchp-barf-if-use-minibuffer',
 ;;    `isearchp-columns-p' (Emacs 24.4+),
 ;;    `isearchp-complete-past-string',
+;;    `isearchp-constrain-to-rectangular-region' (Emacs 25+),
 ;;    `isearchp-current-filter-predicates' (Emacs 24.4+),
 ;;    `isearchp-fail-pos', `isearchp-ffap-guesser' (Emacs 24.4+),
 ;;    `isearchp-filter-bookmark-alist-only' (Emacs 24.4+),
@@ -779,16 +780,20 @@
 ;;    search: regexp, word, multiple-buffer, and whether searching has
 ;;    wrapped around the buffer (Emacs 22+ only).
 ;;
-;;  * Optional limiting of search to the active region, controlled by
-;;    option `isearchp-restrict-to-region-flag'.  Deactivation of the
-;;    active region is controlled by option
+;;  * Optional restriction of search to the active region, controlled
+;;    by option `isearchp-restrict-to-region-flag'.  Deactivation of
+;;    the active region is controlled by option
 ;;    `isearchp-deactivate-region-flag'.  Both of these are available
 ;;    for Emacs 24.3 and later.  You can use `C-x n' (command
 ;;    `isearchp-toggle-region-restriction') during search to toggle
 ;;    `isearchp-restrict-to-region-flag'.
 ;;
-;;    NOTE: For search to be limited to the active region in Info, you
-;;    must also use library `info+.el'.
+;;    Restriction of Isearch to the region works also for a
+;;    rectangular region (which you create using `M-x
+;;    rectangle-mark-mode').
+;;
+;;    NOTE: For search to be limited to the region in Info, you must
+;;    also use library `info+.el'.
 ;;
 ;;  * Option and commands to let you select the last target occurrence
 ;;    (set the region around it):
@@ -1157,6 +1162,11 @@
 ;;
 ;;(@* "Change log")
 ;;
+;; 2017/07/23 dadams
+;;     Added: isearchp-constrain-to-rectangular-region, isearchp--lazy-hlt-filter-failures-p.
+;;     isearch-mode: Use isearchp-constrain-to-rectangular-region.  Set isearchp--lazy-hlt-filter-failures-p to t.
+;;     isearch-repeat: Typo: Was testing emacs-minor-version not emacs-major-version.
+;;     isearch-lazy-highlight-search: Do not dim unless isearchp--lazy-hlt-filter-failures-p is non-nil.
 ;; 2017/05/29 dadams
 ;;     isearch-mouse-2: Put overriding-terminal-local-map binding around only the binding of BINDING.  See bug #23007.
 ;; 2017/05/18 dadams
@@ -2610,6 +2620,9 @@ option.  Currently this means `M-s i' (`isearch-toggle-invisible') and
 (defvar isearchp-last-quit-regexp-search nil
   "Last successful search regexp when you hit `C-g' to quit regexp Isearch.")
 
+(defvar isearchp--lazy-hlt-filter-failures-p t ; Used only for Emacs 25+
+  "Non-nil means lazy-highlight filter failures.")
+
 (when (> emacs-major-version 21)
 
   (defvar isearchp-nomodify-action-hook nil
@@ -2995,7 +3008,7 @@ Note: You cannot use `DEL' (Backspace) to remove the failed portion of
     (if (or isearch-success  isearchp--repeat-search-if-fail-repeated)
         (setq isearchp--repeat-search-if-fail-repeated  nil)
       (unless isearchp--repeat-search-if-fail-repeated
-        (setq isearch-wrapped                     t
+        (setq isearch-wrapped                           t
               isearchp--repeat-search-if-fail-repeated  t)
         (if isearch-wrap-function
             (funcall isearch-wrap-function)
@@ -4152,6 +4165,26 @@ See command `isearch-forward-regexp' for more information."
            (call-interactively #'multi-isearch-buffers-regexp))
           (t (isearch-mode nil (null arg) nil (not no-recursive-edit))))))
 
+(when (fboundp 'region-noncontiguous-p) ; Emacs 25+
+  (defun isearchp-constrain-to-rectangular-region ()
+    "Advise search not to match outside active rectangular region.
+This has no effect if `isearchp-restrict-to-region-flag' is nil or the region is contiguous."
+    (when (and isearchp-reg-beg  (fboundp 'region-noncontiguous-p)  (region-noncontiguous-p))
+      (let ((region-bounds  (mapcar (lambda (posn) (cons (copy-marker (car posn)) (copy-marker (cdr posn))))
+                                    (funcall region-extract-function 'bounds)))
+            (min            most-positive-fixnum)
+            (max            0))
+        (dolist (c1.c2  region-bounds)
+          (setq min  (min min (car c1.c2))
+                max  (max max (cdr c1.c2))))
+        (setq min  (save-excursion (goto-char min) (current-column))
+              max  (save-excursion (goto-char max) (current-column)))
+        (let ((isearchp-prompt-for-filter-name               nil)
+              (isearchp-prompt-for-prompt-prefix-flag        nil)
+              (isearchp-update-filter-predicates-alist-flag  nil))
+          (setq isearchp--lazy-hlt-filter-failures-p  nil)
+          (isearchp-add-filter-predicate (isearchp-columns-p min max)))))))
+
 
 ;; REPLACE ORIGINAL in `isearch.el'.
 ;;
@@ -4179,64 +4212,66 @@ Non-nil argument REGEXP-FUNCTION:
 
  * If not a function (or if Emacs < 25), search for a sequence of
    words, ignoring punctuation."
-  (setq isearch-forward                  forward ; Initialize global vars.
-        isearch-regexp                   (or regexp  (and (not regexp-function)
-                                                          (boundp 'search-default-regexp-mode)
-                                                          (eq t search-default-regexp-mode)))
-        isearch-regexp-function          (or regexp-function  (and (boundp 'search-default-regexp-mode)
-                                                                   (functionp search-default-regexp-mode)
-                                                                   (not regexp)
-                                                                   search-default-regexp-mode))
-        isearch-op-fun                   op-fun
-        isearch-last-case-fold-search    isearch-case-fold-search
-        isearch-case-fold-search         case-fold-search
-        isearch-invisible                search-invisible
-        isearch-string                   ""
-        isearch-message                  ""
-        isearch-cmds                     ()
-        isearch-success                  t
-        isearch-wrapped                  nil
-        isearch-barrier                  (point)
-        isearch-adjusted                 nil
-        isearch-yank-flag                nil
-        isearch-invalid-regexp           nil ; Only for Emacs < 22.
-        isearch-within-brackets          nil ; Only for Emacs < 22.
-        isearch-error                    nil
-        isearch-slow-terminal-mode       (and (<= baud-rate search-slow-speed)
-                                              (> (window-height) (* 4 (abs search-slow-window-lines))))
-        isearch-other-end                nil
-        isearch-small-window             nil
-        isearch-just-started             t
-        isearch-start-hscroll            (window-hscroll)
-        isearch-opoint                   (point)
-        isearchp-win-pt-line             (- (line-number-at-pos) (line-number-at-pos (window-start)))
-        isearchp-reg-beg                 (save-restriction
-                                           (widen)
-                                           (if (and (boundp 'isearchp-restrict-to-region-flag)
-                                                    isearchp-restrict-to-region-flag
-                                                    (use-region-p))
-                                               (region-beginning)
-                                             nil))
-        isearchp-reg-end                 (save-restriction
-                                           (widen)
-                                           (if (and (boundp 'isearchp-restrict-to-region-flag)
-                                                    isearchp-restrict-to-region-flag
-                                                    (use-region-p))
-                                               (region-end)
-                                             nil))
-        search-ring-yank-pointer         nil
-        isearch-opened-overlays          ()
-        isearch-input-method-function    input-method-function
-        isearch-input-method-local-p     (local-variable-p 'input-method-function)
-        regexp-search-ring-yank-pointer  nil
+  (setq isearch-forward                              forward ; Initialize global vars.
+        isearch-regexp                               (or regexp  (and (not regexp-function)
+                                                                      (boundp 'search-default-regexp-mode)
+                                                                      (eq t search-default-regexp-mode)))
+        isearch-regexp-function                      (or regexp-function  (and (boundp 'search-default-regexp-mode)
+                                                                               (functionp search-default-regexp-mode)
+                                                                               (not regexp)
+                                                                               search-default-regexp-mode))
+        isearch-op-fun                               op-fun
+        isearch-last-case-fold-search                isearch-case-fold-search
+        isearch-case-fold-search                     case-fold-search
+        isearch-invisible                            search-invisible
+        isearch-string                               ""
+        isearch-message                              ""
+        isearch-cmds                                 ()
+        isearch-success                              t
+        isearch-wrapped                              nil
+        isearch-barrier                              (point)
+        isearch-adjusted                             nil
+        isearch-yank-flag                            nil
+        isearch-invalid-regexp                       nil ; Only for Emacs < 22.
+        isearch-within-brackets                      nil ; Only for Emacs < 22.
+        isearch-error                                nil
+        isearch-slow-terminal-mode                   (and (<= baud-rate search-slow-speed)
+                                                          (> (window-height) (* 4 (abs search-slow-window-lines))))
+        isearch-other-end                            nil
+        isearch-small-window                         nil
+        isearch-just-started                         t
+        isearch-start-hscroll                        (window-hscroll)
+        isearch-opoint                               (point)
+        isearchp-win-pt-line                         (- (line-number-at-pos) (line-number-at-pos (window-start)))
+        isearchp-reg-beg                             (save-restriction
+                                                       (widen)
+                                                       (if (and (boundp 'isearchp-restrict-to-region-flag)
+                                                                isearchp-restrict-to-region-flag
+                                                                (use-region-p))
+                                                           (region-beginning)
+                                                         nil))
+        isearchp-reg-end                             (save-restriction
+                                                       (widen)
+                                                       (if (and (boundp 'isearchp-restrict-to-region-flag)
+                                                                isearchp-restrict-to-region-flag
+                                                                (use-region-p))
+                                                           (region-end)
+                                                         nil))
+        search-ring-yank-pointer                     nil
+        isearch-opened-overlays                      ()
+        isearch-input-method-function                input-method-function
+        isearch-input-method-local-p                 (local-variable-p 'input-method-function)
+        regexp-search-ring-yank-pointer              nil
         ;; Save original value of `ring-bell-function', then set it to `isearchp-ring-bell-function'.
-        isearchp-orig-ring-bell-fn       ring-bell-function
-        ring-bell-function               isearchp-ring-bell-function
+        isearchp-orig-ring-bell-fn                   ring-bell-function
+        ring-bell-function                           isearchp-ring-bell-function
         ;; Save original value of `minibuffer-message-timeout'.
         ;; Then reset it to nil, so Isearch messages do not time-out.
-        isearch-original-minibuffer-message-timeout (and (boundp 'minibuffer-message-timeout)
-                                                         minibuffer-message-timeout)
-        minibuffer-message-timeout       nil)
+        isearch-original-minibuffer-message-timeout  (and (boundp 'minibuffer-message-timeout)
+                                                          minibuffer-message-timeout)
+        minibuffer-message-timeout                   nil
+        isearchp--lazy-hlt-filter-failures-p         t)
+  (when (fboundp 'isearchp-constrain-to-rectangular-region) (isearchp-constrain-to-rectangular-region))
   (when (and (boundp 'isearchp-deactivate-region-flag)  isearchp-deactivate-region-flag) ; Emacs 24.3+
     (deactivate-mark))
   ;; Bypass input method while reading key.  When a user types a printable char, appropriate
@@ -4299,8 +4334,7 @@ If `isearchp-auto-keep-filter-predicate-flag' is non-nil then set
 ;;
 ;; Restore cursor position relative to window (`isearchp-win-pt-line').  Fixes Emacs bug #12253.
 ;;
-(cond ((or (> emacs-major-version 23)   ; Emacs 23.2+
-           (and (= emacs-major-version 23)  (> emacs-minor-version 1)))
+(cond ((or (> emacs-major-version 23)  (and (= emacs-major-version 23)  (> emacs-minor-version 1))) ; Emacs 23.2+
        (defun isearch-cancel ()
          "Terminate the search and go back to the starting point."
          (interactive)
@@ -4662,7 +4696,7 @@ If SPACE-BEFORE is non-nil,  put a space before, instead of after it."
 ;; 1. Highlight message according to search characteristics.
 ;; 2. Reverse the order of the filter prefixes.
 ;;
-(when (or (> emacs-major-version 24)  (and (= emacs-major-version 24)  (> emacs-minor-version 2)))
+(when (or (> emacs-major-version 24)  (and (= emacs-major-version 24)  (> emacs-minor-version 2))) ; Emacs 24.3+
 
   (defun isearch-message-prefix (&optional ellipsis nonincremental)
     ;; If about to search, and previous search regexp was invalid, check that it still is.
@@ -5027,7 +5061,7 @@ You need library `character-fold+.el' for this command."
   )
 
 
-(when (< emacs-minor-version 24)        ; OK for Emacs 20-23, so far.
+(when (< emacs-major-version 24)        ; OK for Emacs 20-23, so far.
 
 
   ;; REPLACE ORIGINAL in `isearch.el'.
@@ -5208,11 +5242,14 @@ Attempt to do the search exactly the way the pending Isearch would."
               ;; Check filter predicate.  If `isearchp-lazy-dim-filter-failures-flag' is non-nil
               ;; then set face according to filter success.  Otherwise, clear RETRY if filter succeeded. 
               (setq filter-OK  (funcall isearch-filter-predicate (match-beginning 0) (match-end 0)))
-              (if (and (boundp 'isearchp-lazy-dim-filter-failures-flag)
-                       isearchp-lazy-dim-filter-failures-flag)
-                  (setq isearchp-lazy-highlight-face  (if filter-OK 'lazy-highlight dim-face))
-                (setq isearchp-lazy-highlight-face  'lazy-highlight)
-                (when filter-OK (setq retry  nil)))))
+              (let ((dimming  (and (boundp 'isearchp-lazy-dim-filter-failures-flag)
+                                   isearchp-lazy-dim-filter-failures-flag)))
+                (setq isearchp-lazy-highlight-face  (if dimming
+                                                        (if filter-OK
+                                                            'lazy-highlight
+                                                          (and isearchp--lazy-hlt-filter-failures-p  dim-face))
+                                                      'lazy-highlight))
+                (when (and (not dimming)  filter-OK) (setq retry  nil)))))
           success)
       (error nil)))
 
@@ -5980,8 +6017,8 @@ DISTANCE is a cons returned by function `isearchp-read-measure'."
            (save-match-data (re-search-forward ,pattern (min (point-max) unit-pos) t))))))
 
   (defun isearchp-columns (min max &optional flip-read-name-p flip-read-prefix-p msgp) ; `C-z c'
-    "Add a predicate that restrict searching between two columns (inclusive).
-You are prompted for the minumum and maximum columns, in that order.
+    "Add predicate that restricts search between two columns (inclusive).
+You are prompted for the minimum and maximum columns, in that order.
 Defaults: 0 for the minimum, largest integer for the maximum.
 Example: Enter 71 as min, default as max, to search past column 70.
 
@@ -6625,9 +6662,7 @@ This is used only for Transient Mark mode."
        'minor-mode-alist
        `(isearch-mode ,(cond ((and isearch-wrapped  (facep 'isearchp-overwrapped)
                                    (not isearch-wrap-function)
-                                   (if isearch-forward
-                                       (> (point) isearch-opoint)
-                                     (< (point) isearch-opoint)))
+                                   (if isearch-forward (> (point) isearch-opoint) (< (point) isearch-opoint)))
                               (propertize lighter 'face 'isearchp-overwrapped))
                              ((and isearch-wrapped  (facep 'isearchp-wrapped))
                               (propertize lighter 'face 'isearchp-wrapped))

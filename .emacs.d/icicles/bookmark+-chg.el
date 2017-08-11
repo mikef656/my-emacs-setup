@@ -6,9 +6,9 @@
 ;; Maintainer: Drew Adams (concat "drew.adams" "@" "oracle" ".com")
 ;; Copyright (C) 2000-2017, Drew Adams, all rights reserved.
 ;; Created: Fri Sep 15 07:58:41 2000
-;; Last-Updated: Wed Jul 19 21:45:08 2017 (-0700)
+;; Last-Updated: Mon Jul 31 16:50:07 2017 (-0700)
 ;;           By: dradams
-;;     Update #: 16343
+;;     Update #: 16346
 ;; URL: https://www.emacswiki.org/emacs/download/bookmark%2b-chg.el
 ;; Doc URL: http://www.emacswiki.org/BookmarkPlus
 ;; Keywords: bookmarks, bookmark+
@@ -146,6 +146,12 @@
  
 ;;;(@* "CHANGE LOG FOR `bookmark+-1.el'")
 ;;
+;; 2017/07/31 dadams
+;;     bmkp-find-file-invoke-bookmark-if-autofile:
+;;       Bind bmkp-autofile-access-invokes-bookmark-flag to nil while jumping to the bookmark.
+;; 2017/07/30 dadams
+;;     Added: bmkp-autofile-access-invokes-bookmark-flag, bmkp-find-file-invoke-bookmark-if-autofile.
+;;     bmkp-get-bookmark-in-alist: Use arg ALIST (was neglected).
 ;; 2017/07/19 dadams
 ;;     Put back bmkp-info-cp, as an obsolete alias, temporarily.
 ;; 2017/07/03 dadams

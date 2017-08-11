@@ -6,9 +6,9 @@
 ;; Maintainer: Drew Adams (concat "drew.adams" "@" "oracle" ".com")
 ;; Copyright (C) 1996-2017, Drew Adams, all rights reserved.
 ;; Created: Mon Feb 27 09:25:04 2006
-;; Last-Updated: Fri Jul  7 05:55:50 2017 (-0700)
+;; Last-Updated: Fri Aug 11 10:06:06 2017 (-0700)
 ;;           By: dradams
-;;     Update #: 27519
+;;     Update #: 27536
 ;; URL: https://www.emacswiki.org/emacs/download/icicles-cmd1.el
 ;; Doc URL: https://www.emacswiki.org/emacs/Icicles
 ;; Keywords: extensions, help, abbrev, local, minibuffer,
@@ -445,7 +445,7 @@
 ;;  navigate around the sections of this doc.  Linkd mode will
 ;;  highlight this Index, as well as the cross-references and section
 ;;  headings throughout this file.  You can get `linkd.el' here:
-;;  http://www.emacswiki.org/emacs/download/linkd.el.
+;;  https://www.emacswiki.org/emacs/download/linkd.el.
 ;;
 ;;  (@> "Internal Variables (alphabetical)")
 ;;  (@> "Macros")
@@ -7749,7 +7749,7 @@ snapshot.
 
 To use this command, you must have loaded library `color-theme.el',
 available from http://www.nongnu.org/color-theme.  See also:
-http://www.emacswiki.org/ColorTheme."   ; Doc string
+https://www.emacswiki.org/emacs/ColorThemes."   ; Doc string
   (lambda (theme)
     (when (string= "" theme) (icicle-user-error "No color theme name entered (empty input)"))
     (funcall  (intern theme)))          ; Action function: just call the theme.
@@ -9602,7 +9602,9 @@ Return non-nil if the current multi-completion INPUT matches FILE-NAME."
            ;; Do this to ensure we visit only the `icicle-completion-candidates' already determined so far.
            (or (not icicle-narrow-regexp)  (icicle-string-match-p icicle-narrow-regexp file))
            (or (not date-pat)  (not date)  (icicle-string-match-p date-pat date))
-           (or (and find-file-run-dired  icicle-file-search-dir-as-dired-flag)  (not (file-directory-p file)))
+           ;; Do not match dir unless `find-file-run-dired' and either not content-searching or OK to search dirs.
+           (or (not (file-directory-p file))
+               (and find-file-run-dired  (or (equal "" content-pat)  icicle-file-search-dir-as-dired-flag)))
            (or (equal "" content-pat)
                (run-hook-with-args-until-success 'icicle-file-skip-functions file)
                (and (let* ((dir-p   (file-directory-p file))
