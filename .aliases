@@ -34,6 +34,7 @@ alias gs            'git status'
 alias gc            'git commit'
 alias ga            'git add'
 alias gl            'git log --name-status -5'
+#--alias precmd 'set prompt = "[%m:${GIT_VIEW_PATH:t}:${PROJ_HOME:t}]%#%# "'
 
 #------------------------------------------------------------------------
 # Clearcase aliases
@@ -99,5 +100,7 @@ alias cdrwsim 'cd ~/bt_le_zip_extract/rw-dm-hw-v8_0_15/HW/IPs/BTDM/HW/rw_btdm_to
 alias cdbuild 'cd $GIT_ROOT/ic_designs/s5c2_bb/par/vivado/xc7z045'
 
 # build related
-alias buildme 'runviv ./scripts/s5c2_bb.cfg'
+alias buildme_s5c2 'runviv ./scripts/s5c2_bb.cfg'
+alias buildme_m4   'runviv -clean ../scripts/m4c8.cfg'
+alias cdm4c8build 'cd $PROJ_HOME/par/vivado/xc7vx485t/m4c8_no_sata/build/'
 
