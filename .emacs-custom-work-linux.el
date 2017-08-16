@@ -540,9 +540,12 @@
    (quote
     (dired-do-create-files grep-read-files expand-file-name dired-create-files)))
  '(ido-use-filename-at-point nil)
+ '(isearchp-deactivate-region-flag nil)
+ '(isearchp-highlight-regexp-group-levels-flag nil)
  '(isearchp-initiate-edit-commands
    (quote
     (backward-delete-char-untabify backward-char left-char backward-sexp backward-word left-word previous-line next-line del-word-backwards-mike up)))
+ '(isearchp-set-region-flag t)
  '(iswitchb-default-method (quote maybe-frame))
  '(iswitchb-use-virtual-buffers t nil (recentf))
  '(max-lisp-eval-depth 600)
