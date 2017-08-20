@@ -1,5 +1,4 @@
-﻿
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+﻿;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; global minor mode or bindkey for keymap
 ;https://emacs.stackexchange.com/
 ;questions/352/how-to-override-major-mode-bindings
@@ -273,6 +272,7 @@
       ;home pc
       ((equal "home_pc" (getenv "myenv"))
        (setq custom-file "~/.emacs-custom-home.el")
+       ;(setq custom-file "~/.emacs-custom-work-linux.el")
        (setq home-work 'home)
        (setq bmkp-last-as-first-bookmark-file "~/my-emacs.bmk")
        (setq path-to-desktop "c:/Users/family/Desktop/"))
@@ -294,7 +294,7 @@
        ;(setq bmkp-last-as-first-bookmark-file "~/my-emacs.bmk")))
        ;
     (when ( and load-essentials_1 load-custom-file)
-      (load custom-file 'noerror)))
+      (load custom-file 'noerror) ))
     ;
   (message "--Error trouble loading custom file"))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

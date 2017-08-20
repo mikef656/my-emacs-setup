@@ -114,7 +114,7 @@
  '(cua-rectangle-mark-key [C-f1])
  '(custom-safe-themes
    (quote
-    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+    ("d8cec8251169ccfe192aa87d69b9378bc81599330f31498f85deaef633721302" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(debug-on-error t)
  '(default-frame-alist
     (quote
@@ -566,10 +566,6 @@
  '(projectile-mode nil)
  '(reb-re-syntax (quote string))
  '(rebox-min-fill-column 80)
- '(safe-local-variable-values
-   (quote
-    ((clearcase-version-stamp-active . t)
-     (folded-file . t))) nil ((save-interprogram-paste-before-kill t)))
  '(savehist-additional-variables
    (quote
     (sr-history-registry urls-cached svn-ls-output-as-big-strings-list filesets-data)))
@@ -585,24 +581,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ace-jump-face-foreground ((t (:foreground "yellow" :weight ultra-bold))))
- '(aw-leading-char-face ((t (:background "white" :foreground "red"))))
- '(bmkp-heading ((t (:foreground "azure1"))))
- '(bmkp-local-directory ((t (:background "#4c7073" :foreground "#dcdccc"))))
- '(bmkp-local-file-without-region ((t (:foreground "#dcdccc"))))
- '(bmkp-non-file ((t (:background "dark green" :foreground "white"))))
- '(bmkp-t-mark ((t (:foreground "medium spring green"))))
- '(ediff-current-diff-B ((t (:background "#3f3f4d"))))
- '(ediff-fine-diff-B ((t (:background "#3f3fCA"))))
- '(lazy-highlight ((t (:inherit isearch))))
- '(mode-line ((t (:background "#1e2320" :foreground "#acbc90" :inverse-video nil :box (:line-width 2 :color "#1e2320") :height 1.0 :width normal))))
- '(replacep-msg-emphasis ((t (:foreground "red"))))
- '(replacep-msg-emphasis2 ((t (:foreground "yellow"))))
- '(sml/filename ((t (:inherit sml/global :foreground "gold" :weight bold))))
- '(sml/folder ((t (:inherit sml/global :background "gray20" :foreground "gold3" :weight normal))))
- '(sml/modes ((t (:foreground "light slate gray"))))
- '(sml/position-percentage ((t (:foreground "light slate gray"))))
- '(sml/vc ((t (:foreground "medium spring green"))))
- '(sml/vc-edited ((t (:foreground "indian red")))))
+ )
 
 
