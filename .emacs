@@ -1735,7 +1735,7 @@
     (ignore-errors ;if an error occurs return nil
     ;
     (add-to-list 'load-path "~/.emacs.d/expand-region/")
-    ;(global-set-key (kbd "C-=") 'er/expand-region)
+    ;(global-set-key (kbd "C-=") 'er/expand-region)
     (require 'expand-region)
     (add-to-list 'load-path "~/.emacs.d/smart-forward/")
     (require 'smart-forward))
@@ -1768,7 +1768,7 @@
 (when  load-elisp-slime-nav
   (unless
     (ignore-errors ;if an error occurs return nil
-    ;
+    ;
     (add-to-list 'load-path "~/.emacs.d/elisp-slime-nav/")
      (require 'elisp-slime-nav)
      (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode))
@@ -1886,7 +1886,7 @@
 ;
 (defun file-cache-save-cache-to-file (file)
   "Save contents of `file-cache-alist to FILE.
-   For later retrieval using `file-cache-read-cache-from-file"
+   For later retrieval using `file-cache-read-cache-from-file"
   (interactive "FFile: ")
   (with-temp-file (expand-file-name file)
     (prin1 file-cache-alist (current-buffer))))
