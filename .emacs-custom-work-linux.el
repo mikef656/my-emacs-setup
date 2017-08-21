@@ -115,7 +115,7 @@
  '(cua-rectangle-mark-key [C-f1])
  '(custom-safe-themes
    (quote
-    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+    ("d8cec8251169ccfe192aa87d69b9378bc81599330f31498f85deaef633721302" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(debug-on-error t)
  '(default-frame-alist
     (quote
@@ -570,10 +570,6 @@
  '(projectile-mode nil)
  '(reb-re-syntax (quote string))
  '(rebox-min-fill-column 80)
- '(safe-local-variable-values
-   (quote
-    ((clearcase-version-stamp-active . t)
-     (folded-file . t))) nil ((save-interprogram-paste-before-kill t)))
  '(savehist-additional-variables
    (quote
     (sr-history-registry urls-cached svn-ls-output-as-big-strings-list filesets-data)))
@@ -609,5 +605,7 @@
  '(sml/position-percentage ((t (:foreground "light slate gray"))))
  '(sml/vc ((t (:foreground "medium spring green"))))
  '(sml/vc-edited ((t (:foreground "indian red")))))
+
+
 
 

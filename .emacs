@@ -272,6 +272,7 @@
       ;home pc
       ((equal "home_pc" (getenv "myenv"))
        (setq custom-file "~/.emacs-custom-home.el")
+       ;(setq custom-file "~/.emacs-custom-work-linux.el")
        (setq home-work 'home)
        (setq bmkp-last-as-first-bookmark-file "~/my-emacs.bmk")
        (setq path-to-desktop "c:/Users/family/Desktop/"))
@@ -293,8 +294,13 @@
        ;(setq bmkp-last-as-first-bookmark-file "~/my-emacs.bmk")))
        ;
     (when ( and load-essentials_1 load-custom-file)
+<<<<<<< HEAD
       (load custom-file 'noerror)))
        ;
+=======
+      (load custom-file 'noerror) ))
+    ;
+>>>>>>> 06812e0346573878078189f152587b3af59fc196
   (message "--Error trouble loading custom file"))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
