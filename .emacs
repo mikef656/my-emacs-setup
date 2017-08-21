@@ -294,14 +294,9 @@
        ;(setq bmkp-last-as-first-bookmark-file "~/my-emacs.bmk")))
        ;
     (when ( and load-essentials_1 load-custom-file)
-<<<<<<< HEAD
-      (load custom-file 'noerror)))
-       ;
-=======
-      (load custom-file 'noerror) ))
+      (load custom-file 'message)))
     ;
->>>>>>> 06812e0346573878078189f152587b3af59fc196
-  (message "--Error trouble loading custom file"))
+  (noerror "--Error trouble loading custom file"))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
