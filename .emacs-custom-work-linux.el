@@ -70,7 +70,7 @@
  '(auto-revert-verbose nil)
  '(avy-all-windows t)
  '(avy-keys (quote (97 111 101 117 104 116 110 115 99 114 103 112 46)))
- '(avy-timeou-seconds 1.5)
+ '(avy-timeout-seconds 1.5)
  '(beacon-blink-when-point-moves-horizontally nil)
  '(beacon-blink-when-point-moves-vertically 3)
  '(beacon-lighter "")
@@ -545,7 +545,7 @@
  '(isearchp-initiate-edit-commands
    (quote
     (backward-delete-char-untabify backward-char left-char backward-sexp backward-word left-word previous-line next-line del-word-backwards-mike up)))
- '(isearchp-set-region-flag t)
+ '(isearchp-set-region-flag nil)
  '(iswitchb-default-method (quote maybe-frame))
  '(iswitchb-use-virtual-buffers t nil (recentf))
  '(max-lisp-eval-depth 600)

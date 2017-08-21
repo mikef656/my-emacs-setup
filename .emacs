@@ -294,7 +294,7 @@
        ;
     (when ( and load-essentials_1 load-custom-file)
       (load custom-file 'noerror)))
-    ;
+       ;
   (message "--Error trouble loading custom file"))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

@@ -1004,6 +1004,19 @@ Ido-like behavior."                     ; Doc string
 ; custimization.
 (setq icicle-default-value  t)
 
+;
+; Again should not have to do this here a couple of problems
+; - when I customize this face, it wipes out the other customizations
+; - The same is true for all customizations, seems like I have an issue
+; in my custom file.
+; - If I "fix it' manualy, the fix does not seem to be accpted by icicles
+; (the face color changed does not seem to take affect).
+
+; this does not work when I start emacs fresh
+;(set-face-attribute 'isearchp-lazy-odd-regexp-groups nil
+; :background "blue")
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "Reached the end of my-icicle-setup.el")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
