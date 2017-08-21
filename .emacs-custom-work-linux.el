@@ -567,7 +567,7 @@
    (quote
     (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".Xil")))
  '(projectile-indexing-method (quote alien))
- '(projectile-mode nil)
+ '(projectile-mode nil nil (projectile))
  '(reb-re-syntax (quote string))
  '(rebox-min-fill-column 80)
  '(savehist-additional-variables
@@ -594,8 +594,8 @@
  '(bmkp-t-mark ((t (:foreground "medium spring green"))))
  '(ediff-current-diff-B ((t (:background "#3f3f4d"))))
  '(ediff-fine-diff-B ((t (:background "#3f3fCA"))))
- '(lazy-highlight ((t (:inherit isearch))))
  '(isearchp-lazy-odd-regexp-groups ((t (:background "blue"))))
+ '(lazy-highlight ((t (:inherit isearch))))
  '(mode-line ((t (:background "#1e2320" :foreground "#acbc90" :inverse-video nil :box (:line-width 2 :color "#1e2320") :height 1.0 :width normal))))
  '(replacep-msg-emphasis ((t (:foreground "red"))))
  '(replacep-msg-emphasis2 ((t (:foreground "yellow"))))
