@@ -521,6 +521,7 @@
 ;  
 (setq load-my-mode              (and t   load-essentials_5))
 (setq load-ack-and-a-half       (and t   load-essentials_5))
+(setq load-narrow-indirect      (and t   load-essentials_5))
 (setq load-start-menu-at-init   (and nil load-essentials_5))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -3146,6 +3147,17 @@
     (defalias 'ack-find-file-same 'ack-and-a-half-find-file-same)
     t)
   (message "--Error in load-ack-an-a-half")))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(message "reached before load narrow-indirect")
+(when  load-narrow-indirect
+  (unless 
+    (ignore-errors ;if an error occurs return nil
+    (add-to-list 'load-path "~/.emacs.d/narrow-indirect/")
+    (require 'narrow-indirect)
+    t)
+  (message "--Error in load-narrow-indirect")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
