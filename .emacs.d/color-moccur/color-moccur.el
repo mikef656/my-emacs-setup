@@ -2005,7 +2005,10 @@ It serves as a menu to find any of the occurrences in this buffer.
   ;
   ;mtf
   ;; (setq pop-up-frames nil)
-  (let ((pop-up-frames nil)
+  ;; (let ((pop-up-frames nil)
+  ; want the seperate moccur buffer as it's own frame
+  ; why did I set pop-up-frames nil
+  (let ((pop-up-frames t)
         (icicle-default-value nil))
   (moccur-setup)
   (setq moccur-last-command 'moccur)
