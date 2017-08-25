@@ -2448,7 +2448,9 @@ It serves as a menu to find any of the occurrences in this buffer.
   ;MTF
   (setq my-last-visit-buf-moc nil)  
   ;(setq pop-up-frames nil)
-  (let ( (icicle-default-value nil) (pop-up-frames nil))
+  ;; (let ( (icicle-default-value nil) (pop-up-frames nil))
+  ;; MTF: Why did I set pop-up-frames to nil??
+  (let ( (icicle-default-value nil) (pop-up-frames t))
   (moccur-setup)
   (setq moccur-last-command 'moccur-grep-find)
   ;
@@ -2537,7 +2539,8 @@ It serves as a menu to find any of the occurrences in this buffer.
   ;MTF
   (setq my-last-visit-buf-moc nil)  
   ;(setq pop-up-frames nil)
-  (let ( (icicle-default-value nil) (pop-up-frames nil))
+  ;; (let ( (icicle-default-value nil) (pop-up-frames nil))
+  (let ( (icicle-default-value nil) (pop-up-frames t))
   (moccur-setup)
   (setq moccur-last-command 'moccur-grep-find)
   ;
@@ -3292,7 +3295,9 @@ It serves as a menu to find any of the occurrences in this buffer.
                 (message "selecting <%s> line %d" line lineno)
               (message "selecting <%s>" line))
             ;; mtf (pop-to-buffer dstbuf)
-            (switch-to-buffer dstbuf)
+            ;; (switch-to-buffer dstbuf)
+            ;;MTF try this:
+            (switch-to-buffer-other-frame dstbuf)
             (if lineno
                 (goto-line lineno))
 
