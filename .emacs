@@ -169,8 +169,17 @@
   ;Return new list\w only the members of list that are not in list2. The test
   ;for equality is done with equal, or with -compare-fn if that's non-nil.
 ;
-;Alist helper KV means "key value"
-;https://github.com/nicferrier/emacs-kv
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Interesting Libs
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;* Alist helper KV means "key value"
+; https://github.com/nicferrier/emacs-kv
+;
+;* Map library in emacs 25.2, maps over all data types
+; http://irreal.org/blog/?p=6535
+;
+;* Hash table library
+; http://irreal.org/blog/?p=6525
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; emacs and perl regex compared
