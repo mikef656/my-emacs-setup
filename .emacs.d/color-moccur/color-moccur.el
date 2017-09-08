@@ -65,7 +65,7 @@
 ;; moccur, dmoccur, dired-do-moccur, Buffer-menu-moccur,
 ;; grep-buffers, search-buffers, occur-by-moccur
 ;; isearch-moccur
-;; moccur-grep, moccur-grep-find
+;; moccur-rep, moccur-grep-find
 
 ;;; usage:moccur
 ;; moccur <regexp> shows all occurrences of <regexp> in all buffers
@@ -3289,7 +3289,8 @@ It serves as a menu to find any of the occurrences in this buffer.
                 (message "selecting <%s> line %d" line lineno)
               (message "selecting <%s>" line))
             ;; mtf (pop-to-buffer dstbuf)
-            (switch-to-buffer dstbuf)
+            ;; (switch-to-buffer-other-frame dstbuf)
+            (switch-to-buffer-other-frame dstbuf)
             (if lineno
                 (goto-line lineno))
 
