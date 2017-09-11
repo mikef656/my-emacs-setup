@@ -356,7 +356,7 @@
 (setq load-oneonone                     (and t load-icicles_helpers_1))
 ;
 ;make this nil for light themes
-(setq load-oneonone-params              (and nil load-icicles_helpers_1));fix bad backgrounds in light themes
+(setq load-oneonone-params              (and t load-icicles_helpers_1));fix bad backgrounds in light themes
 ;
 (setq load-icicles-iswitchb             (and t load-icicles_helpers_2));
 (setq load-replace+                     (and t load-icicles_helpers_3));
@@ -3121,6 +3121,7 @@
     t)
   (message "--Error in load-tramp-settings")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "reached before load my-mode")
