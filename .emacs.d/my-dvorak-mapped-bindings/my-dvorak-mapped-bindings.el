@@ -16,7 +16,8 @@
 (define-key isearch-mode-map [(meta r)] 'forward-word)
 (define-key isearch-mode-map [(meta n)] 'forward-char)
 (define-key isearch-mode-map [(meta h)] 'backward-char)        
-(define-key isearch-mode-map "\C-?" 'avy-isearch)
+; C-? is delete, don't mess with it
+;(define-key isearch-mode-map "\C-?" 'avy-isearch)
 
 (define-key isearch-mode-map "\C-v" 'isearch-yank-kill)
 (define-key isearch-mode-map (kbd "C-S-v") 'isearch-yank-pop)
