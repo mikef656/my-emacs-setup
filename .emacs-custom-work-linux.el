@@ -593,7 +593,7 @@
  '(bmkp-non-file ((t (:background "dark green" :foreground "white"))))
  '(bmkp-t-mark ((t (:foreground "medium spring green"))))
  '(ediff-current-diff-B ((t (:background "#3f3f4d"))))
- '(ediff-fine-diff-B ((t (:background "#3f3fCA"))))
+ '(ediff-fine-diff-B ((t (:background "#22ff22")))))
  '(isearchp-lazy-odd-regexp-groups ((t (:background "blue"))))
  '(lazy-highlight ((t (:inherit isearch))))
  '(mode-line ((t (:background "#1e2320" :foreground "#acbc90" :inverse-video nil :box (:line-width 2 :color "#1e2320") :height 1.0 :width normal))))
