@@ -357,9 +357,13 @@ save to kill ring. In sunrise do the same 4 the file or dir pointed to"
   (interactive)
   (beginning-of-buffer)                 
   (forward-word)                 
-  (dired-details-toggle)
+  ; no more dired-details after 24.3
+  (if ( and (>= emacs-major-version 24 ) (> emacs-minor-version 3))
+    (dired-details-toggle))
   (thing-copy-line)
-  (dired-details-toggle)
+  ; no more dired-details after 24.3
+  (if ( and (>= emacs-major-version 24 ) (> emacs-minor-version 3))
+    (dired-details-toggle))
   (clean-up-dired-cap-first-line)
   (unless no-message
     (message mystrNew))
