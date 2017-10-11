@@ -6,6 +6,9 @@ file mkdir $OUTPUT_DIR
 # set part
 set PART_NM xc7vx485tffg1157-2
 
+# set top level (used to tell synthesis what top level to build)
+set TOP_LEVEL psd_fftcore_f4
+
 # create a project
 create_project -in_memory myproj "."
 
@@ -61,7 +64,7 @@ read_xdc ./constraints.xdc
 
 # run synthesis
 # synth_design -top psd_engine_wrapper -part $PART_NM
-synth_design -top psd_fftcore_f4 -part $PART_NM
+synth_design -top $TOP_LEVEL -part $PART_NM
 #
 # write checkpoint design   
 write_checkpoint -force $outputDir/post_synth
