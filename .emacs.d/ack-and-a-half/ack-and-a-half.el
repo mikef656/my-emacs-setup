@@ -238,6 +238,7 @@ confirmed.  If t, then always prompt for the directory to use."
     (vb-mode "vb")
     (vim-mode "vim")
     (verilog-mode "verilog")
+    (vhdl-mode "hdl")
     (xml-mode "xml")
     (yaml-mode "yaml"))
   "Default values for `ack-and-a-half-mode-type-alist'.")
