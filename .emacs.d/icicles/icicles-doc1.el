@@ -6,9 +6,9 @@
 ;; Maintainer: Drew Adams (concat "drew.adams" "@" "oracle" ".com")
 ;; Copyright (C) 1996-2017, Drew Adams, all rights reserved.
 ;; Created: Tue Aug  1 14:21:16 1995
-;; Last-Updated: Wed Jul 26 08:39:34 2017 (-0700)
+;; Last-Updated: Mon Oct 16 06:50:02 2017 (-0700)
 ;;           By: dradams
-;;     Update #: 28589
+;;     Update #: 28617
 ;; URL: https://www.emacswiki.org/emacs/download/icicles-doc1.el
 ;; Doc URL: https://www.emacswiki.org/emacs/Icicles
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
@@ -504,11 +504,20 @@
 ;;  can do that by using item Help of the menu-bar Icicles menu or
 ;;  Minibuf menu, or by hitting `M-?' (`icicle-minibuffer-help').
 ;;
-;;  (To see the keys that are bound when you are in the minibuffer,
-;;  you can also use `M-S-TAB', which completes keys in the
-;;  minibuffer.  If your window manager steals `M-S-TAB' then try `ESC
-;;  S-TAB' or customize option
+;;  In addition to `M-?', you can get help on all of the keys that
+;;  Icicles binds when you are in the minibuffer.  This is important,
+;;  particularly during completion, because keys are available that
+;;  change the behavior of completion or that provide additional help
+;;  on completion candidates.  To see the keys bound in the
+;;  minibuffer, use `M-S-TAB'.  This actually *completes* keys in the
+;;  minibuffer, so you can use it also as an entry point to executing
+;;  commands whose keys or names you don't recall.  (If your window
+;;  manager steals `M-S-TAB' then try `ESC S-TAB' or customize option
 ;;  `icicle-key-complete-keys-for-minibuffer'.)
+;;
+;;  So just remember those two keys, `M-?' and `M-S-TAB', to be able
+;;  to remind yourself about all of the crazy stuff that Icicles lets
+;;  you do in the minibuffer.
 ;;
 ;;  You now know enough to use Icicles.  If you have doc-phobia or are
 ;;  easily overwhelmed by explanations, then *read no more* - just try
@@ -755,12 +764,18 @@
 ;;  `ici*.el' files, file `my file.txt', and file `bookmark+.el', just
 ;;  as if you had used `C-x 4 f' three separate times [*]:
 ;;
-;;    C-x 4 f  ici*.el  "my file.txt"  bookmark+.el  M-R  C-g
+;;    C-x 4 f  ici*.el  "my file.txt"  bookmark+.el  C-u M-R  C-g
 ;;
 ;;  Your multi-input here is split into separate file-name patterns,
-;;  which are then acted on individually.  You wrap the second pattern
-;;  with "..." because the file name contains a space character, which
-;;  is otherwise used to separate patterns.
+;;  which are then acted on individually.  You use `C-u' with `M-R',
+;;  and you wrap the second pattern with "...", because the file name
+;;  contains a space character, which is otherwise used to separate
+;;  patterns.
+;;
+;;  The prefix argument (`C-u') for `M-R' tells Icicles to respect the
+;;  use of double-quote chars.  Without it, `M-R' would open two
+;;  separate files, `"my' and `file.txt"' (yes, file names can include
+;;  double-quote chars).
 ;;
 ;;  The `C-g' at the end just ends the command.  Without it you can
 ;;  continue to enter the names of more files to visit.  This is
@@ -6464,12 +6479,11 @@
 ;;
 ;;  For example, here are some multi-inputs in a minibuffer:
 ;;
-;;    ici*.el "my file.txt" bookmark+.el
+;;    ici*.el bookmark+.el
 ;;
 ;;  After reading, these are the multi-inputs that can be acted on:
 ;;
 ;;    ici*.el
-;;    my file.txt
 ;;    bookmark+.el
 ;;
 ;;  With `C-x C-f' (`icicle-file'), `M-R' opens each of those input
@@ -6480,6 +6494,14 @@
 ;;  With this feature you can, for instance, select an existing list
 ;;  of file names, yank it into the minibuffer of a file-processing
 ;;  command such as `C-x C-f', and act on each of the files.
+;;
+;;  Since whitespace characters are used to separate multiple inputs,
+;;  what to do if you want an input that includes whitespace
+;;  characters?  For that, just use a prefix argument with `M-R'.  For
+;;  example, to include a file named `my file.txt' you would use this
+;;  and then use `C-u M-R':
+;;
+;;    ici*.el "my file.txt" bookmark+.el
 ;;
 ;;  `M-R' can be used with any minibuffer, not just one that is used
 ;;  for completion.  But the command that reads from the minibuffer
@@ -6844,10 +6866,12 @@
 ;;  That is, you do not need to first type part of a key sequence to
 ;;  use it - you can start with it.  Hit `S-TAB' at any time, and
 ;;  you're completing a key sequence, even if you have not yet hit any
-;;  keys.  This lets you see all key sequences that are available in a
-;;  given context.  For example, in Dired, keys special to that mode
-;;  are included (and are highlighted as local bindings - see
-;;  (@> "Local Bindings and Menu Items Are Highlighted")).
+;;  keys.
+;;
+;;  This lets you see all key sequences that are available in a given
+;;  context.  For example, in Dired, keys special to that mode are
+;;  included (and are highlighted as local bindings - see (@> "Local
+;;  Bindings and Menu Items Are Highlighted")).
 ;;
 ;;  When completing a key sequence, you can type part of a command
 ;;  name, then hit `S-TAB' to apropos-complete against the command
@@ -7150,6 +7174,13 @@
 ;;  the minibuffer: It is actually the keys defined by option
 ;;  `icicle-key-complete-keys-for-minibuffer' that are used -
 ;;  `M-S-TAB' is just the key used by default.
+;;
+;;  `M-S-TAB' works in any minibuffer, whether or not it is reading
+;;  input using completion.  And you can of course use progressive
+;;  completion to pare down the set of matches.  There are lots of
+;;  Icicles minibuffer keys - too many for most people to remember.
+;;  `M-S-TAB' is a great way to see what they are in any given
+;;  context.
 ;;
 ;;(@* "Three-Key Emacs")
 ;;  ** Three-Key Emacs **

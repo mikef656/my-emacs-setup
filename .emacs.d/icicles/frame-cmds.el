@@ -8,13 +8,13 @@
 ;; Created: Tue Mar  5 16:30:45 1996
 ;; Version: 0
 ;; Package-Requires: ((frame-fns "0"))
-;; Last-Updated: Sat May  6 09:46:33 2017 (-0700)
+;; Last-Updated: Sun Oct 22 14:29:09 2017 (-0700)
 ;;           By: dradams
-;;     Update #: 3070
+;;     Update #: 3094
 ;; URL: https://www.emacswiki.org/emacs/download/frame-cmds.el
-;; Doc URL: http://emacswiki.org/FrameModes
-;; Doc URL: http://www.emacswiki.org/OneOnOneEmacs
-;; Doc URL: http://www.emacswiki.org/Frame_Tiling_Commands
+;; Doc URL: https://emacswiki.org/emacs/FrameModes
+;; Doc URL: https://www.emacswiki.org/emacs/OneOnOneEmacs
+;; Doc URL: https://www.emacswiki.org/emacs/Frame_Tiling_Commands
 ;; Keywords: internal, extensions, mouse, frames, windows, convenience
 ;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x
 ;;
@@ -283,6 +283,13 @@
 ;;
 ;;; Change Log:
 ;;
+;; 2017/10/22 dadams
+;;     remove-windows-on: Added optional arg ALL-FRAMES.
+;;                        Just repeat get-buffer-window with ALL-FRAMES until no window.
+;;     delete/iconify-windows-on: Removed second arg to frames-on.
+;; 2017/08/19 dadams
+;;     delete-window: Use with-selected-window for Emacs 22+.
+;;     Updated Emacs-Wiki URLs.
 ;; 2017/05/06 dadams
 ;;     maximize-frame: Sidestep nil frame parameters.
 ;; 2017/02/07 dadams
@@ -599,21 +606,21 @@ frame-cmds.el bug: \
 &body=Describe bug here, starting with `emacs -q'.  \
 Don't forget to mention your Emacs and library versions."))
   :link '(url-link :tag "Other Libraries by Drew"
-          "http://www.emacswiki.org/DrewsElispLibraries")
+          "https://www.emacswiki.org/emacs/DrewsElispLibraries")
   :link '(url-link :tag "Download"
-          "http://www.emacswiki.org/frame-cmds.el")
+          "https://www.emacswiki.org/emacs/frame-cmds.el")
   :link '(url-link :tag "Description - `delete-window'"
-          "http://www.emacswiki.org/FrameModes")
+          "https://www.emacswiki.org/emacs/FrameModes")
   :link '(url-link :tag "Description - Frame Renaming"
-          "http://www.emacswiki.org/FrameTitle")
+          "https://www.emacswiki.org/emacs/FrameTitle")
   :link '(url-link :tag "Description - Frame Resizing"
-          "http://www.emacswiki.org/Shrink-Wrapping_Frames")
+          "https://www.emacswiki.org/emacs/Shrink-Wrapping_Frames")
   :link '(url-link :tag "Description - Frame Customization"
-          "http://www.emacswiki.org/CustomizingAndSaving")
+          "https://www.emacswiki.org/emacs/CustomizingAndSaving")
   :link '(url-link :tag "Description - Frame Tiling"
-          "http://www.emacswiki.org/Frame_Tiling_Commands")
+          "https://www.emacswiki.org/emacs/Frame_Tiling_Commands")
   :link '(url-link :tag "Description - General"
-          "http://www.emacswiki.org/FrameModes")
+          "https://www.emacswiki.org/emacs/FrameModes")
   :link '(emacs-commentary-link :tag "Commentary" "frame-cmds"))
 
 (defcustom rename-frame-when-iconify-flag t
@@ -809,9 +816,13 @@ A negative prefix arg deiconifies all iconified frames."
 ;; If WINDOW is the only one in its frame, `delete-frame'.
 (defadvice delete-window (around delete-frame-if-one-win activate)
   "If WINDOW is the only one in its frame, then `delete-frame' too."
-  (save-current-buffer
-    (select-window (or (ad-get-arg 0)  (selected-window)))
-    (if (one-window-p t) (delete-frame) ad-do-it)))
+  (if (fboundp 'with-selected-window)   ; Emacs 22+
+      (with-selected-window
+          (or (ad-get-arg 0)  (selected-window))
+        (if (one-window-p t) (delete-frame) ad-do-it))
+    (save-current-buffer
+      (select-window (or (ad-get-arg 0)  (selected-window)))
+      (if (one-window-p t) (delete-frame) ad-do-it))))
 
 ;;;###autoload
 (defun delete-windows-for (&optional buffer)
@@ -905,15 +916,18 @@ Only displayed buffers are completion candidates."
 (defalias 'remove-window 'delete-window)
 
 ;;;###autoload
-(defun remove-windows-on (buffer)
-  "Remove all windows showing BUFFER.  This calls `remove-window'
-on each window showing BUFFER."
+(defun remove-windows-on (buffer &optional all-frames)
+  "Remove all windows showing BUFFER.
+This calls `remove-window' on each window showing BUFFER.
+
+When called from Lisp, optional arg ALL-FRAMES controls which frames
+are considered.  See `get-buffer-window' for its interpretation."
   (interactive
-   (list (read-buffer "Remove all windows showing buffer: " (current-buffer) 'existing)))
-  (setq buffer  (get-buffer buffer))     ; Convert to buffer.
+   (list (read-buffer "Remove all windows showing buffer: " (current-buffer) 'existing)
+         t))
+  (setq buffer  (get-buffer buffer))    ; Convert to buffer.
   (when buffer                          ; Do nothing if null BUFFER.
-    (dolist (fr (frames-on buffer t))
-      (remove-window (get-buffer-window buffer t)))))
+    (let (win) (while (setq win  (get-buffer-window buffer all-frames)) (remove-window win)))))
 
 ;;;###autoload
 (defun mouse-remove-window (event)
@@ -996,10 +1010,9 @@ Interactively, FRAME is nil, and FRAME-P depends on the prefix arg:
            'window-dedicated-p)))
   (setq buffer  (get-buffer buffer))     ; Convert to buffer.
   (when buffer                          ; Do nothing if null BUFFER.
-    ;; `get-buffer-window' interprets FRAME oppositely for t and nil,
-    ;; so switch.
+    ;; `get-buffer-window' interprets FRAME oppositely for t and nil, so switch.
     (setq frame  (if (eq t frame) nil (if (eq nil frame) t frame)))
-    (dolist (fr (frames-on buffer frame))
+    (dolist (fr  (frames-on buffer))
       (delete/iconify-window (get-buffer-window buffer frame) frame-p))))
 
 ;;;###autoload
@@ -1135,7 +1148,7 @@ BUFFER may be a buffer or its name (a string)."
   (setq buffer  (get-buffer buffer))
   (save-excursion
     (when (buffer-live-p buffer)        ; Do nothing if dead buffer.
-      (dolist (fr (frames-on buffer))   ; Is it better to search through
+      (dolist (fr  (frames-on buffer))   ; Is it better to search through
         (save-window-excursion          ; `frames-on' or `get-buffer-window-list'?
           (select-frame fr)
           (when (one-window-p t fr) (delete-frame)))))))
