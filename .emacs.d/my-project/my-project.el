@@ -137,6 +137,11 @@
 (defun find-project-file (path-to-project-file)
   "project file selection"
   (interactive)
+  ;
+  ; Don't open a new frame
+  ; Maybe prompt or C-u to open a new frame
+  (let ((pop-up-frames ))
+  ;
   ;need code to search up the path to this file
   ;
   ;http://stackoverflow.com/questions/20747190/read-from-a-file-into-a-emacs-lisp-list
@@ -159,7 +164,7 @@
   ;
   (setq file-to-open (concat (f-dirname path-to-project-file) parpath-strip))
   ;
-  (find-file file-to-open))
+  (find-file file-to-open)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
