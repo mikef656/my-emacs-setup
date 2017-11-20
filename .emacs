@@ -1,6 +1,9 @@
 ﻿;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Consider for the use of the custom variable '(minibuffer-auto-raise t)
-; It is designed for use with a stand alone minibuffer
+; It is designed for use with a stand alone minibuffer.
+;
+; Another factor might be the frame parameter minibuffer.
+; When a frame has this the frame will have a minibuffer.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
