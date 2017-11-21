@@ -6,9 +6,8 @@
 
 ; load custom file
 (setq custom-file "~/.emacs-custom-icicles-only.el")
-(load custom-file 'message)
+(load-file custom-file)
 
-; load icicles, emacs picks up oneonone in this path also
 (add-to-list 'load-path "~/.emacs.d/icicles/")
 (require 'icicles nil t)
 (when (fboundp 'icicle-mode) (icicle-mode 1)) ; Defined in `icicles.el'.
