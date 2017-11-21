@@ -312,7 +312,10 @@
        ;(setq bmkp-last-as-first-bookmark-file "~/my-emacs.bmk")))
        ;
     (when ( and load-essentials_1 load-custom-file)
-      (load custom-file 'message)))
+      ;; (load custom-file 'message)))
+      ;; Drew recomended load-file <filename> rather than 
+      ;;  load-custom-file 'message on 11/20/2017
+      (load-file custom-file)))
     ;
   (message "--Error trouble loading custom file"))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

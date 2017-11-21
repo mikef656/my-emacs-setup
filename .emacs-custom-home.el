@@ -38,7 +38,7 @@
      (background-color . "#3f3f3f")
      (font . "-*-Lucida Console-normal-r-*-*-14-112-96-96-c-*-iso8859-1")
      (mouse-color . "#dcdccc")
-     (cursor-color . "yellow")
+     (cursor-color . "orange")
      (menu-bar-lines . 0)
      (left . 0)
      (height . 2)
