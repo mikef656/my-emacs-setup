@@ -26,7 +26,8 @@
      (tool-bar-lines . 0)
      (left-fringe . 0)
      (right-fringe . 0)
-     (fringe . 0))))
+     (fringe . 0)
+     (vertical-scroll-bars))))
  '(1on1-default-frame-cursor-color "yellow")
  '(1on1-help-frame-background "#3f3f3f")
  '(1on1-inactive-minibuffer-frame-background "#3f3f3f")
@@ -38,7 +39,7 @@
      (background-color . "#3f3f3f")
      (font . "DejaVu Sans Mono 13")
      (mouse-color . "#dcdccc")
-     (cursor-color . "yellow")
+     (cursor-color . "red")
      (menu-bar-lines . 0)
      (left . 0)
      (height . 2)
@@ -64,7 +65,8 @@
      (top . 0)
      (left . 0)
      (unsplittable . t)
-     (user-position . t))))
+     (user-position . t)
+     (vertical-scroll-bars))))
  '(ack-and-a-half-prompt-for-directory t)
  '(ack-prompt-for-directory t)
  '(auto-revert-verbose nil)
@@ -89,7 +91,7 @@
      ("\\.xls" . w32-browser)
      ("\\.xlsx" . w32-browser)
      ("\\.lnk" . w32-browser))))
- '(bmkp-last-as-first-bookmark-file "~/save/jira_598_local.bmk")
+ '(bmkp-last-as-first-bookmark-file "~/save/lethalotter.bmk")
  '(bmkp-light-left-fringe-bitmap (quote right-arrow))
  '(bmkp-light-style-autonamed (quote lfringe))
  '(bmkp-light-style-non-autonamed (quote lfringe))
@@ -180,15 +182,15 @@
  '(ibuffer-formats
    (quote
     ((mark modified read-only " "
-           (name 25 25 :left :elide)
-           " "
-           (size 9 -1 :right)
-           " "
-           (mode 16 16 :left :elide)
-           " " filename-and-process)
+	   (name 25 25 :left :elide)
+	   " "
+	   (size 9 -1 :right)
+	   " "
+	   (mode 16 16 :left :elide)
+	   " " filename-and-process)
      (mark " "
-           (name 16 -1)
-           " " filename))))
+	   (name 16 -1)
+	   " " filename))))
  '(icicle-Completions-max-columns 1)
  '(icicle-apropos-complete-no-display-keys
    (quote
@@ -235,8 +237,8 @@
      (bookmark-jump-other-window icicle-bookmark-other-window t)
      (bookmark-set icicle-bookmark-cmd t)
      (minibuffer-keyboard-quit icicle-abort-recursive-edit
-                               (fboundp
-                                (quote minibuffer-keyboard-quit)))
+			       (fboundp
+				(quote minibuffer-keyboard-quit)))
      (delete-window icicle-delete-window t)
      (delete-windows-for icicle-delete-window t)
      (dired icicle-dired t)
@@ -259,11 +261,11 @@
      (where-is icicle-where-is t)
      (yank icicle-yank-maybe-completing t)
      (yank-pop icicle-yank-pop-commands
-               (featurep
-                (quote second-sel)))
+	       (featurep
+		(quote second-sel)))
      (yank-pop-commands icicle-yank-pop-commands
-                        (featurep
-                         (quote second-sel)))
+			(featurep
+			 (quote second-sel)))
      ("jtaa" icicle-find-file-tagged
       (featurep
        (quote bookmark+)))
@@ -271,252 +273,252 @@
       (featurep
        (quote bookmark+)))
      (bmkp-autofile-set icicle-bookmark-a-file
-                        (fboundp
-                         (quote bmkp-bookmark-a-file)))
+			(fboundp
+			 (quote bmkp-bookmark-a-file)))
      (bmkp-tag-a-file icicle-tag-a-file
-                      (fboundp
-                       (quote bmkp-tag-a-file)))
+		      (fboundp
+		       (quote bmkp-tag-a-file)))
      (bmkp-untag-a-file icicle-untag-a-file
-                        (fboundp
-                         (quote bmkp-untag-a-file)))
+			(fboundp
+			 (quote bmkp-untag-a-file)))
      (bmkp-find-file-all-tags icicle-find-file-all-tags
-                              (fboundp
-                               (quote bmkp-find-file-all-tags)))
+			      (fboundp
+			       (quote bmkp-find-file-all-tags)))
      (bmkp-find-file-all-tags-other-window icicle-find-file-all-tags-other-window
-                                           (fboundp
-                                            (quote bmkp-find-file-all-tags)))
+					   (fboundp
+					    (quote bmkp-find-file-all-tags)))
      (bmkp-find-file-all-tags-regexp icicle-find-file-all-tags-regexp
-                                     (fboundp
-                                      (quote bmkp-find-file-all-tags-regexp)))
+				     (fboundp
+				      (quote bmkp-find-file-all-tags-regexp)))
      (bmkp-find-file-all-tags-regexp-other-window icicle-find-file-all-tags-regexp-other-window
-                                                  (fboundp
-                                                   (quote bmkp-find-file-all-tags-regexp-other-window)))
+						  (fboundp
+						   (quote bmkp-find-file-all-tags-regexp-other-window)))
      (bmkp-find-file-some-tags icicle-find-file-some-tags
-                               (fboundp
-                                (quote bmkp-find-file-some-tags)))
+			       (fboundp
+				(quote bmkp-find-file-some-tags)))
      (bmkp-find-file-some-tags-other-window icicle-find-file-some-tags-other-window
-                                            (fboundp
-                                             (quote bmkp-find-file-some-tags-other-window)))
+					    (fboundp
+					     (quote bmkp-find-file-some-tags-other-window)))
      (bmkp-find-file-some-tags-regexp icicle-find-file-some-tags-regexp
-                                      (fboundp
-                                       (quote bmkp-find-file-some-tags-regexp)))
+				      (fboundp
+				       (quote bmkp-find-file-some-tags-regexp)))
      (bmkp-find-file-some-tags-regexp-other-window icicle-find-file-some-tags-regexp-other-window
-                                                   (fboundp
-                                                    (quote bmkp-find-file-some-tags-regexp-other-window)))
+						   (fboundp
+						    (quote bmkp-find-file-some-tags-regexp-other-window)))
      (bmkp-autofile-jump icicle-bookmark-autofile
-                         (fboundp
-                          (quote bmkp-autofile-jump)))
+			 (fboundp
+			  (quote bmkp-autofile-jump)))
      (bmkp-autofile-jump-other-window icicle-bookmark-autofile-other-window
-                                      (fboundp
-                                       (quote bmkp-autofile-jump)))
+				      (fboundp
+				       (quote bmkp-autofile-jump)))
      (bmkp-autonamed-jump icicle-bookmark-autonamed
-                          (fboundp
-                           (quote bmkp-autonamed-jump)))
+			  (fboundp
+			   (quote bmkp-autonamed-jump)))
      (bmkp-autonamed-jump-other-window icicle-bookmark-autonamed-other-window
-                                       (fboundp
-                                        (quote bmkp-autonamed-jump)))
+				       (fboundp
+					(quote bmkp-autonamed-jump)))
      (bmkp-autonamed-this-buffer-jump icicle-bookmark-autonamed-this-buffer
-                                      (fboundp
-                                       (quote bmkp-autonamed-this-buffer-jump)))
+				      (fboundp
+				       (quote bmkp-autonamed-this-buffer-jump)))
      (bmkp-autonamed-jump-this-buffer-other-window icicle-bookmark-autonamed-this-buffer-other-window
-                                                   (fboundp
-                                                    (quote bmkp-autonamed-jump-this-buffer-other-window)))
+						   (fboundp
+						    (quote bmkp-autonamed-jump-this-buffer-other-window)))
      (bmkp-bookmark-file-jump icicle-bookmark-bookmark-file
-                              (fboundp
-                               (quote bmkp-bookmark-file-jump)))
+			      (fboundp
+			       (quote bmkp-bookmark-file-jump)))
      (bmkp-bookmark-list-jump icicle-bookmark-bookmark-list
-                              (fboundp
-                               (quote bmkp-bookmark-list-jump)))
+			      (fboundp
+			       (quote bmkp-bookmark-list-jump)))
      (bmkp-desktop-jump icicle-bookmark-desktop
-                        (fboundp
-                         (quote bmkp-desktop-jump)))
+			(fboundp
+			 (quote bmkp-desktop-jump)))
      (bmkp-dired-jump icicle-bookmark-dired
-                      (fboundp
-                       (quote bmkp-dired-jump)))
+		      (fboundp
+		       (quote bmkp-dired-jump)))
      (bmkp-dired-jump-other-window icicle-bookmark-dired-other-window
-                                   (fboundp
-                                    (quote bmkp-dired-jump)))
+				   (fboundp
+				    (quote bmkp-dired-jump)))
      (bmkp-file-jump icicle-bookmark-file
-                     (fboundp
-                      (quote bmkp-file-jump)))
+		     (fboundp
+		      (quote bmkp-file-jump)))
      (bmkp-file-jump-other-window icicle-bookmark-file-other-window
-                                  (fboundp
-                                   (quote bmkp-file-jump)))
+				  (fboundp
+				   (quote bmkp-file-jump)))
      (bmkp-file-this-dir-jump icicle-bookmark-file-this-dir
-                              (fboundp
-                               (quote bmkp-file-this-dir-jump)))
+			      (fboundp
+			       (quote bmkp-file-this-dir-jump)))
      (bmkp-file-this-dir-jump-other-window icicle-bookmark-file-this-dir-other-window
-                                           (fboundp
-                                            (quote bmkp-file-this-dir-jump)))
+					   (fboundp
+					    (quote bmkp-file-this-dir-jump)))
      (bmkp-gnus-jump icicle-bookmark-gnus
-                     (fboundp
-                      (quote bmkp-gnus-jump)))
+		     (fboundp
+		      (quote bmkp-gnus-jump)))
      (bmkp-gnus-jump-other-window icicle-bookmark-gnus-other-window
-                                  (fboundp
-                                   (quote bmkp-gnus-jump)))
+				  (fboundp
+				   (quote bmkp-gnus-jump)))
      (bmkp-image-jump icicle-bookmark-image
-                      (fboundp
-                       (quote bmkp-image-jump)))
+		      (fboundp
+		       (quote bmkp-image-jump)))
      (bmkp-image-jump-other-window icicle-bookmark-image-other-window
-                                   (fboundp
-                                    (quote bmkp-image-jump)))
+				   (fboundp
+				    (quote bmkp-image-jump)))
      (bmkp-info-jump icicle-bookmark-info
-                     (fboundp
-                      (quote bmkp-info-jump)))
+		     (fboundp
+		      (quote bmkp-info-jump)))
      (bmkp-info-jump-other-window icicle-bookmark-info-other-window
-                                  (fboundp
-                                   (quote bmkp-info-jump)))
+				  (fboundp
+				   (quote bmkp-info-jump)))
      (bmkp-local-file-jump icicle-bookmark-local-file
-                           (fboundp
-                            (quote bmkp-local-file-jump)))
+			   (fboundp
+			    (quote bmkp-local-file-jump)))
      (bmkp-local-file-jump-other-window icicle-bookmark-local-file-other-window
-                                        (fboundp
-                                         (quote bmkp-local-file-jump)))
+					(fboundp
+					 (quote bmkp-local-file-jump)))
      (bmkp-man-jump icicle-bookmark-man
-                    (fboundp
-                     (quote bmkp-man-jump)))
+		    (fboundp
+		     (quote bmkp-man-jump)))
      (bmkp-man-jump-other-window icicle-bookmark-man-other-window
-                                 (fboundp
-                                  (quote bmkp-man-jump)))
+				 (fboundp
+				  (quote bmkp-man-jump)))
      (bmkp-non-file-jump icicle-bookmark-non-file
-                         (fboundp
-                          (quote bmkp-non-file-jump)))
+			 (fboundp
+			  (quote bmkp-non-file-jump)))
      (bmkp-non-file-jump-other-window icicle-bookmark-non-file-other-window
-                                      (fboundp
-                                       (quote bmkp-non-file-jump)))
+				      (fboundp
+				       (quote bmkp-non-file-jump)))
      (bmkp-region-jump icicle-bookmark-region
-                       (fboundp
-                        (quote bmkp-region-jump)))
+		       (fboundp
+			(quote bmkp-region-jump)))
      (bmkp-region-jump-other-window icicle-bookmark-region-other-window
-                                    (fboundp
-                                     (quote bmkp-region-jump)))
+				    (fboundp
+				     (quote bmkp-region-jump)))
      (bmkp-remote-file-jump icicle-bookmark-remote-file
-                            (fboundp
-                             (quote bmkp-remote-file-jump)))
+			    (fboundp
+			     (quote bmkp-remote-file-jump)))
      (bmkp-remote-file-jump-other-window icicle-bookmark-remote-file-other-window
-                                         (fboundp
-                                          (quote bmkp-remote-file-jump)))
+					 (fboundp
+					  (quote bmkp-remote-file-jump)))
      (bmkp-specific-buffers-jump icicle-bookmark-specific-buffers
-                                 (fboundp
-                                  (quote bmkp-specific-buffers-jump)))
+				 (fboundp
+				  (quote bmkp-specific-buffers-jump)))
      (bmkp-specific-buffers-jump-other-window icicle-bookmark-specific-buffers-other-window
-                                              (fboundp
-                                               (quote bmkp-specific-buffers-jump)))
+					      (fboundp
+					       (quote bmkp-specific-buffers-jump)))
      (bmkp-specific-files-jump icicle-bookmark-specific-files
-                               (fboundp
-                                (quote bmkp-specific-files-jump)))
+			       (fboundp
+				(quote bmkp-specific-files-jump)))
      (bmkp-specific-files-jump-other-window icicle-bookmark-specific-files-other-window
-                                            (fboundp
-                                             (quote bmkp-specific-files-jump)))
+					    (fboundp
+					     (quote bmkp-specific-files-jump)))
      (bmkp-temporary-jump icicle-bookmark-temporary
-                          (fboundp
-                           (quote bmkp-temporary-jump)))
+			  (fboundp
+			   (quote bmkp-temporary-jump)))
      (bmkp-temporary-jump-other-window icicle-bookmark-temporary-other-window
-                                       (fboundp
-                                        (quote bmkp-temporary-jump)))
+				       (fboundp
+					(quote bmkp-temporary-jump)))
      (bmkp-this-buffer-jump icicle-bookmark-this-buffer
-                            (fboundp
-                             (quote bmkp-this-buffer-jump)))
+			    (fboundp
+			     (quote bmkp-this-buffer-jump)))
      (bmkp-this-buffer-jump-other-window icicle-bookmark-this-buffer-other-window
-                                         (fboundp
-                                          (quote bmkp-this-buffer-jump)))
+					 (fboundp
+					  (quote bmkp-this-buffer-jump)))
      (bmkp-url-jump icicle-bookmark-url
-                    (fboundp
-                     (quote bmkp-url-jump)))
+		    (fboundp
+		     (quote bmkp-url-jump)))
      (bmkp-url-jump-other-window icicle-bookmark-url-other-window
-                                 (fboundp
-                                  (quote bmkp-url-jump)))
+				 (fboundp
+				  (quote bmkp-url-jump)))
      (bmkp-w3m-jump icicle-bookmark-w3m
-                    (fboundp
-                     (quote bmkp-w3m-jump)))
+		    (fboundp
+		     (quote bmkp-w3m-jump)))
      (bmkp-w3m-jump-other-window icicle-bookmark-w3m-other-window
-                                 (fboundp
-                                  (quote bmkp-w3m-jump)))
+				 (fboundp
+				  (quote bmkp-w3m-jump)))
      (bmkp-all-tags-jump icicle-bookmark-all-tags
-                         (fboundp
-                          (quote bmkp-all-tags-jump)))
+			 (fboundp
+			  (quote bmkp-all-tags-jump)))
      (bmkp-all-tags-jump-other-window icicle-bookmark-all-tags-other-window
-                                      (fboundp
-                                       (quote bmkp-all-tags-jump)))
+				      (fboundp
+				       (quote bmkp-all-tags-jump)))
      (bmkp-all-tags-regexp-jump icicle-bookmark-all-tags-regexp
-                                (fboundp
-                                 (quote bmkp-all-tags-regexp-jump)))
+				(fboundp
+				 (quote bmkp-all-tags-regexp-jump)))
      (bmkp-all-tags-regexp-jump-other-window icicle-bookmark-all-tags-regexp-other-window
-                                             (fboundp
-                                              (quote bmkp-all-tags-regexp-jump)))
+					     (fboundp
+					      (quote bmkp-all-tags-regexp-jump)))
      (bmkp-some-tags-jump icicle-bookmark-some-tags
-                          (fboundp
-                           (quote bmkp-some-tags-jump)))
+			  (fboundp
+			   (quote bmkp-some-tags-jump)))
      (bmkp-some-tags-jump-other-window icicle-bookmark-some-tags-other-window
-                                       (fboundp
-                                        (quote bmkp-some-tags-jump)))
+				       (fboundp
+					(quote bmkp-some-tags-jump)))
      (bmkp-some-tags-regexp-jump icicle-bookmark-some-tags-regexp
-                                 (fboundp
-                                  (quote bmkp-some-tags-regexp-jump)))
+				 (fboundp
+				  (quote bmkp-some-tags-regexp-jump)))
      (bmkp-some-tags-regexp-jump-other-window icicle-bookmark-some-tags-regexp-other-window
-                                              (fboundp
-                                               (quote bmkp-some-tags-regexp-jump)))
+					      (fboundp
+					       (quote bmkp-some-tags-regexp-jump)))
      (bmkp-file-all-tags-jump icicle-bookmark-file-all-tags
-                              (fboundp
-                               (quote bmkp-file-all-tags-jump)))
+			      (fboundp
+			       (quote bmkp-file-all-tags-jump)))
      (bmkp-file-all-tags-jump-other-window icicle-bookmark-file-all-tags-other-window
-                                           (fboundp
-                                            (quote bmkp-file-all-tags-jump)))
+					   (fboundp
+					    (quote bmkp-file-all-tags-jump)))
      (bmkp-file-all-tags-regexp-jump icicle-bookmark-file-all-tags-regexp
-                                     (fboundp
-                                      (quote bmkp-file-all-tags-regexp-jump)))
+				     (fboundp
+				      (quote bmkp-file-all-tags-regexp-jump)))
      (bmkp-file-all-tags-regexp-jump-other-window icicle-bookmark-file-all-tags-regexp-other-window
-                                                  (fboundp
-                                                   (quote bmkp-file-all-tags-regexp-jump)))
+						  (fboundp
+						   (quote bmkp-file-all-tags-regexp-jump)))
      (bmkp-file-some-tags-jump icicle-bookmark-file-some-tags
-                               (fboundp
-                                (quote bmkp-file-some-tags-jump)))
+			       (fboundp
+				(quote bmkp-file-some-tags-jump)))
      (bmkp-file-some-tags-jump-other-window icicle-bookmark-file-some-tags-other-window
-                                            (fboundp
-                                             (quote bmkp-file-some-tags-jump)))
+					    (fboundp
+					     (quote bmkp-file-some-tags-jump)))
      (bmkp-file-some-tags-regexp-jump icicle-bookmark-file-some-tags-regexp
-                                      (fboundp
-                                       (quote bmkp-file-some-tags-regexp-jump)))
+				      (fboundp
+				       (quote bmkp-file-some-tags-regexp-jump)))
      (bmkp-file-some-tags-regexp-jump-other-window icicle-bookmark-file-some-tags-regexp-other-window
-                                                   (fboundp
-                                                    (quote bmkp-file-some-tags-regexp-jump)))
+						   (fboundp
+						    (quote bmkp-file-some-tags-regexp-jump)))
      (bmkp-file-this-dir-all-tags-jump icicle-bookmark-file-this-dir-all-tags
-                                       (fboundp
-                                        (quote bmkp-file-this-dir-all-tags-jump)))
+				       (fboundp
+					(quote bmkp-file-this-dir-all-tags-jump)))
      (bmkp-file-this-dir-all-tags-jump-other-window icicle-bookmark-file-this-dir-all-tags-other-window
-                                                    (fboundp
-                                                     (quote bmkp-file-this-dir-all-tags-jump)))
+						    (fboundp
+						     (quote bmkp-file-this-dir-all-tags-jump)))
      (bmkp-file-this-dir-all-tags-regexp-jump icicle-bookmark-file-this-dir-all-tags-regexp
-                                              (fboundp
-                                               (quote bmkp-file-this-dir-all-tags-regexp-jump)))
+					      (fboundp
+					       (quote bmkp-file-this-dir-all-tags-regexp-jump)))
      (bmkp-file-this-dir-all-tags-regexp-jump-other-window icicle-bookmark-file-this-dir-all-tags-regexp-other-window
-                                                           (fboundp
-                                                            (quote bmkp-file-this-dir-all-tags-regexp-jump)))
+							   (fboundp
+							    (quote bmkp-file-this-dir-all-tags-regexp-jump)))
      (bmkp-file-this-dir-some-tags-jump icicle-bookmark-file-this-dir-some-tags
-                                        (fboundp
-                                         (quote bmkp-file-this-dir-some-tags-jump)))
+					(fboundp
+					 (quote bmkp-file-this-dir-some-tags-jump)))
      (bmkp-file-this-dir-some-tags-jump-other-window icicle-bookmark-file-this-dir-some-tags-other-window
-                                                     (fboundp
-                                                      (quote bmkp-file-this-dir-some-tags-jump)))
+						     (fboundp
+						      (quote bmkp-file-this-dir-some-tags-jump)))
      (bmkp-file-this-dir-some-tags-regexp-jump icicle-bookmark-file-this-dir-some-tags-regexp
-                                               (fboundp
-                                                (quote bmkp-file-this-dir-some-tags-regexp-jump)))
+					       (fboundp
+						(quote bmkp-file-this-dir-some-tags-regexp-jump)))
      (bmkp-file-this-dir-some-tags-regexp-jump-other-window icicle-bookmark-file-this-dir-some-tags-regexp-other-window
-                                                            (fboundp
-                                                             (quote bmkp-file-this-dir-some-tags-regexp-jump)))
+							    (fboundp
+							     (quote bmkp-file-this-dir-some-tags-regexp-jump)))
      (find-tag icicle-find-tag
-               (fboundp
-                (quote command-remapping)))
+	       (fboundp
+		(quote command-remapping)))
      (find-tag-other-window icicle-find-first-tag-other-window t)
      (pop-tag-mark icicle-pop-tag-mark
-                   (fboundp
-                    (quote command-remapping)))
+		   (fboundp
+		    (quote command-remapping)))
      (eval-expression icicle-pp-eval-expression
-                      (fboundp
-                       (quote command-remapping)))
+		      (fboundp
+		       (quote command-remapping)))
      (pp-eval-expression icicle-pp-eval-expression
-                         (fboundp
-                          (quote command-remapping)))
+			 (fboundp
+			  (quote command-remapping)))
      ([27 134217848]
       lacarte-execute-command
       (fboundp
@@ -567,13 +569,9 @@
    (quote
     (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".Xil")))
  '(projectile-indexing-method (quote alien))
- '(projectile-mode nil nil (projectile))
+ '(projectile-mode nil)
  '(reb-re-syntax (quote string))
  '(rebox-min-fill-column 80)
- '(safe-local-variable-values
-   (quote
-    ((clearcase-version-stamp-active . t)
-     (folded-file . t)))
  '(saint/iswitchb-highlight-modes-alist
    (quote
     (("Dired" . 1)
@@ -584,6 +582,7 @@
  '(savehist-additional-variables
    (quote
     (sr-history-registry urls-cached svn-ls-output-as-big-strings-list filesets-data)))
+ '(savehist-file "~/.emacs.d/history_work.txt")
  '(search/replace-region-as-default-flag t)
  '(shell-file-name "/bin/tcsh")
  '(smart-tab-disabled-major-modes (quote (org-mode term-mode vhdl-mode)))
@@ -610,83 +609,12 @@
  '(verilog-indent-level-directive 2)
  '(verilog-indent-level-module 2)
  '(verilog-tab-always-indent nil)
+ '(verilog-tab-always-indent nil)
  '(vhdl-basic-offset 3)
- '(vhdl-compiler-alist
-   (quote
-    (("Cadence Leapfrog" "cv" "-work \\1 -file" "make" "-f \\1" nil "mkdir \\1" "./" "work/" "Makefile" "leapfrog"
-      ("duluth: \\*E,[0-9]+ (\\(.+\\),\\([0-9]+\\)):" 1 2 0)
-      ("" 0)
-      ("\\1/entity" "\\2/\\1" "\\1/configuration" "\\1/package" "\\1/body" downcase))
-     ("Cadence NC" "ncvhdl" "-work \\1" "make" "-f \\1" nil "mkdir \\1" "./" "work/" "Makefile" "ncvhdl"
-      ("ncvhdl_p: \\*E,\\w+ (\\(.+\\),\\([0-9]+\\)|\\([0-9]+\\)):" 1 2 3)
-      ("" 0)
-      ("\\1/entity/pc.db" "\\2/\\1/pc.db" "\\1/configuration/pc.db" "\\1/package/pc.db" "\\1/body/pc.db" downcase))
-     ("Ikos" "analyze" "-l \\1" "make" "-f \\1" nil "mkdir \\1" "./" "work/" "Makefile" "ikos"
-      ("E L\\([0-9]+\\)/C\\([0-9]+\\):" 0 1 2)
-      ("^analyze +\\(.+ +\\)*\\(.+\\)$" 2)
-      nil)
-     ("ModelSim" "vcom" "-93 -work \\1" "make" "-f \\1" nil "vlib \\1; vmap \\2 \\1" "m:/VHDL/fpga_designs/mfitzgerald/my_working_copies/svcont/trunk/sim/" "work/" "Makefile" "modelsim"
-      ("\\(ERROR\\|WARNING\\|\\*\\* Error\\|\\*\\* Warning\\)[^:]*: \\(.+\\)(\\([0-9]+\\)):" 2 3 0)
-      ("" 0)
-      ("\\1/_primary.dat" "\\2/\\1.dat" "\\1/_primary.dat" "\\1/_primary.dat" "\\1/body.dat" downcase))
-     ("LEDA ProVHDL" "provhdl" "-w \\1 -f" "make" "-f \\1" nil "mkdir \\1" "./" "work/" "Makefile" "provhdl"
-      ("\\([^ 	
-]+\\):\\([0-9]+\\): " 1 2 0)
-      ("" 0)
-      ("ENTI/\\1.vif" "ARCH/\\1-\\2.vif" "CONF/\\1.vif" "PACK/\\1.vif" "BODY/BODY-\\1.vif" upcase))
-     ("QuickHDL" "qvhcom" "-work \\1" "make" "-f \\1" nil "mkdir \\1" "./" "work/" "Makefile" "quickhdl"
-      ("\\(ERROR\\|WARNING\\)[^:]*: \\(.+\\)(\\([0-9]+\\)):" 2 3 0)
-      ("" 0)
-      ("\\1/_primary.dat" "\\2/\\1.dat" "\\1/_primary.dat" "\\1/_primary.dat" "\\1/body.dat" downcase))
-     ("Savant" "scram" "-publish-cc -design-library-name \\1" "make" "-f \\1" nil "mkdir \\1" "./" "work._savant_lib/" "Makefile" "savant"
-      ("\\([^ 	
-]+\\):\\([0-9]+\\): " 1 2 0)
-      ("" 0)
-      ("\\1_entity.vhdl" "\\2_secondary_units._savant_lib/\\2_\\1.vhdl" "\\1_config.vhdl" "\\1_package.vhdl" "\\1_secondary_units._savant_lib/\\1_package_body.vhdl" downcase))
-     ("Simili" "vhdlp" "-work \\1" "make" "-f \\1" nil "mkdir \\1" "./" "work/" "Makefile" "simili"
-      ("\\(Error\\|Warning\\): \\w+: \\(.+\\): (line \\([0-9]+\\)): " 2 3 0)
-      ("" 0)
-      ("\\1/prim.var" "\\2/_\\1.var" "\\1/prim.var" "\\1/prim.var" "\\1/_body.var" downcase))
-     ("Speedwave" "analyze" "-libfile vsslib.ini -src" "make" "-f \\1" nil "mkdir \\1" "./" "work/" "Makefile" "speedwave"
-      ("^ *ERROR[[0-9]+]::File \\(.+\\) Line \\([0-9]+\\):" 1 2 0)
-      ("" 0)
-      nil)
-     ("Synopsys" "vhdlan" "-nc -work \\1" "make" "-f \\1" nil "mkdir \\1" "./" "work/" "Makefile" "synopsys"
-      ("\\*\\*Error: vhdlan,[0-9]+ \\(.+\\)(\\([0-9]+\\)):" 1 2 0)
-      ("" 0)
-      ("\\1.sim" "\\2__\\1.sim" "\\1.sim" "\\1.sim" "\\1__.sim" upcase))
-     ("Synopsys Design Compiler" "vhdlan" "-nc -spc -work \\1" "make" "-f \\1" nil "mkdir \\1" "./" "work/" "Makefile" "synopsys_dc"
-      ("\\*\\*Error: vhdlan,[0-9]+ \\(.+\\)(\\([0-9]+\\)):" 1 2 0)
-      ("" 0)
-      ("\\1.syn" "\\2__\\1.syn" "\\1.syn" "\\1.syn" "\\1__.syn" upcase))
-     ("Synplify" "n/a" "n/a" "make" "-f \\1" nil "mkdir \\1" "./" "work/" "Makefile" "synplify"
-      ("@[EWN]:\"\\(.+\\)\":\\([0-9]+\\):\\([0-9]+\\):" 1 2 3)
-      ("" 0)
-      nil)
-     ("Vantage" "analyze" "-libfile vsslib.ini -src" "make" "-f \\1" nil "mkdir \\1" "./" "work/" "Makefile" "vantage"
-      ("\\*\\*Error: LINE \\([0-9]+\\) \\*\\*\\*" 0 1 0)
-      ("^ *Compiling \"\\(.+\\)\" " 1)
-      nil)
-     ("VeriBest" "vc" "vhdl" "make" "-f \\1" nil "mkdir \\1" "./" "work/" "Makefile" "veribest"
-      ("^ +\\([0-9]+\\): +[^ ]" 0 1 0)
-      ("" 0)
-      nil)
-     ("Viewlogic" "analyze" "-libfile vsslib.ini -src" "make" "-f \\1" nil "mkdir \\1" "./" "work/" "Makefile" "viewlogic"
-      ("\\*\\*Error: LINE \\([0-9]+\\) \\*\\*\\*" 0 1 0)
-      ("^ *Compiling \"\\(.+\\)\" " 1)
-      nil))))
- '(vhdl-end-comment-column 120)
- '(vhdl-indent-tabs-mode nil)
- '(vhdl-index-menu t)
- '(vhdl-project-auto-load nil)
- '(vhdl-project-file-name (quote ("\\1.my_prj")))
- '(vhdl-source-file-menu t)
- '(vhdl-underscore-is-part-of-word t)
- '(wg-prefix-key "z")
  '(window-min-height 8)
- '(window-min-width 40))
  '(winner-dont-bind-my-keys t)
  '(wrap-region-except-modes (quote (calc-mode dired-mode sr-mode))))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -701,11 +629,10 @@
  '(bmkp-t-mark ((t (:foreground "medium spring green"))))
  '(ediff-current-diff-B ((t (:background "#3f3f4d"))))
  '(ediff-fine-diff-B ((t (:background "#3f3fCA"))))
- '(isearch ((t (:background "blue" :foreground "red"))))
  '(lazy-highlight ((t (:inherit isearch))))
  '(mode-line ((t (:background "#1e2320" :foreground "#acbc90" :inverse-video nil :box (:line-width 2 :color "#1e2320") :height 1.0 :width normal))))
- '(replacep-msg-emphasis ((t (:foreground "red"))))
- '(replacep-msg-emphasis2 ((t (:foreground "yellow"))))
+ '(replacep-msg-emphasis ((t (:foreground "yellow"))))
+ '(replacep-msg-emphasis2 ((t (:foreground "green"))))
  '(sml/filename ((t (:inherit sml/global :foreground "gold" :weight bold))))
  '(sml/folder ((t (:inherit sml/global :background "gray20" :foreground "gold3" :weight normal))))
  '(sml/modes ((t (:foreground "light slate gray"))))
