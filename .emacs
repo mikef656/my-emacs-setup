@@ -5,7 +5,18 @@
 ; Another factor might be the frame parameter minibuffer.
 ; When a frame has this the frame will have a minibuffer.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Use this to return a list produced by Python
+;; (setq mystring 
+;;       (split-string 
+;;        (setq mytemp 
+;;              (shell-command-to-string "ls")) 
+;;       " "))
+; 
+;; (car mystring)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; global minor mode or bindkey for keymap
 ;https://emacs.stackexchange.com/
@@ -3230,6 +3241,7 @@
   (message "--Error in load bookmarks at init")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;aoe
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; final message
 (message "---REACHED END OF THE %s for %s system---" (buffer-name) home-work)
