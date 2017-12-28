@@ -2,6 +2,112 @@
 ;  FUNCTIONS HERE
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; experiments for new index based instance finder for veri
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; https://regex101.com/r/z8XbN2/1
+
+(defun surf-verilog-instances (arg)
+  "aoeu"
+  (interactive "P")
+  (setq my-list
+    (split-string      
+      (setq mystring
+        (shell-command-to-string (format "readstring.py %s" buffer-file-name)))))
+  (message my-list)) 
+
+
+(defun my-verilog-goto-inst (arg)
+  (interactive "P")
+  (goto-char (string-to-number (nth 3 my-list))))
+
+(listp myList)
+
+;(setq myList my-list)
+
+; http://ergoemacs.org/emacs/elisp_break_loop.html
+(defun my-loop-list (arg)
+ (interactive "P")
+(let (
+      (foundFlag-p nil )
+      (i 0))
+;
+  (while (and (not foundFlag-p) (<= i (length myList)))
+;
+    ;; if found, set foundFlag-p
+    (when (equal (elt myList i) 3)
+      (setq foundFlag-p t ))
+;
+    (message "value: %s" i)
+    (setq i (1+ i)))))
+
+(setq mylist '(2 4 6 8))
+
+(defun find-inst-loc-backwrd (arg-inst-list)
+  (interactive)
+  (message "setting index to 0")
+  ;  if the location of last/largest inst is < point, look it up
+  ;  else message "no inst found backwards"
+  (find-inst-loc-backward-loop mylist))
+
+(defun find-inst-loc-forward-loop (arg-inst-list)
+  (interactive)
+  (message "setting index to 0")
+  ;
+  (if nil
+    (print-elements-of-list arg-inst-list))
+  ;(message "%d" arg-inst-list)
+  (setq index 0)
+  (setq val 5)
+  ; how to get the length of a list
+  (safe-length mylist)
+  (while (< (nth index mylist) val)
+    (message "%d is > %d" val (nth index mylist))
+    (setq index (1+ index)))
+  ; exit statement  
+  (message "%d is < %d" val (nth index mylist))
+  (nth index mylist))
+
+(defun find-inst-loc-backward-loop ()
+  (interactive)
+  (message "setting index to 0")
+  ;
+  (if nil
+    (print-elements-of-list arg-inst-list))
+  ;(message "%d" arg-inst-list)
+  (setq index 0)
+  (setq val 5)
+  ; how to get the length of a list
+  (safe-length mylist)
+  (setq mylist-reverse (reverse mylist))
+  ;
+  (while (> (nth index mylist-reverse) val)
+    (message "%d is < %d" val (nth index mylist-reverse))
+    (setq index (1+ index)))
+  ; exit statement  
+  (message "%d is > %d" val (nth index mylist-reverse))
+  (nth index mylist-reverse))
+
+
+(defun print-elements-of-list (list)
+  "Print each element of LIST on a line of its own."
+  (while list
+    (print (car list))
+    (setq list (cdr list))))
+    
+; length of list
+
+; Use this to return a list produced by Python
+;; (setq mystring 
+;;       (split-string 
+;;        (setq mytemp 
+;;              (shell-command-to-string "ls")) 
+;;       " "))
+; 
+;; (car mystring)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;A new syntax table, that adds _ as as symbol which removes it as a word
 (defvar underscore-is-symbol-not-word-syntax-table
