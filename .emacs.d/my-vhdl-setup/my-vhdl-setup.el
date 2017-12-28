@@ -21,34 +21,54 @@
   (interactive "P")
   (goto-char (string-to-number (nth 3 my-list))))
 
-(listp myList)
-
-;(setq myList my-list)
-
-; http://ergoemacs.org/emacs/elisp_break_loop.html
-(defun my-loop-list (arg)
- (interactive "P")
-(let (
-      (foundFlag-p nil )
-      (i 0))
-;
-  (while (and (not foundFlag-p) (<= i (length myList)))
-;
-    ;; if found, set foundFlag-p
-    (when (equal (elt myList i) 3)
-      (setq foundFlag-p t ))
-;
-    (message "value: %s" i)
-    (setq i (1+ i)))))
-
 (setq mylist '(2 4 6 8))
 
-(defun find-inst-loc-backwrd (arg-inst-list)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; main
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun find-inst-loc-backwrd ()
   (interactive)
-  (message "setting index to 0")
+  (let ((here 7) (verbose nil))
+  (if verbose
+    (message "\n---- find-inst-loc-backwrd ----"))
   ;  if the location of last/largest inst is < point, look it up
   ;  else message "no inst found backwards"
-  (find-inst-loc-backward-loop mylist))
+  ;
+  (if (< (car mylist) here)
+    (progn 
+    (if verbose (message "true"))
+    ;
+    (setq place-to-jump (find-inst-loc-backward-loop mylist here))
+    (message "place to jump %s" place-to-jump))
+  
+  (message "No instance going backwards"))))
+
+(defun find-inst-loc-backward-loop (arg-inst-list arg-here)
+  (interactive)
+  (let  ((verbose t)
+         (index   0)
+         (val   5))
+  (if verbose
+    (message "  ---- find-inst-loc-backwrd-loop ----"))
+  ;
+  (if nil
+    (print-elements-of-list arg-inst-list))
+  ;
+  ; how to get the length of a list
+  (safe-length mylist)
+  (setq mylist-reverse (reverse mylist))
+  ;
+  (while (> (nth index mylist-reverse) arg-here)
+    ;
+    (if verbose 
+      (message "  %d is < %d" arg-here (nth index mylist-reverse)))
+    ;
+    (setq index (1+ index)))
+  ; exit statement  
+  (if verbose
+    (message "  %d is > %d" arg-here (nth index mylist-reverse)))
+  (nth index mylist-reverse)))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun find-inst-loc-forward-loop (arg-inst-list)
   (interactive)
@@ -62,32 +82,11 @@
   ; how to get the length of a list
   (safe-length mylist)
   (while (< (nth index mylist) val)
-    (message "%d is > %d" val (nth index mylist))
+    (message "  %d is > %d" val (nth index mylist))
     (setq index (1+ index)))
   ; exit statement  
-  (message "%d is < %d" val (nth index mylist))
+  (message "  %d is < %d" val (nth index mylist))
   (nth index mylist))
-
-(defun find-inst-loc-backward-loop ()
-  (interactive)
-  (message "setting index to 0")
-  ;
-  (if nil
-    (print-elements-of-list arg-inst-list))
-  ;(message "%d" arg-inst-list)
-  (setq index 0)
-  (setq val 5)
-  ; how to get the length of a list
-  (safe-length mylist)
-  (setq mylist-reverse (reverse mylist))
-  ;
-  (while (> (nth index mylist-reverse) val)
-    (message "%d is < %d" val (nth index mylist-reverse))
-    (setq index (1+ index)))
-  ; exit statement  
-  (message "%d is > %d" val (nth index mylist-reverse))
-  (nth index mylist-reverse))
-
 
 (defun print-elements-of-list (list)
   "Print each element of LIST on a line of its own."
