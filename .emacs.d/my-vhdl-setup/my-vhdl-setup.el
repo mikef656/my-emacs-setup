@@ -7,19 +7,23 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; https://regex101.com/r/z8XbN2/1
 
-(defun surf-verilog-instances (arg)
+(defun get-verilog-inst-running-python-script ()
   "aoeu"
-  (interactive "P")
+  (interactive)
   (setq my-list
+  (mapcar 'string-to-number
     (split-string      
       (setq mystring
-        (shell-command-to-string (format "readstring.py %s" buffer-file-name)))))
-  (message my-list)) 
+        (shell-command-to-string (format "readstring.py %s" buffer-file-name)))))))
+
+; mapcar is like Ruby each
+;(mapcar 'string-to-number my-list)
 
 
 (defun my-verilog-goto-inst (arg)
   (interactive "P")
-  (goto-char (string-to-number (nth 3 my-list))))
+  ;; (goto-char (string-to-number (nth 3 my-list))))
+  (goto-char (nth 3 my-list)))
 
 (setq mylist '(2 4 6 8))
 
