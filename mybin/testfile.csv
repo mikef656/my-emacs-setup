@@ -1,0 +1,4 @@
+,Rocketlink_net.do,Rocketlink_sim.do,Rocketlink_loopback.do,card_mem_rtl.do,card_mem_sim.do,pcie_rtl.do,pcie_sim.do,sysio_full.do,sysio_sim.do,sysio_default.do,snrf_full.do,snrf_dummy.do,rtc_board_model_default.do,rtc_board_model_full.do,,
+ddr.do,x,,,x,,x,,x,,,x,,x,,verilog_test_header1.v,wave_file1.do
+dma.do,,x,,,x,,x,,x,,,x,,x,verilog_test_header2.v,wave_file2.do
+poo.do,,x,,,x,,x,,x,,,x,,x,verilog_test_header2.v,wave_file2.do
