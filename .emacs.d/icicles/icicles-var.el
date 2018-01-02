@@ -4,16 +4,16 @@
 ;; Description: Internal variables for Icicles
 ;; Author: Drew Adams
 ;; Maintainer: Drew Adams (concat "drew.adams" "@" "oracle" ".com")
-;; Copyright (C) 1996-2017, Drew Adams, all rights reserved.
+;; Copyright (C) 1996-2018, Drew Adams, all rights reserved.
 ;; Created: Mon Feb 27 09:23:26 2006
-;; Last-Updated: Wed Jul 26 08:21:37 2017 (-0700)
+;; Last-Updated: Mon Jan  1 14:20:01 2018 (-0800)
 ;;           By: dradams
-;;     Update #: 1881
+;;     Update #: 1886
 ;; URL: https://www.emacswiki.org/emacs/download/icicles-var.el
 ;; Doc URL: https://www.emacswiki.org/emacs/Icicles
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
-;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x
+;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x, 26.x
 ;;
 ;; Features that might be required by this library:
 ;;
@@ -23,9 +23,9 @@
 ;;   `ffap-', `fit-frame', `frame-fns', `fuzzy', `fuzzy-match',
 ;;   `help+20', `hexrgb', `icicles-opt', `info', `info+20', `kmacro',
 ;;   `levenshtein', `menu-bar', `menu-bar+', `misc-cmds', `misc-fns',
-;;   `naked', `package', `pp', `pp+', `regexp-opt', `second-sel',
-;;   `strings', `thingatpt', `thingatpt+', `unaccent',
-;;   `w32browser-dlgopen', `wid-edit', `wid-edit+', `widget'.
+;;   `naked', `package', `pp', `pp+', `second-sel', `strings',
+;;   `thingatpt', `thingatpt+', `unaccent', `w32browser-dlgopen',
+;;   `wid-edit', `wid-edit+', `widget'.
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -214,6 +214,7 @@
 (require 'icicles-opt) ;; icicle-kbd, icicle-sort-comparer
 
 ;;; Defvars to quiet byte-compiler:
+(defvar icomplete-mode)                 ; In `icomplete.el'
 (defvar kmacro-ring-max)                ; Defined in `kmacro.el' in Emacs 22+.
 (defvar minibuffer-confirm-exit-commands) ; Defined in `minibuffer.el' in Emacs 23+.
 (defvar minibuffer-local-filename-completion-map)
@@ -312,12 +313,18 @@ are equivalent and stand for the set of all bookmarks (of any type).")
 
 (defvar icicle-buffer-complete-fn nil
   "If the value is non-nil then it is a buffer-name completion function.
-The function is used as the COLLECTION argument to `completing-read'.
+The function is used by `icicle-read-buffer' as the COLLECTION
+argument to `completing-read'.
 
 However, if the value is `internal-complete-buffer' then it is used
 only if `icicle-buffer-ignore-space-prefix-flag' is non-nil.
 
-Otherwise, all buffer names are used as candidates.")
+Most Icicles predefined commands that read buffer names bind this to
+function `icicle-buffer-multi-complete'.
+
+If the value is nil then:
+* If `icicle-bufflist' is a list of buffers then it is used.
+* Otherwise, the list of all buffer names is used.")
 
 (defvar icicle-buffer-config-history nil "History for buffer configuration names.")
 
@@ -327,8 +334,17 @@ Otherwise, all buffer names are used as candidates.")
 (defvar icicle-buffer-sort-first-time-p t
   "Non-nil means buffer-name completion has not yet been used.")
 
-(defvar icicle-bufflist nil
-  "List of buffers defined by macro `icicle-buffer-bindings'.")
+(defvar icicle-bufflist 'icicle-bufflist--NOT-A-LIST
+  "List of buffers used as completion candidates for `icicle-read-buffer'.
+Bound usually by macro `icicle-buffer-bindings'.
+
+Used in commands such as `icicle-buffer' that let you filter the list
+of buffer-name candidates on the fly.  You can customize the keys and
+commands used for such filtering -- see option
+`icicle-buffer-candidate-key-bindings'.
+
+If the value is not a list then all buffer names are used as
+completion candidates.")
 
 (defvar icicle-candidate-action-fn nil
   "Action function to apply to current completion candidate.

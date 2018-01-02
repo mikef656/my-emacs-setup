@@ -4,16 +4,16 @@
 ;; Description: Minibuffer completion and cycling.
 ;; Author: Drew Adams
 ;; Maintainer: Drew Adams (concat "drew.adams" "@" "oracle" ".com")
-;; Copyright (C) 1996-2017, Drew Adams, all rights reserved.
+;; Copyright (C) 1996-2018, Drew Adams, all rights reserved.
 ;; Created: Tue Aug  1 14:21:16 1995
-;; Last-Updated: Wed Jul 26 08:13:58 2017 (-0700)
+;; Last-Updated: Mon Jan  1 14:08:45 2018 (-0800)
 ;;           By: dradams
-;;     Update #: 29990
+;;     Update #: 30004
 ;; URL: https://www.emacswiki.org/emacs/download/icicles-doc2.el
 ;; Doc URL: https://www.emacswiki.org/emacs/Icicles
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
-;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x
+;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x, 26.x
 ;;
 ;; Features that might be required by this library:
 ;;
@@ -47,7 +47,7 @@
 ;;  highlight this Index and render it more readable.  Likewise, for
 ;;  the cross-references and section headings throughout this file.
 ;;  You can get `linkd.el' here:
-;;  https://www.emacswiki.org/emacs/linkd.el.
+;;  https://www.emacswiki.org/emacs/download/linkd.el.
 ;;
 ;;  (@file :file-name "icicles-doc1.el" :to "Documentation in File `icicles-doc1.el'")
 ;;  -----------------------------------------------------------
@@ -2618,6 +2618,16 @@
 ;;  Icicles Dired Enhancements
 ;;  --------------------------
 ;;
+;;  This section describes enhancements to Dired behavior, that is,
+;;  things you can do in Dired.  In addition, be aware also of the
+;;  other direction: during file-name completion you can use `M-|' to
+;;  open all of the matching files in a Dired buffer.
+;;
+;;  See also (@> "Open Dired for a Set of File and Dir Names"), below,
+;;  which opens Dired for a set of file names that you have saved
+;;  (persistently or not) during Icicles completion.  That lets you
+;;  reuse the same set of file names multiple times for Dired.
+;;
 ;;  Icicles can help with Dired in these ways:
 ;;
 ;;  * Commands `dired' and `dired-other-window' are multi-commands.
@@ -3779,7 +3789,7 @@
 ;;  causes problems if `icicle-define-alias-commands-flag' is
 ;;  non-`nil'.  Here is the bug description, filed 2007/10/05 by Bjorn
 ;;  Haagensen:
-;;  http://lists.gnu.org/archive/html/bug-auctex/2007-10/msg00006.html.
+;;  https://lists.gnu.org/archive/html/bug-auctex/2007-10/msg00006.html.
 ;;  The problem is that AUCTeX mistakenly invokes the Icicles `file'
 ;;  command, in an inappropriate context.  AUCTeX does not define any
 ;;  function `file' when it is loaded, but it invokes one, if defined.
@@ -4520,7 +4530,7 @@
 ;;  * (@file :file-name "icicles-doc1.el" :to "Apropos Completions")
 ;;    for completion with regexp matching
 ;;
-;;  * http://en.wikipedia.org/wiki/Jaro-Winkler_distance for
+;;  * https://en.wikipedia.org/wiki/Jaro-Winkler_distance for
 ;;    information about Jaro-Winkler matching
  
 ;;(@* "Completion in Other Buffers")
@@ -4727,7 +4737,7 @@
 ;;  Emacs.  You can obtain a recent version, such as 3.1, from one of
 ;;  these locations:
 ;;
-;;  * http://download.savannah.gnu.org/releases/bbdb/
+;;  * https://download.savannah.gnu.org/releases/bbdb/
 ;;  * http://melpa.milkbox.net/
 ;;
 ;;  If user option `icicle-functions-to-redefine' contains an entry

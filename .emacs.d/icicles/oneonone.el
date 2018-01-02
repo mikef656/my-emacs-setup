@@ -4,17 +4,17 @@
 ;; Description: Frame configuration that uses one frame per window.
 ;; Author: Drew Adams
 ;; Maintainer: Drew Adams (concat "drew.adams" "@" "oracle" ".com")
-;; Copyright (C) 1999-2017, Drew Adams, all rights reserved.
+;; Copyright (C) 1999-2018, Drew Adams, all rights reserved.
 ;; Created: Fri Apr  2 12:34:20 1999
 ;; Version: 0
 ;; Package-Requires: ((hexrgb "0"))
-;; Last-Updated: Sun Apr 16 08:58:05 2017 (-0700)
+;; Last-Updated: Mon Jan  1 15:15:03 2018 (-0800)
 ;;           By: dradams
-;;     Update #: 3094
+;;     Update #: 3166
 ;; URL: https://www.emacswiki.org/emacs/download/oneonone.el
-;; Doc URL: http://emacswiki.org/OneOnOneEmacs
+;; Doc URL: https://emacswiki.org/emacs/OneOnOneEmacs
 ;; Keywords: local, frames
-;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x
+;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x, 26.x
 ;;
 ;; Features that might be required by this library:
 ;;
@@ -104,7 +104,7 @@
 ;;  of these built-in functions to play well with frames.
 ;;
 ;;  For more information on One-on-One Emacs see
-;;  http://www.emacswiki.org/OneOnOneEmacs.
+;;  https://www.emacswiki.org/emacs/OneOnOneEmacs.
 ;;
 ;;  To use this library, put the following at the *END* of your init
 ;;  file, `.emacs' (or `_emacs').  In particular, if your init file
@@ -298,6 +298,9 @@
  
 ;;; Change Log:
 ;;
+;; 2017/11/20 dadams
+;;     1on1-change-cursor-on-input-method: Use color from 1on1-minibuffer-frame-alist before
+;;                                         that or 1on1-minibuffer-frame-cursor-color.
 ;; 2016/12/30 dadams
 ;;     y-or-n-p: Return to Isearch color if searching.
 ;; 2015/08/21 dadams
@@ -359,7 +362,7 @@
 ;; 2013/06/05 dadams
 ;;     *-frame-font: Changed sizes other than pixels to *, to work around an Emacs 20 bug with
 ;;                   x-list-fonts' on Windows 7.  See:
-;;                   http://lists.gnu.org/archive/html/help-emacs-windows/2013-06/msg00009.html
+;;                   https://lists.gnu.org/archive/html/help-emacs-windows/2013-06/msg00009.html
 ;; 2013/01/18 dadams
 ;;     Removed: 1on1-increment-color-hue - use hexrgb-increment-hue.
 ;;     1on1-color-minibuffer-frame-on-(setup|exit)-increment: Divided increment by 100.
@@ -697,10 +700,10 @@
 &body=Describe bug here, starting with `emacs -q'.  \
 Don't forget to mention your Emacs and library versions."))
   :link '(url-link :tag "Other Libraries by Drew"
-          "http://www.emacswiki.org/DrewsElispLibraries")
-  :link '(url-link :tag "Download" "http://www.emacswiki.org/oneonone.el")
+          "https://www.emacswiki.org/emacs/DrewsElispLibraries")
+  :link '(url-link :tag "Download" "https://www.emacswiki.org/emacs/download/oneonone.el")
   :link '(url-link :tag "Description"
-          "http://www.emacswiki.org/OneOnOneEmacs")
+          "https://www.emacswiki.org/emacs/OneOnOneEmacs")
   :link '(emacs-commentary-link :tag "Commentary" "oneonone"))
 
 (defvar 1on1-divider-width 2
@@ -1571,7 +1574,8 @@ show/hide: hold CTRL + click in window"))
               ((string= "*Completions*" bufname)
                (set-cursor-color 1on1-completions-frame-mouse+cursor-color))
               ((eq 1on1-minibuffer-frame (selected-frame))
-               (set-cursor-color 1on1-minibuffer-frame-cursor-color))
+               (or (cdr (assq 'cursor-color 1on1-minibuffer-frame-alist))
+                   1on1-minibuffer-frame-cursor-color))
               ((special-display-p bufname)
                (set-cursor-color 1on1-special-frame-cursor-color))
               ;; Do not set it if there is no setting for it in `default-frame-alist'.

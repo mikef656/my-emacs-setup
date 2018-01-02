@@ -4,15 +4,15 @@
 ;; Description: Change logs for Bookmark+ libraries.
 ;; Author: Drew Adams
 ;; Maintainer: Drew Adams (concat "drew.adams" "@" "oracle" ".com")
-;; Copyright (C) 2000-2017, Drew Adams, all rights reserved.
+;; Copyright (C) 2000-2018, Drew Adams, all rights reserved.
 ;; Created: Fri Sep 15 07:58:41 2000
-;; Last-Updated: Fri Oct 27 14:14:47 2017 (-0700)
+;; Last-Updated: Mon Jan  1 09:55:44 2018 (-0800)
 ;;           By: dradams
-;;     Update #: 16354
+;;     Update #: 16368
 ;; URL: https://www.emacswiki.org/emacs/download/bookmark%2b-chg.el
-;; Doc URL: http://www.emacswiki.org/BookmarkPlus
+;; Doc URL: https://www.emacswiki.org/emacs/BookmarkPlus
 ;; Keywords: bookmarks, bookmark+
-;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x
+;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x, 26.x
 ;;
 ;; Features that might be required by this library:
 ;;
@@ -48,7 +48,7 @@
 ;;       Web'.
 ;;
 ;;    2. From the Emacs-Wiki Web site:
-;;       http://www.emacswiki.org/BookmarkPlus.
+;;       https://www.emacswiki.org/emacs/BookmarkPlus.
 ;;
 ;;    3. From the Bookmark+ group customization buffer:
 ;;       `M-x customize-group bookmark-plus', then click link
@@ -135,7 +135,7 @@
 ;;  navigate around the sections of this doc.  Linkd mode will
 ;;  highlight this Index, as well as the cross-references and section
 ;;  headings throughout this file.  You can get `linkd.el' here:
-;;  http://www.emacswiki.org/emacs/download/linkd.el.
+;;  https://www.emacswiki.org/emacs/download/linkd.el.
 ;;
 ;;  (@> "CHANGE LOG FOR `bookmark+-1.el'")
 ;;  (@> "CHANGE LOG FOR `bookmark+-bmu.el'")
@@ -146,6 +146,13 @@
  
 ;;;(@* "CHANGE LOG FOR `bookmark+-1.el'")
 ;;
+;; 2017/11/27 dadams
+;;     bookmark-write-file:
+;;       Corrected change made on 2017/01/10 (fix for bug #25365).
+;;       Bind Lisp mode hooks to nil, to avoid inserting a Lisp file header for existing empty file.
+;; 2017/10/31 dadams
+;;     bookmark-send-edited-annotation: test using following-char, not bmkp-looking-at-p.
+;;     bookmark-save: Non-nil FILE now means use FILE, regardless of PARG value.
 ;; 2017/10/08 dadams
 ;;     bmkp-bookmark-description, bmkp-describe-bookmark-internals:
 ;;       Bind print-(circle|length|level) so pp-to-string prints all.

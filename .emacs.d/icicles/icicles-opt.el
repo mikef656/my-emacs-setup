@@ -4,16 +4,16 @@
 ;; Description: User options (customizable variables) for Icicles
 ;; Author: Drew Adams
 ;; Maintainer: Drew Adams (concat "drew.adams" "@" "oracle" ".com")
-;; Copyright (C) 1996-2017, Drew Adams, all rights reserved.
+;; Copyright (C) 1996-2018, Drew Adams, all rights reserved.
 ;; Created: Mon Feb 27 09:22:14 2006
-;; Last-Updated: Wed Jul 26 08:21:13 2017 (-0700)
+;; Last-Updated: Mon Jan  1 14:18:25 2018 (-0800)
 ;;           By: dradams
-;;     Update #: 6189
+;;     Update #: 6204
 ;; URL: https://www.emacswiki.org/emacs/download/icicles-opt.el
 ;; Doc URL: https://www.emacswiki.org/emacs/Icicles
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
-;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x
+;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x, 26.x
 ;;
 ;; Features that might be required by this library:
 ;;
@@ -23,9 +23,9 @@
 ;;   `ffap-', `fit-frame', `frame-fns', `fuzzy', `fuzzy-match',
 ;;   `help+20', `hexrgb', `info', `info+20', `kmacro', `levenshtein',
 ;;   `menu-bar', `menu-bar+', `misc-cmds', `misc-fns', `naked',
-;;   `package', `pp', `pp+', `regexp-opt', `second-sel', `strings',
-;;   `thingatpt', `thingatpt+', `unaccent', `w32browser-dlgopen',
-;;   `wid-edit', `wid-edit+', `widget'.
+;;   `package', `pp', `pp+', `second-sel', `strings', `thingatpt',
+;;   `thingatpt+', `unaccent', `w32browser-dlgopen', `wid-edit',
+;;   `wid-edit+', `widget'.
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -1174,6 +1174,9 @@ provides the same behavior as value `use-default' (but it is slower):
       (null cpa))
     nil)                                          ; Any (no filtering)
 
+   ((lambda (cpa) (and (consp cpa)  (eq cpa '-))) ; `-'
+    (lambda (bf) (not (buffer-modified-p bf))))   ; Modified (unsaved)
+
    ((lambda (cpa)                                 ; `C-u C-u C-u'
       (and (consp cpa)
            (> (prefix-numeric-value cpa) 16)))
@@ -1185,7 +1188,7 @@ provides the same behavior as value `use-default' (but it is slower):
     (lambda (bf) (not (get-buffer-window bf 0)))) ; Visible
 
    ((lambda (cpa)                                 ; `C-u'
-      (and (consp current-prefix-arg)
+      (and (consp cpa)
            (fboundp 'derived-mode-p)))
     (lambda (bf)                                  ; Derived mode
       (not (derived-mode-p

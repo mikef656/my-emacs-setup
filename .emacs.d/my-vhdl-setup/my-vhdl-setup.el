@@ -2,6 +2,115 @@
 ;  FUNCTIONS HERE
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; experiments for new index based instance finder for veri
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; https://regex101.com/r/z8XbN2/1
+
+(defun get-verilog-inst-running-python-script ()
+  "aoeu"
+  (interactive)
+  (setq my-list
+  (mapcar 'string-to-number
+    (split-string      
+      (setq mystring
+        (shell-command-to-string (format "readstring.py %s" buffer-file-name)))))))
+
+; mapcar is like Ruby each
+;(mapcar 'string-to-number my-list)
+
+
+(defun my-verilog-goto-inst (arg)
+  (interactive "P")
+  ;; (goto-char (string-to-number (nth 3 my-list))))
+  (goto-char (nth 3 my-list)))
+
+(setq mylist '(2 4 6 8))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; main
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun find-inst-loc-backwrd ()
+  (interactive)
+  (let ((here 7) (verbose nil))
+  (if verbose
+    (message "\n---- find-inst-loc-backwrd ----"))
+  ;  if the location of last/largest inst is < point, look it up
+  ;  else message "no inst found backwards"
+  ;
+  (if (< (car mylist) here)
+    (progn 
+    (if verbose (message "true"))
+    ;
+    (setq place-to-jump (find-inst-loc-backward-loop mylist here))
+    (message "place to jump %s" place-to-jump))
+  
+  (message "No instance going backwards"))))
+
+(defun find-inst-loc-backward-loop (arg-inst-list arg-here)
+  (interactive)
+  (let  ((verbose t)
+         (index   0)
+         (val   5))
+  (if verbose
+    (message "  ---- find-inst-loc-backwrd-loop ----"))
+  ;
+  (if nil
+    (print-elements-of-list arg-inst-list))
+  ;
+  ; how to get the length of a list
+  (safe-length mylist)
+  (setq mylist-reverse (reverse mylist))
+  ;
+  (while (> (nth index mylist-reverse) arg-here)
+    ;
+    (if verbose 
+      (message "  %d is < %d" arg-here (nth index mylist-reverse)))
+    ;
+    (setq index (1+ index)))
+  ; exit statement  
+  (if verbose
+    (message "  %d is > %d" arg-here (nth index mylist-reverse)))
+  (nth index mylist-reverse)))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun find-inst-loc-forward-loop (arg-inst-list)
+  (interactive)
+  (message "setting index to 0")
+  ;
+  (if nil
+    (print-elements-of-list arg-inst-list))
+  ;(message "%d" arg-inst-list)
+  (setq index 0)
+  (setq val 5)
+  ; how to get the length of a list
+  (safe-length mylist)
+  (while (< (nth index mylist) val)
+    (message "  %d is > %d" val (nth index mylist))
+    (setq index (1+ index)))
+  ; exit statement  
+  (message "  %d is < %d" val (nth index mylist))
+  (nth index mylist))
+
+(defun print-elements-of-list (list)
+  "Print each element of LIST on a line of its own."
+  (while list
+    (print (car list))
+    (setq list (cdr list))))
+    
+; length of list
+
+; Use this to return a list produced by Python
+;; (setq mystring 
+;;       (split-string 
+;;        (setq mytemp 
+;;              (shell-command-to-string "ls")) 
+;;       " "))
+; 
+;; (car mystring)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;A new syntax table, that adds _ as as symbol which removes it as a word
 (defvar underscore-is-symbol-not-word-syntax-table

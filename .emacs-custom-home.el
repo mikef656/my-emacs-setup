@@ -3,10 +3,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(1on1-completions-frame-zoom-font-difference 1)
+ '(1on1-active-minibuffer-frame-background "#3f3f3f")
+ '(1on1-active-mode-line-background "#1e2330")
+ '(1on1-completions-frame-background "#3f3f3f")
+ '(1on1-completions-frame-zoom-font-difference 2)
  '(1on1-default-frame-alist
    (quote
-    ((foreground-color . "#dcdccc")
+    ((foreground-color . "white")
      (background-color . "#3f3f3f")
      (font . "-*-Lucida Console-normal-r-*-*-14-112-96-96-c-*-iso8859-1")
      (mouse-color . "#dcdccc")
@@ -25,8 +28,29 @@
      (right-fringe . 0)
      (fringe . 0))))
  '(1on1-default-frame-cursor-color "yellow")
+ '(1on1-help-frame-background "#3f3f3f")
+ '(1on1-inactive-minibuffer-frame-background "#3f3f3f")
+ '(1on1-inactive-mode-line-background "#2e3330")
+ '(1on1-isearch-minibuffer-frame-background "#3f3f3f")
+ '(1on1-minibuffer-frame-alist
+   (quote
+    ((foreground-color . "white")
+     (background-color . "#3f3f3f")
+     (font . "-*-Lucida Console-normal-r-*-*-14-112-96-96-c-*-iso8859-1")
+     (mouse-color . "#dcdccc")
+     (cursor-color . "orange")
+     (menu-bar-lines . 0)
+     (left . 0)
+     (height . 2)
+     (icon-type)
+     (minibuffer . only)
+     (user-position . t)
+     (vertical-scroll-bars)
+     (name . "Emacs Minibuffer")
+     (desktop-dont-save . t))))
  '(1on1-minibuffer-frame-flag t)
- '(1on1-remap-other-frame-commaned-flag nil)
+ '(1on1-minibuffer-frame-width-percent 99)
+ '(1on1-remap-other-frame-command-flag nil)
  '(1on1-special-display-frame-alist
    (quote
     ((font . "-*-Lucida Console-normal-r-*-*-14-112-96-96-c-*-iso8859-1")

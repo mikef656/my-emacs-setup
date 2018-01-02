@@ -4,17 +4,17 @@
 ;; Description: Extensions to `menu-bar.el'.
 ;; Author: Drew Adams
 ;; Maintainer: Drew Adams (concat "drew.adams" "@" "oracle" ".com")
-;; Copyright (C) 1996-2017, Drew Adams, all rights reserved.
+;; Copyright (C) 1996-2018, Drew Adams, all rights reserved.
 ;; Created: Thu Aug 17 10:05:46 1995
 ;; Version: 0
 ;; Package-Requires: ()
-;; Last-Updated: Thu Jul 20 07:08:44 2017 (-0700)
+;; Last-Updated: Mon Jan  1 14:52:39 2018 (-0800)
 ;;           By: dradams
-;;     Update #: 3783
+;;     Update #: 3799
 ;; URL: https://www.emacswiki.org/emacs/download/menu-bar%2b.el
-;; Doc URL: http://www.emacswiki.org/MenuBarPlus
+;; Doc URL: https://www.emacswiki.org/emacs/MenuBarPlus
 ;; Keywords: internal, local, convenience
-;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x
+;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x, 26.x
 ;;
 ;; Features that might be required by this library:
 ;;
@@ -128,6 +128,9 @@
 ;;
 ;;; Change Log:
 ;;
+;; 2017/12/21 dadams
+;;     Added make-frame(-on-display), delete-this-frame to Frames menu.
+;;     Removed frame stuff from Files menu, since added it to Frames menu.
 ;; 2017/07/20 dadams
 ;;     menu-bar-options-menu: Protect edit-options entry with fboundp.
 ;; 2017/06/18 dadams
@@ -572,6 +575,21 @@ submenu of the \"Help\" menu."))
 (when (and (featurep 'fit-frame) (not (featurep 'frame-cmds)) (eq window-system 'w32))
   (define-key menu-bar-frames-menu [maximize-frame]
     '(menu-item "Maximize Frame" maximize-frame :help "Maximize the selected frame")))
+
+(define-key menu-bar-frames-menu [make-frame-on-display]
+  '(menu-item "New Frame on Display..." make-frame-on-display
+    :visible (fboundp 'make-frame-on-display)
+    :help "Open a new frame on another display"))
+(define-key menu-bar-frames-menu [make-frame]
+  '(menu-item "New Frame" make-frame-command
+    :visible (fboundp 'make-frame-command)
+    :help "Open a new frame"))
+(define-key menu-bar-frames-menu [delete-this-frame] ; Name `delete-frame' is for a special event
+  '(menu-item "Delete Frame" delete-frame
+    :visible (and (fboundp 'delete-frame)  (fboundp 'delete-frame-enabled-p))
+    :enable (and (fboundp 'delete-frame-enabled-p)  (delete-frame-enabled-p))
+    :help "Delete currently selected frame"))
+
 (when (featurep 'fit-frame)
   (define-key menu-bar-frames-menu [fit-frame]
     '(menu-item "Fit This Frame" fit-frame :help "Resize frame to fit its selected window")))
@@ -736,6 +754,12 @@ submenu of the \"Help\" menu."))
 
 ;;; `Files' menu.
 ;;
+
+;; Remove frame stuff from `Files' menu, since we moved it to `Frames' menu.
+(define-key menu-bar-file-menu [make-frame-on-display] nil)
+(define-key menu-bar-file-menu [make-frame] nil)
+(define-key menu-bar-file-menu [delete-this-frame] nil)
+
 (when (< emacs-major-version 21)
   ;; Use `dlgopen-open-files' if available; else use `find-file-other-frame'.
   (define-key menu-bar-file-menu [open-file]
@@ -794,7 +818,8 @@ submenu of the \"Help\" menu."))
 ;;
 ;;;###autoload
 (defun kill-this-buffer ()
-  "Delete the current buffer and delete all of its windows."
+  "Delete the current buffer and delete all of its windows.
+But if invoked in the minibuffer just invoke `abort-recursive-edit'."
   (interactive)
   (cond ((and (fboundp 'menu-bar-menu-frame-live-and-visible-p) ; Emacs 22+
               (not (menu-bar-menu-frame-live-and-visible-p))))

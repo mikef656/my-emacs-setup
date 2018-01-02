@@ -4,18 +4,18 @@
 ;; Description: Minibuffer completion and cycling.
 ;; Author: Drew Adams
 ;; Maintainer: Drew Adams (concat "drew.adams" "@" "oracle" ".com")
-;; Copyright (C) 1996-2017, Drew Adams, all rights reserved.
+;; Copyright (C) 1996-2018, Drew Adams, all rights reserved.
 ;; Created: Tue Aug  1 14:21:16 1995
-;; Version: 2017.07.26
+;; Version: 2017.12.10
 ;; Package-Requires: ()
-;; Last-Updated: Wed Jul 26 08:22:24 2017 (-0700)
+;; Last-Updated: Mon Jan  1 14:21:09 2018 (-0800)
 ;;           By: dradams
-;;     Update #: 23714
+;;     Update #: 23717
 ;; URL: https://www.emacswiki.org/emacs/download/icicles.el
 ;; Doc URL: https://emacswiki.org/emacs/Icicles
 ;; Keywords: extensions, help, abbrev, local, minibuffer, projects,
 ;;           keys, apropos, completion, matching, regexp, command
-;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x
+;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x, 26.x
 ;;
 ;; Features that might be required by this library:
 ;;
@@ -29,9 +29,9 @@
 ;;   `fuzzy-match', `help+20', `hexrgb', `highlight', `icicles-cmd1',
 ;;   `icicles-cmd2', `icicles-face', `icicles-fn', `icicles-mcmd',
 ;;   `icicles-mode', `icicles-opt', `icicles-var', `image-dired',
-;;   `image-file', `info', `info+20', `kmacro', `levenshtein',
-;;   `menu-bar', `menu-bar+', `misc-cmds', `misc-fns', `mouse3',
-;;   `mwheel', `naked', `package', `pp', `pp+', `regexp-opt', `ring',
+;;   `image-file', `info', `info+20', `isearch+', `kmacro',
+;;   `levenshtein', `menu-bar', `menu-bar+', `misc-cmds', `misc-fns',
+;;   `mouse3', `mwheel', `naked', `package', `pp', `pp+', `ring',
 ;;   `second-sel', `strings', `subr-21', `thingatpt', `thingatpt+',
 ;;   `unaccent', `w32-browser', `w32browser-dlgopen', `wid-edit',
 ;;   `wid-edit+', `widget'.

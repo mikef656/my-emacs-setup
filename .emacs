@@ -5,6 +5,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Use this to return a list produced by Python
+;; (setq mystring 
+;;       (split-string 
+;;        (setq mytemp 
+;;              (shell-command-to-string "ls")) 
+;;       " "))
+; 
+;; (car mystring)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; global minor mode or bindkey for keymap
 ;https://emacs.stackexchange.com/
 ;questions/352/how-to-override-major-mode-bindings
@@ -310,7 +321,10 @@
        ;(setq bmkp-last-as-first-bookmark-file "~/my-emacs.bmk")))
        ;
     (when ( and load-essentials_1 load-custom-file)
-      (load custom-file 'message)))
+      ;; (load custom-file 'message)))
+      ;; Drew recomended load-file <filename> rather than 
+      ;;  load-custom-file 'message on 11/20/2017
+      (load-file custom-file)))
     ;
   (message "--Error trouble loading custom file"))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -3225,9 +3239,11 @@
   (message "--Error in load bookmarks at init")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;aoe
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; final message
 (message "---REACHED END OF THE %s for %s system---" (buffer-name) home-work)
+; add a line here
 ; add a line here
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

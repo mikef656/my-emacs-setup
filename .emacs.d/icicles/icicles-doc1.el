@@ -4,16 +4,16 @@
 ;; Description: Minibuffer completion and cycling.
 ;; Author: Drew Adams
 ;; Maintainer: Drew Adams (concat "drew.adams" "@" "oracle" ".com")
-;; Copyright (C) 1996-2017, Drew Adams, all rights reserved.
+;; Copyright (C) 1996-2018, Drew Adams, all rights reserved.
 ;; Created: Tue Aug  1 14:21:16 1995
-;; Last-Updated: Mon Oct 16 06:50:02 2017 (-0700)
+;; Last-Updated: Mon Jan  1 14:03:44 2018 (-0800)
 ;;           By: dradams
-;;     Update #: 28617
+;;     Update #: 28632
 ;; URL: https://www.emacswiki.org/emacs/download/icicles-doc1.el
 ;; Doc URL: https://www.emacswiki.org/emacs/Icicles
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
-;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x
+;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x, 26.x
 ;;
 ;; Features that might be required by this library:
 ;;
@@ -6066,9 +6066,9 @@
 ;;  matched any character *except* a newline character (aka `^J', aka
 ;;  `C-j').  Recent languages typically have an additional mode in
 ;;  which `.' can match any character, including a newline.  See, for
-;;  example, http://www.regular-expressions.info/dot.html and this
+;;  example, https://www.regular-expressions.info/dot.html and this
 ;;  language comparison for regexp features:
-;;  http://www.regular-expressions.info/refflavors.html.
+;;  https://www.regular-expressions.info/refflavors.html.
 ;;
 ;;  It is not unusual to manipulate multi-line completion candidates
 ;;  in Icicles, in which case it can be handy to let `.' match any
@@ -8258,11 +8258,12 @@
 ;;  that satisfy these conditions:
 ;;
 ;;  * Plain `C-u': whose mode is derived from the current buffer mode
-;;  * `C-u C-u':   visible (possibly in an iconified frame)
+;;  * `C-u C-u': are visible (possibly in an iconified frame)
 ;;  * `C-u C-u C-u': invisible
-;;  * Zero:        whose mode is the same as the current buffer mode
-;;  * Positive:    visiting files
-;;  * Negative:    associated with the selected frame
+;;  * `-' (plain `-'): are modified (unsaved)
+;;  * = 0: whose mode is the same as the current buffer mode
+;;  * > 0: are visiting files
+;;  * < 0 (and not plain `-'): are associated with the selected frame
 ;;
 ;;  Those are the default behaviors, but you can change them using
 ;;  option `icicle-buffer-prefix-arg-filtering'.
@@ -8276,9 +8277,21 @@
 ;;    C-x b C-M-j toto      ; Match buffer contents against `toto'
 ;;    C-x b foo C-M-j toto  ; Match both buffer name and contents
 ;;
+;;  (Options `icicle-buffer-include-cached-files-nflag' and
+;;  `icicle-buffer-include-recent-files-nflag' have no effect on
+;;  command `icicle-kill-buffer'.  Its candidates are only existing
+;;  buffer names.)
+;;
 ;;  You can use option `icicle-buffer-skip-functions' to specify
 ;;  patterns for buffer names to exclude from content-searching when
 ;;  you provide a content-matching pattern to `icicle-buffer'.
+;;
+;;  Remember that you can use all of the usual Icicles multi-command
+;;  keys.  In particular, you can use `C-!' to act on all matching
+;;  buffers.  So for example, you can use `C-x k'
+;;  (`icicle-kill-buffer'), filter buffer-name candidates in various
+;;  ways (including progressive completion), and then use `C-!' to
+;;  kill all of the remaining candidate buffers.
 ;;
 ;;  In addition to the usual Icicles key bindings, during buffer-name
 ;;  completion you can use additional keys, which are defined by

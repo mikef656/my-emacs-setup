@@ -4,16 +4,16 @@
 ;; Description: First part of package Bookmark+.
 ;; Author: Drew Adams, Thierry Volpiatto
 ;; Maintainer: Drew Adams (concat "drew.adams" "@" "oracle" ".com")
-;; Copyright (C) 2000-2017, Drew Adams, all rights reserved.
+;; Copyright (C) 2000-2018, Drew Adams, all rights reserved.
 ;; Copyright (C) 2009, Thierry Volpiatto.
 ;; Created: Mon Jul 12 13:43:55 2010 (-0700)
-;; Last-Updated: Sun Oct  8 15:24:55 2017 (-0700)
+;; Last-Updated: Mon Jan  1 09:53:19 2018 (-0800)
 ;;           By: dradams
-;;     Update #: 8542
+;;     Update #: 8592
 ;; URL: https://www.emacswiki.org/emacs/download/bookmark%2b-1.el
-;; Doc URL: http://www.emacswiki.org/BookmarkPlus
+;; Doc URL: https://www.emacswiki.org/emacs/BookmarkPlus
 ;; Keywords: bookmarks, bookmark+, placeholders, annotations, search, info, url, eww, w3m, gnus
-;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x
+;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x, 26.x
 ;;
 ;; Features that might be required by this library:
 ;;
@@ -46,7 +46,7 @@
 ;;       Web'.
 ;;
 ;;    2. From the Emacs-Wiki Web site:
-;;       http://www.emacswiki.org/BookmarkPlus.
+;;       https://www.emacswiki.org/emacs/BookmarkPlus.
 ;;
 ;;    3. From the Bookmark+ group customization buffer:
 ;;       `M-x customize-group bookmark-plus', then click link
@@ -65,7 +65,7 @@
 ;;  navigate around the sections of this doc.  Linkd mode will
 ;;  highlight this Index, as well as the cross-references and section
 ;;  headings throughout this file.  You can get `linkd.el' here:
-;;  http://www.emacswiki.org/emacs/download/linkd.el.
+;;  https://www.emacswiki.org/emacs/download/linkd.el.
 ;;
 ;;  (@> "Things Defined Here")
 ;;  (@> "User Options (Customizable)")
@@ -1733,7 +1733,7 @@ Use that function to update the value.")
 ;; Doc string reflects `Bookmark+' enhancements.
 ;;
 (put 'bookmark-alist 'variable-documentation
-     "Association list of bookmarks and their records.
+     "Current list of bookmarks (bookmark records).
 Bookmark functions update the value automatically.
 You probably do not want to change the value yourself.
 
@@ -1742,10 +1742,9 @@ The value is an alist with entries of the form
 or the deprecated form (BOOKMARK-NAME PARAM-ALIST).
 
  BOOKMARK-NAME is the name you gave to the bookmark when creating it.
- PARAM-ALIST is an alist of bookmark information.  The order of the
-  entries in PARAM-ALIST is not important.  The possible entries are
-  described below.  An entry with a key but null value means the entry
-  is not used.
+ PARAM-ALIST is an alist of bookmark data.  The order of the entries
+  in PARAM-ALIST is not important.  The possible entries are described
+  below.
 
 Bookmarks created using vanilla Emacs (`bookmark.el'):
 
@@ -2251,7 +2250,7 @@ Lines beginning with `#' are ignored."
   (unless (derived-mode-p 'bookmark-edit-annotation-mode)
     (error "Not in mode derived from `bookmark-edit-annotation-mode'"))
   (goto-char (point-min))
-  (while (< (point) (point-max)) (if (bmkp-looking-at-p "^#") (bookmark-kill-line t) (forward-line 1)))
+  (while (< (point) (point-max)) (if (= (following-char) ?#) (bookmark-kill-line t) (forward-line 1)))
   (let ((annotation      (buffer-substring-no-properties (point-min) (point-max)))
         (bookmark        bookmark-annotation-name)
         (annotation-buf  (current-buffer)))
@@ -3203,17 +3202,17 @@ To load bookmarks from a specific file, use `\\[bookmark-load]'
 \(`bookmark-load').
 
 If called from Lisp:
- With nil PARG, use file `bmkp-current-bookmark-file'.
- With non-nil PARG and non-nil FILE, use file FILE.
- With non-nil PARG and nil FILE, prompt the user for the file to use."
+ With nil PARG and nil FILE, use file `bmkp-current-bookmark-file'.
+ With non-nil FILE, use file FILE.
+ With non-nil PARG, prompt the user for the file to use."
   (interactive "P")
   (bookmark-maybe-load-default-file)
   (let ((file-to-save
-         (cond ((and (not parg)  (not file))  bmkp-current-bookmark-file)
-               ((and (not parg)  file)        file)
-               ((and parg  (not file))        (bmkp-read-bookmark-file-name
-                                               "File to save bookmarks in: " nil
-                                               (bmkp-read-bookmark-file-default))))))
+         (cond (file)                   ; Use FILE provided.
+               (parg        (bmkp-read-bookmark-file-name
+                             "File to save bookmarks in: " nil
+                             (bmkp-read-bookmark-file-default)))
+               ((not parg)  bmkp-current-bookmark-file))))
     (when (file-directory-p file-to-save) (error "`%s' is a directory, not a file" file-to-save))
     (when (and bmkp-last-as-first-bookmark-file
                bookmark-save-flag)      ; nil if temporary bookmarking mode.
@@ -3231,13 +3230,15 @@ If called from Lisp:
 ;; 1. Use `write-file', not `write-region', so backup files are made.
 ;; 2. Do not save temporary bookmarks (`bmkp-temporary-bookmark-p').
 ;; 3. Added optional arguments ADD and ALT-MSG.
-;; 4. Insert code piecewise, to improve performance when saving `bookmark-alist'.
+;;    Do not delete region if ADD.  Position point depending on ADD.
+;; 4. Delete contents only if file does not exist (just in case).  Else `bookmark-maybe-upgrade-file-format'.
+;; 5. Insert code piecewise, to improve performance when saving `bookmark-alist'.
 ;;    (Do not let `pp' parse all of `bookmark-alist' at once.)
-;; 5. Unless `bmkp-propertize-bookmark-names-flag', remove text properties from bookmark name and file name.
+;; 6. Unless `bmkp-propertize-bookmark-names-flag', remove text properties from bookmark name and file name.
 ;;    Remove them also from bookmark names in a sequence bookmark `sequence' entry.
-;; 6. Bind `print-circle' around `pp', to record bNAME with `bmkp-full-record' prop, when appropriate.
-;; 7. Use `case', not `cond'.
-;; 8. Run `bmkp-write-bookmark-file-hook' functions after writing the bookmark file.
+;; 7. Bind `print-circle' around `pp', to record bNAME with `bmkp-full-record' prop, when appropriate.
+;; 8. Use `case', not `cond'.
+;; 9. Run `bmkp-write-bookmark-file-hook' functions after writing the bookmark file.
 ;;
 (defun bookmark-write-file (file &optional add alt-msg)
   "Write `bookmark-alist' to FILE.
@@ -3264,9 +3265,11 @@ contain a `%s' construct, so that it can be passed along with FILE to
         (rem-all-p                (or (not (> emacs-major-version 20)) ; Cannot: (not (boundp 'print-circle)).
                                       (not bmkp-propertize-bookmark-names-flag)))
         (existing-buf             (get-file-buffer file))
+        (emacs-lisp-mode-hook     nil)  ; Avoid inserting automatic file header if existing empty file, so
+        (lisp-mode-hook           nil)  ; better chance `bookmark-maybe-upgrade-file-format' signals error.
         bname fname last-fname start end)
     (when (file-directory-p file) (error "`%s' is a directory, not a file" file))
-    (message msg file)
+    (message msg (abbreviate-file-name file))
     (with-current-buffer (let ((enable-local-variables  ())) (find-file-noselect file))
       (goto-char (point-min))
       (if (file-exists-p file)
@@ -3275,15 +3278,20 @@ contain a `%s' construct, so that it can be passed along with FILE to
         (unless (boundp 'bookmark-file-coding-system) ; Emacs < 25.2.
           (bookmark-insert-file-format-version-stamp))
         (insert "(\n)"))
-      (setq start  (or (save-excursion (goto-char (point-min))
-                                       (search-forward (concat bookmark-end-of-version-stamp-marker "(")
-                                                       nil t))
-                       (error "Invalid bookmark-file"))
-            end    (or (save-excursion (goto-char start) (and (looking-at ")") start)) ; Empty bmk list: ().
-                       (save-excursion (goto-char (point-max)) (re-search-backward "^)" nil t))
-                       (error "Invalid bookmark-file")))
-      (unless add (delete-region start end))
-      (goto-char (if (eq add 'append) end start))
+      (setq start  (and (file-exists-p file)
+                        (or (save-excursion (goto-char (point-min))
+                                            (search-forward (concat bookmark-end-of-version-stamp-marker "(")
+                                                            nil t))
+                            (error "Invalid bookmark-file")))
+            end    (and start
+                        (or (save-excursion (goto-char start) (and (looking-at ")") start)) ; Empty bmk list: ().
+                            (save-excursion (goto-char (point-max)) (re-search-backward "^)" nil t))
+                            (error "Invalid bookmark-file"))))
+      (if (not start)                   ; New file, no header yet.
+          (goto-char 2)
+        ;;  Existing file - delete old bookmarks unless ADD.
+        (unless add (delete-region start end))
+        (goto-char (if (eq add 'append) end start)))
       (dolist (bmk  bookmark-alist)
         (unless (bmkp-temporary-bookmark-p bmk)
           (setq bname  (car bmk)
@@ -3331,7 +3339,8 @@ contain a `%s' construct, so that it can be passed along with FILE to
         (with-coding-priority '(utf-8-emacs)
           (setq coding-system-for-write  (select-safe-coding-system (point-min) (point-max)
                                                                     (list t coding-system-for-write))))
-        (goto-char (point-min))
+        (when start (delete-region 1 (1- start))) ; Delete old header.
+        (goto-char 1)
         (bookmark-insert-file-format-version-stamp coding-system-for-write))
       (let ((version-control        (case bookmark-version-control
                                       ((nil)      nil)
@@ -8641,7 +8650,7 @@ the file is an image file then the description includes the following:
                    (info-p           (and file  (format "Info node:\t\t(%s) %s\n"
                                                         (file-name-nondirectory file)
                                                         (bookmark-prop-get bookmark 'info-node))))
-                   (eww-p            (and file  (format "EWW URL:\t\t%s\n" file))) ; Emacs 24.4+
+                   (eww-p            (and file  (format "EWW URL:\t\t%s\n" file))) ; Emacs 25+
                    (w3m-p            (and file  (format "W3m URL:\t\t%s\n" file)))
                    (url-p            (format "URL:\t\t\t%s\n" location))
                    (desktop-p        (format "Desktop file:\t\t%s\n"
@@ -10021,8 +10030,8 @@ recorded number of visits.)  You can toggle the option using
 Bookmark bug: \
 &body=Describe bug here, starting with `emacs -Q'.  \
 Don't forget to mention your Emacs and library versions."))
-          :link '(url-link :tag "Download" "http://www.emacswiki.org/bookmark+.el")
-          :link '(url-link :tag "Description" "http://www.emacswiki.org/BookmarkPlus")
+          :link '(url-link :tag "Download" "https://www.emacswiki.org/emacs/download/bookmark%2b.el")
+          :link '(url-link :tag "Description" "https://www.emacswiki.org/emacs/BookmarkPlus")
           :link '(emacs-commentary-link :tag "Commentary" "bookmark+")
           (cond (bmkp-eww-auto-bookmark-mode
                  (add-hook   'eww-after-render-hook      'bmkp-set-eww-bookmark-here)
@@ -12614,8 +12623,8 @@ NOTE: If you use Emacs 21 then there is no global version of the mode
 Bookmark bug: \
 &body=Describe bug here, starting with `emacs -Q'.  \
 Don't forget to mention your Emacs and library versions."))
-               :link '(url-link :tag "Download" "http://www.emacswiki.org/bookmark+.el")
-               :link '(url-link :tag "Description" "http://www.emacswiki.org/BookmarkPlus")
+               :link '(url-link :tag "Download" "https://www.emacswiki.org/emacs/download/bookmark%2b.el")
+               :link '(url-link :tag "Description" "https://www.emacswiki.org/emacs/BookmarkPlus")
                :link '(emacs-commentary-link :tag "Commentary" "bookmark+")
                (when bmkp-auto-idle-bookmark-mode-timer
                  (cancel-timer bmkp-auto-idle-bookmark-mode-timer)
@@ -12740,8 +12749,8 @@ recorded number of visits.)  You can toggle the option using
 Bookmark bug: \
 &body=Describe bug here, starting with `emacs -Q'.  \
 Don't forget to mention your Emacs and library versions."))
-          :link '(url-link :tag "Download" "http://www.emacswiki.org/bookmark+.el")
-          :link '(url-link :tag "Description" "http://www.emacswiki.org/BookmarkPlus")
+          :link '(url-link :tag "Download" "https://www.emacswiki.org/emacs/download/bookmark%2b.el")
+          :link '(url-link :tag "Description" "https://www.emacswiki.org/emacs/BookmarkPlus")
           :link '(emacs-commentary-link :tag "Commentary" "bookmark+")
           (if bmkp-info-auto-bookmark-mode
               (add-hook 'Info-selection-hook 'bmkp-set-info-bookmark-with-node-name)
@@ -12819,8 +12828,8 @@ positive.  Non-interactively there is no prompt for confirmation."
 Bookmark bug: \
 &body=Describe bug here, starting with `emacs -Q'.  \
 Don't forget to mention your Emacs and library versions."))
-            :link '(url-link :tag "Download" "http://www.emacswiki.org/bookmark+.el")
-            :link '(url-link :tag "Description" "http://www.emacswiki.org/BookmarkPlus")
+            :link '(url-link :tag "Download" "https://www.emacswiki.org/emacs/download/bookmark%2b.el")
+            :link '(url-link :tag "Description" "https://www.emacswiki.org/emacs/BookmarkPlus")
             :link '(emacs-commentary-link :tag "Commentary" "bookmark+")
             (cond ((not bmkp-temporary-bookmarking-mode) ; Turn off.
                    (when (fboundp 'bmkp-unlight-bookmarks) ; In `bookmark+-lit.el'.

@@ -384,7 +384,8 @@ If point was at beginning of line, move to the end"
  (interactive "^p")
  (unless  (eq 1 arg)
    (message "Moving %s lines" arg))
- (next-line arg))
+ ;; (next-line arg)) ; help for next-line says it's for interactive use only
+ (forward-line arg))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
