@@ -1,4 +1,10 @@
-﻿;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+﻿
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; consider using hideshow mode with verilog begin,end
+; this might be helpful 
+; https://emacs.stackexchange.com/questions/37753/
+;   folding-code-between-a-literal-begin-end-block-using-hideshow
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;J Weigly git undo, works in current region
 ; https://github.com/jwiegley/git-undo-el/blob/master/git-undo.el
 ;
