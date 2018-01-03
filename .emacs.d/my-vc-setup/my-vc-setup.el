@@ -31,13 +31,11 @@
 ; mf-subdirs ()
 ; mf-subdirs ()
 
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; log-edit-done runs when keying C-c C-c in the log edit buffer.
 ; Wait for a bit, then kill the *vc-log* buffer, after comitt.
 ; Otherwise the buffer and new frame it poped up sticks around, and affects
-; general frame awareness, because there is a un-needed frame. 
+; general frame awareness, because there is a un-needed frame.
  (defadvice log-edit-done (around log-edit-done-after activate)
   "Close the window"
   (sleep-for .5)
@@ -45,11 +43,9 @@
   (kill-buffer "*vc-log*"))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq load-vc-svn nil)
 (setq load-psvn t)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-hook 'log-edit-mode-hook
@@ -58,14 +54,12 @@
    ))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-hook 'vc-svn-log-view-mode-hook
    (lambda ()
    (scroll-bar-mode 0)
    ))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;Subversion package DSVN
@@ -90,11 +84,10 @@
 ;;Type ? for help
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;does not work with svn 1.7
 ;horibally slow when doing some things ie switching away from the status buffer
-(when load-psvn 
+(when load-psvn
   (add-to-list 'load-path "~/.emacs.d/psvn/")
   (require 'psvn)
   (add-hook 'vc-checkin-hook 'svn-status-update-modeline)
@@ -109,7 +102,6 @@
     )))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;idea from
 ;www.jakemccrary.com/blog/2013/08/10/
@@ -123,7 +115,6 @@
                    "*Messages*")
     (pop-to-buffer "*SVN-STATUS-NO-ADDS-ONLY*")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -143,23 +134,21 @@ PROMPT is as for `y-or-n-p'."
                            )))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (setq myvar (propertize "foo" 'face '(:foreground "red")))
 ;; (setq foovar (propertize "foovar" 'face '(:foreground "green")))
 ;; ;
 ;; ;how to call it from lisp
 ;; (setq my-svn-co-prompt-response
-;;   (svn-co-y-or-n-p 
-;;   (format 
-;;    "\"y\" to decend, \"r\" decend and list recursevly, Ret to accept %s %s" 
+;;   (svn-co-y-or-n-p
+;;   (format
+;;    "\"y\" to decend, \"r\" decend and list recursevly, Ret to accept %s %s"
 ;;    myvar foovar)))
 ;
 ;; (setq my-svn-co-prompt-response
-;;   (svn-co-y-or-n-p 
+;;   (svn-co-y-or-n-p
 ;;    (format "Checkout \"y\" or RET \"n\" to quit %s %s" myvar foovar)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defcustom my-url-base-list
@@ -175,12 +164,11 @@ PROMPT is as for `y-or-n-p'."
 ; docstring for compositite types
 ;.../manual/html_node/elisp/Composite-Types.html#Composite-Types
 ; (repeat element-type)
-;     The value must be a list and each element of the list must fit the 
-;     type element-type. This appears in the customization buffer as a list 
-;     of elements, with [INS] and [DEL] buttons for adding more elements 
-;     or removing elements. 
+;     The value must be a list and each element of the list must fit the
+;     type element-type. This appears in the customization buffer as a list
+;     of elements, with [INS] and [DEL] buttons for adding more elements
+;     or removing elements.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;.;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;This has been replaced by the use of custom, keep here to recall the orig ideas
@@ -192,10 +180,9 @@ PROMPT is as for `y-or-n-p'."
 ;  )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-svn-find-url (&optional arg)
-  "Start with a url selected using M-p M-n at the first prompt, 
+  "Start with a url selected using M-p M-n at the first prompt,
    then help user choose the tree branches to decend.
    At each step the user chooses to run svn ls single level or recursively."
   ;
@@ -240,13 +227,12 @@ PROMPT is as for `y-or-n-p'."
     (setq my-url my-url-temp)
     ;
     (setq my-read-string
-      (svn-co-y-or-n-p 
+      (svn-co-y-or-n-p
        "y-List Single Level, r-List Recursevly, RET-Finalize URL:"))
   )
   ;
   my-url)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  This was all developmental and test.
@@ -270,10 +256,10 @@ PROMPT is as for `y-or-n-p'."
 ;
 ;; ;remember the cdr of a list is a list.
 ;; (setq my-alist-of-urls-key (car (cdr my-url-base-list)))
-;; (setq my-alist-of-urls-key 
+;; (setq my-alist-of-urls-key
 ;; "https://subversion.assembla.com/
 ;;  svn/mtf_assembla_url/trunk/mfitzgerald/AppData/Roaming/.emacs.d/")
-;; (setq my-alist-of-urls-key 
+;; (setq my-alist-of-urls-key
 ;; "https://github.com/magnars/dash.el.git/trunk")
 ;; ;
 ;; (string-equal my-alist-of-urls-key "https://github.com/magnars/dash.el.git/trunk")
@@ -290,7 +276,6 @@ PROMPT is as for `y-or-n-p'."
 ;; (car my-url-base-list)
 ;; (car svn-ls-output-as-big-strings-list)
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-svn-find-cached-url (&optional arg)
@@ -337,7 +322,6 @@ PROMPT is as for `y-or-n-p'."
    my-url-concat)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-svn-co-atom (arg &optional which-find)
   "EMACS svn co
@@ -348,31 +332,31 @@ PROMPT is as for `y-or-n-p'."
    This atom is designed to be called two different ways, and replaces
    two defuns that were nearly identical"
   (interactive "P")
-  (let ((co-type) 
-        (co-revision) 
-        (co-url) 
+  (let ((co-type)
+        (co-revision)
+        (co-url)
         (arg-to-svn-co)
-        (starting-dir default-directory)        
+        (starting-dir default-directory)
         ;
         ;set vars used by this defun, returned as a list
         (proc-args-list (manage-svn-co-args arg))
         ;
-        ;determine url to checkout        
+        ;determine url to checkout
         ;; (co-url (call-interactively 'my-svn-find-url))
         (co-url (call-interactively which-find))
         )
   ;
-  ;----------------------------------------------------------------------------  
-  (if (svn-co-y-or-n-p 
-       (format "Checkout %s %s (y/ret or n/q)"  
+  ;----------------------------------------------------------------------------
+  (if (svn-co-y-or-n-p
+       (format "Checkout %s %s (y/ret or n/q)"
                (string-utils-squeeze-url co-url 70) (nth 0 proc-args-list)))
-    ;-----    
+    ;-----
     ;True
     (progn
       ;create the base dir if it does not exist, cd to it
-      (create-dir-maybe co-url)    
+      (create-dir-maybe co-url)
       ;
-      (shell-command-to-string 
+      (shell-command-to-string
        (format "svn co %s %s ."  (nth 1 proc-args-list) co-url ))
        ;
       (message "Done Running Check Out")
@@ -380,21 +364,20 @@ PROMPT is as for `y-or-n-p'."
       (if (or (string-equal major-mode "dired-mode")
               (string-equal major-mode "sr-mode"))
         (revert-buffer)))
-  ;-----    
+  ;-----
   ;False
   (message "No check out, quiting now"))
-  ;----------------------------------------------------------------------------  
+  ;----------------------------------------------------------------------------
   ;
   ;user is back where he started after this defun is done
   (cd starting-dir)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-svn-co-no-cache (arg)
   "EMACS svn co, do not use cached URL's
-   Create a new dir named for last part of the url if not currently 
-   in a dir named as such.   
+   Create a new dir named for last part of the url if not currently
+   in a dir named as such.
    C-u  runs svn co --depth immediates
    C-u C-u prompts for revision
    C-u C-u C-u prompts for revision, and runs svn co --depth immediates"
@@ -402,11 +385,10 @@ PROMPT is as for `y-or-n-p'."
   (my-svn-co-atom arg  'my-svn-find-url))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-svn-co-use-cache (arg)
   "EMACS svn co, use cached URL's
-   Create a new dir named for last part of the url if not currently 
+   Create a new dir named for last part of the url if not currently
    in a dir named as such.
    C-u  runs svn co --depth immediates
    C-u C-u prompts for revision
@@ -414,7 +396,6 @@ PROMPT is as for `y-or-n-p'."
   (interactive "P")
   (my-svn-co-atom arg  'my-svn-find-cached-url))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (defun my-svn-co-atom (arg &optional other)
@@ -426,7 +407,6 @@ PROMPT is as for `y-or-n-p'."
 ;;   (message "THis is it %s %s" arg other))
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun manage-svn-co-args (arg)
  "Take this code out of the svn-co.. makes that defuns body more clean"
@@ -434,9 +414,9 @@ PROMPT is as for `y-or-n-p'."
  (cond
    ;note that eq does not work here
    ;eq checks that lists are the same object
-   ((equal arg nil)  
-    (setq arg-to-svn-co "-r HEAD") 
-    (message "arg is nil") 
+   ((equal arg nil)
+    (setq arg-to-svn-co "-r HEAD")
+    (message "arg is nil")
     (setq co-type  (propertize "infinity" 'face '(:foreground "red")) ))
    ;
    ((equal arg '(4))
@@ -449,9 +429,9 @@ PROMPT is as for `y-or-n-p'."
      (progn
        (setq co-revision (read-string "Revision: "))
        (setq arg-to-svn-co (format "-r %s" co-revision))
-       ;(setq temp-co-type 
-       (setq co-type  
-             (propertize 
+       ;(setq temp-co-type
+       (setq co-type
+             (propertize
               (s-concat "Revision: " co-revision) 'face '(:foreground "cyan")) ))
        (message "arg is 16"))
    ;
@@ -459,35 +439,32 @@ PROMPT is as for `y-or-n-p'."
      (progn
        (setq co-revision (read-string "Revision: "))
        (setq arg-to-svn-co (format "-r %s --depth immediates" co-revision))
-       (setq co-type  
-             (propertize 
-              (s-concat "Revision: " co-revision "--depth immediates") 
+       (setq co-type
+             (propertize
+              (s-concat "Revision: " co-revision "--depth immediates")
               'face '(:foreground "yellow")) ))
        (message "arg is 64")))
    ;
    ;Return this list
-   (list 
-      co-type 
+   (list
+      co-type
       arg-to-svn-co)
    )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-svn-cache-urls ()
  (interactive)
  "Take a list of url's and return the svn listing greped for dirs only"
-  (setq svn-ls-output-as-big-strings-list 
+  (setq svn-ls-output-as-big-strings-list
         (-map 'my-svn-ls-grep-4-dir  my-url-base-list)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-svn-ls-grep-4-dir (url)
  "fn name says it all, Arg url is not a list"
  (shell-command-to-string (format "svn ls -R %s \|grep  \"/$\"" url)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (defun my-svn-cache-urls ()
@@ -497,14 +474,13 @@ PROMPT is as for `y-or-n-p'."
 ;;   (setq temp-arg "--set-depth immediates")
 ;;   ;
 ;;   (setq urls-cached
-;;     (shell-command-to-string 
+;;     (shell-command-to-string
 ;;       (format "svn ls -R %s \|grep  \"/$\"" (car my-url-base-list))))
 ;;    (setq other-urls-cached
-;;        (shell-command-to-string 
+;;        (shell-command-to-string
 ;;        (format "svn ls -R %s \|grep  \"/$\"" (car (cdr my-url-base-list)))))
 ;;   )
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;this is junk as of SVN rev 924 leave it here as an experimental defun
@@ -515,7 +491,6 @@ PROMPT is as for `y-or-n-p'."
   (shell-command (format "svn co %s %s"  temp-arg arg))
   ))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;add an arg to set depth infinity or immediates.
@@ -539,7 +514,6 @@ PROMPT is as for `y-or-n-p'."
   ))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;add a check-skip for directory, use (file-directory-p "~rms")
 (defun my-svn-update-immediates (arg)
@@ -554,7 +528,6 @@ PROMPT is as for `y-or-n-p'."
   (cd "..")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;add a check-skip for directory, use (file-directory-p "~rms")
 (defun my-svn-update-infinity (arg)
@@ -568,7 +541,6 @@ PROMPT is as for `y-or-n-p'."
   (async-shell-command (format "svn up %s . "  this-depth))
   (cd "..")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-while-test ()
@@ -585,7 +557,6 @@ PROMPT is as for `y-or-n-p'."
     (message "done")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;reference only
   ;(setq my-defaults '("third" "fourth"))
@@ -599,7 +570,6 @@ PROMPT is as for `y-or-n-p'."
   arg)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun base-name-pwd ()
  "Return the name of the current dir with no slashes and no full path,
@@ -611,7 +581,6 @@ PROMPT is as for `y-or-n-p'."
 ;use case (setq mytemp (base-name-pwd))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun base-name-of-path-or-url (arg)
  "Return the name of the current dir with no slashes and no full path,
@@ -622,23 +591,21 @@ PROMPT is as for `y-or-n-p'."
 ;use case (setq mytemp (base-name-pwd))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (defun my-test-two-urls ()
 ;;   "Returt t if the two argee, else nil"
 ;;   (interactive)
-;;   (string-equal 
+;;   (string-equal
 ;;   (base-name-of-path-or-url my-test-url)
 ;;   (base-name-of-path-or-url (pwd))
 ;;   ))
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun two-path-or-urls-same-p (arg1 arg2)
   "Return t if the two paths or urls basenames argee , else nil"
   (interactive)
-  (string-equal 
+  (string-equal
   (base-name-of-path-or-url arg1)
   (base-name-of-path-or-url arg2)
   ))
@@ -648,7 +615,6 @@ PROMPT is as for `y-or-n-p'."
   ;https://AppData/Roaming/.emacs.d/color-theme-6.6.0/themes/")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun run-cdm ()
  "exmaple use case"
@@ -656,11 +622,10 @@ PROMPT is as for `y-or-n-p'."
  (create-dir-maybe "https://color-theme-6.6.0/themes/"))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun create-dir-maybe (arg)
   "Create a new dir with the base name of the url that was passed as an arg
-  unless the basename of the url passed is the same as the pwd 
+  unless the basename of the url passed is the same as the pwd
   variable name default-directory.  cd to the new dir"
   (interactive)
   (let (( base (base-name-of-path-or-url arg) ))
@@ -672,8 +637,6 @@ PROMPT is as for `y-or-n-p'."
     )))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-
 ;(directory-files "." nil "svn")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mf-subdirs ()
@@ -683,14 +646,13 @@ PROMPT is as for `y-or-n-p'."
   Thanks
   Mike
   --
-  You want a function that returns the subdirectories of 
-  the current directory - is that it? If so, I don't know of a function, 
+  You want a function that returns the subdirectories of
+  the current directory - is that it? If so, I don't know of a function,
   but you can easily write one.  E.g.,"
   (interactive)
-  (setq my-temp-list 
+  (setq my-temp-list
         (icicle-remove-if-not #'file-directory-p (directory-files "."))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mf-subdirs ()
@@ -700,8 +662,8 @@ PROMPT is as for `y-or-n-p'."
   Thanks
   Mike
   --
-  You want a function that returns the subdirectories of 
-  the current directory - is that it? If so, I don't know of a function, 
+  You want a function that returns the subdirectories of
+  the current directory - is that it? If so, I don't know of a function,
   but you can easily write one.  E.g.,"
   (interactive)
   (setq my-temp (let ((subs  ()))
@@ -710,14 +672,12 @@ PROMPT is as for `y-or-n-p'."
     subs)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-svn-update-for-vc-map ()
  "Not great but it works"
  (interactive)
  (shell-command "svn update ."))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-create-tags-old ()
@@ -730,9 +690,9 @@ PROMPT is as for `y-or-n-p'."
     ;call to show tags (early)
     ;
     ;
-    ;; (shell-command (format "shell_test.rb %s" my-read-string) 
-    (shell-command (format "mylisttags.rb %s" my-read-string) 
-      "*create-tags*" 
+    ;; (shell-command (format "shell_test.rb %s" my-read-string)
+    (shell-command (format "mylisttags.rb %s" my-read-string)
+      "*create-tags*"
       "*-errors-*" )
     ;
     ;(select-window (active-minibuffer-window))
@@ -746,10 +706,9 @@ PROMPT is as for `y-or-n-p'."
     (pop-to-buffer "*create-tags*")
     (end-of-buffer)
     (insert "OK will create %s" my-read-string)
-    ;    
+    ;
     ))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-create-tag-wizard ()
@@ -783,7 +742,7 @@ PROMPT is as for `y-or-n-p'."
     ;* Run the shell command that creates the tag
     ;* Remember that shell command erases the it's target buffer, prior to
     ;filling it with the std out stream.
-    (shell-command 
+    (shell-command
       (format "mycreatetag.rb  %s" my-read-string) "*create-tags*" "*-errors-*" )
     ;
     (princ "\nAFTER RUNNING CREATE TAG\n")
@@ -793,7 +752,7 @@ PROMPT is as for `y-or-n-p'."
     ;
     ;consider insert-buffer
     ;
-    (setq tmpstring 
+    (setq tmpstring
       (shell-command-to-string (format "mylisttags.rb") ))
     ;
     (insert tmpstring)
@@ -802,19 +761,17 @@ PROMPT is as for `y-or-n-p'."
     )))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;here is an example of how to havndle errors.
 ;ref http://steve-yegge.blogspot.com/2008/01/emergency-elisp.html
 (condition-case nil
   ;defun (error ) asserts an error
-  (when t 
+  (when t
     (error "Aoeu"))
   ;
   (error
    (message "oh no!")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; note that this needed to be run from a dired buffer showing
@@ -828,7 +785,7 @@ PROMPT is as for `y-or-n-p'."
 ; alias in my-dvorak-bindings
 ; (defalias 'ct 'my-create-tag-wizard-mult-frames-wrapped-4-error)
 (defun my-create-tag-wizard-mult-frames-wrapped-4-error ()
-  "Wrap the defun in an error handeler that stops the origanal defun from 
+  "Wrap the defun in an error handeler that stops the origanal defun from
   running, closes the pop up window and gives a relevent message"
   (interactive)
       (condition-case nil
@@ -840,15 +797,14 @@ PROMPT is as for `y-or-n-p'."
         ;
         (error
           (message "No SVN controlled dir \"trunk\" found in the current path")
-           (quit-window))))      
+           (quit-window))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-create-tag-wizard-mult-frames ()
- "List tags, prompt for new tag, create the new using url->url copy. 
+ "List tags, prompt for new tag, create the new using url->url copy.
   List tags again to verify the one you wanted was creted.
-  Remember to check in important files BEFORE running this. 
+  Remember to check in important files BEFORE running this.
   User has the opportunity to abort using C-g when prompted for the tag revision"
   (interactive)
   (let (
@@ -892,8 +848,8 @@ PROMPT is as for `y-or-n-p'."
     ;* Run the shell command that creates the tag
     ;* Remember that shell command erases the it's target buffer, prior to
     ;filling it with the std out stream.
-    (with-output-to-temp-buffer temp_create_buf_name    
-      (shell-command 
+    (with-output-to-temp-buffer temp_create_buf_name
+      (shell-command
         (format "mycreatetag.rb  %s" my-read-string) "*create-tags*" "*-errors-*" )
       ;
       (princ "\nAFTER RUNNING CREATE TAG\n")
@@ -907,7 +863,7 @@ PROMPT is as for `y-or-n-p'."
       (pop-to-buffer temp_list_buf_name_after)
       (move-frame-top-left 200 270)
       ;
-      (setq tmpstring 
+      (setq tmpstring
         (shell-command-to-string (format "mylisttags.rb") ))
       ;
       (insert tmpstring)
@@ -915,7 +871,6 @@ PROMPT is as for `y-or-n-p'."
       (fit-frame))
     ))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-create-tag ()
@@ -942,7 +897,7 @@ PROMPT is as for `y-or-n-p'."
     ;* Run the shell command that creates the tag
     ;* Remember that shell command erases the it's target buffer, prior to
     ;filling it with the std out stream.
-    (shell-command 
+    (shell-command
       (format "mycreatetag.rb  %s" my-read-string) temp_create_buf_name "*-errors-*" )
     ;
     (princ "\nAFTER RUNNING CREATE TAG\n")
@@ -953,7 +908,6 @@ PROMPT is as for `y-or-n-p'."
     (fit-frame)
     )))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-list-tags ()
@@ -982,7 +936,6 @@ PROMPT is as for `y-or-n-p'."
     )))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;; (frame-list)
 
 ;;   (select-frame-set-input-focus "*create-tags*")
@@ -990,7 +943,6 @@ PROMPT is as for `y-or-n-p'."
 ;; (framep "*create-tags*")
 ;; (switch-to-buffer "*create-tags*")
 ;; (switch-to-buffer ".emacs")
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-list-tags-old ()
@@ -1010,20 +962,19 @@ PROMPT is as for `y-or-n-p'."
   )))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-shell-test ()
   "Prompt for a string, then pass that string to a shell command"
   (interactive)
   (setq my-read-string (read-string "tag to release:"))
-  (shell-command 
+  (shell-command
    (format "shell_test.rb %s" my-read-string) "*my-buffer*" "*-errors-*" ))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
 ;; (defun my-test ()
 ;;   (interactive)
 ;;   (setq my-read-string (read-string "enter some text:"))
-;;   (shell-command 
+;;   (shell-command
 ;;    "shell_test.rb test" "*my-buffer*" "*-errors-*" ))
 ;
 ;; ;; (shell-command-to-string "shell_test.rb aoeu $x-")
@@ -1040,14 +991,11 @@ PROMPT is as for `y-or-n-p'."
 ;(setq tempvar (substring (shell-command-to-string "pwd") 0 -1))
 ;; (setq tempvar (substring (shell-command-to-string "dir") 0 -1))
 
-
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; git helper
 ; http://snarfed.org/emacs-vc-git-tweaks
-;; In vc-git and vc-dir for git buffers, make 
-; C-x v a run git add  
+;; In vc-git and vc-dir for git buffers, make
+; C-x v a run git add
 ;       u run git reset
 ;       r run git reset and checkout from head.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1080,7 +1028,6 @@ PROMPT is as for `y-or-n-p'."
 ;; hide up to date files after refreshing in vc-dir
 ;(define-key vc-dir-mode-map [(g)]
 ;  (lambda () (interactive) (vc-dir-refresh) (vc-dir-hide-up-to-date)))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; MTF found this when I searched for a way to hide unregistered
