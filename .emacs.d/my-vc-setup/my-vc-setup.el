@@ -1071,15 +1071,49 @@ PROMPT is as for `y-or-n-p'."
     (lambda (files) (vc-git-command nil 0 files "reset" "-q" "--"))))
 
 (define-key vc-prefix-map [(r)] 'vc-revert-buffer)
-;(define-key vc-dir-mode-map [(r)] 'vc-revert-buffer)
+(define-key vc-dir-mode-map [(r)] 'vc-revert-buffer)
 (define-key vc-prefix-map [(a)] 'my-vc-git-add)
-;(define-key vc-dir-mode-map [(a)] 'my-vc-git-add)
+(define-key vc-dir-mode-map [(a)] 'my-vc-git-add)
 (define-key vc-prefix-map [(u)] 'my-vc-git-reset)
-;(define-key vc-dir-mode-map [(u)] 'my-vc-git-reset)
+(define-key vc-dir-mode-map [(u)] 'my-vc-git-reset)
 
 ;; hide up to date files after refreshing in vc-dir
 ;(define-key vc-dir-mode-map [(g)]
 ;  (lambda () (interactive) (vc-dir-refresh) (vc-dir-hide-up-to-date)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; MTF found this when I searched for a way to hide unregistered
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun my-vc-dir-hide-some (states)
+  "Hide files whose state is in STATES, NOTE UNREGISTERED IS A STATE."
+  (interactive
+   (list
+    (progn
+      (unless vc-ewoc
+        (error "Not in a vc-dir buffer"))
+      (mapcar 'intern
+              (completing-read-multiple
+               "Hide files that are in state(s): "
+               (let (possible-states)
+                 (ewoc-map (lambda (item)
+                             (let ((state (vc-dir-fileinfo->state item)))
+                               (when state
+                                 (pushnew state possible-states))
+                               nil))
+                           vc-ewoc)
+                 (mapcar 'symbol-name possible-states))
+               nil t)))))
+  (let ((inhibit-read-only t))
+    (ewoc-filter vc-ewoc
+                 (lambda (file)
+                   (not (memq (vc-dir-fileinfo->state file) states))))))
+(eval-after-load "vc-dir"
+  '(define-key vc-dir-mode-map "H" 'my-vc-dir-hide-some))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(message "Reached the end of %s" (buffer-name))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'my-vc-setup)
