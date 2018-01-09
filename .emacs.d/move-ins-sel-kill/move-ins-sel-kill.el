@@ -369,24 +369,24 @@ If point was at beginning of line, move to the end"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (defun my-next-line ()
-;;  "Next line, honor shift selection"
-;;  (interactive "^")
-;;  (next-line 1))
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun my-next-line ()
+ "Next line, honor shift selection"
+ (interactive "^")
+ (next-line 1))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun my-next-line (arg)
- "Next line, honor shift selection
-  C-u prefix arg skips that number of lines (minus number works)"
- (interactive "^p")
- (unless  (eq 1 arg)
-   (message "Moving %s lines" arg))
- ;; (next-line arg)) ; help for next-line says it's for interactive use only
- (forward-line arg))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (defun my-next-line (arg)
+;;  "Next line, honor shift selection
+;;   C-u prefix arg skips that number of lines (minus number works)"
+;;  (interactive "^p")
+;;  (unless  (eq 1 arg)
+;;    (message "Moving %s lines" arg))
+;;  ;; (next-line arg)) ; help for next-line says it's for interactive use only
+;;  (forward-line arg))
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
