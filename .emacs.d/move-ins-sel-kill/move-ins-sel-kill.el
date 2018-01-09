@@ -1,4 +1,4 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  FUNCTIONS HERE
 ;; align-repeat-vhdl-signals-constants (start end)
 ;; call-first-line-of-buffer-p ()
@@ -95,18 +95,17 @@
 ;; zap-up-to-char (arg char)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun insert-lastyank-next-line (arg)
 "Insert last cut text in a newline below the current line
-With a negative preflx make the insertion roomy by adding 
+With a negative preflx make the insertion roomy by adding
 an extra line above and below"
    (interactive "p")
    (setq mytempstr (car kill-ring-yank-pointer))
    (setq mystrNew
    (with-temp-buffer
    (insert (car kill-ring-yank-pointer))
-   ;move point to just before the end of the buffer 
+   ;move point to just before the end of the buffer
    (end-of-buffer)
    (backward-char 2)
       ;
@@ -137,7 +136,7 @@ an extra line above and below"
         (progn
            (progn(end-of-line) (newline))
       ;(insert-and-indent-line-below)
-      ;add an extra line above and below      
+      ;add an extra line above and below
       (if(> 0 arg)
       (progn
          (insert-and-indent-line-above)
@@ -149,19 +148,18 @@ an extra line above and below"
    (smart-beginning-of-line))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
 (defun insert-lastyank-this-line (arg)
 "Insert last cut text on this line do not put in an newline
-With a negative preflx make the insertion roomy by adding 
+With a negative preflx make the insertion roomy by adding
 an extra line above and below"
    (interactive "p")
    (setq mytempstr (car kill-ring-yank-pointer))
    (setq mystrNew
    (with-temp-buffer
    (insert (car kill-ring-yank-pointer))
-   ;move point to just before the end of the buffer 
+   ;move point to just before the end of the buffer
    (end-of-buffer)
    (backward-char 2)
       ;
@@ -193,7 +191,7 @@ an extra line above and below"
            ;; (progn(end-of-line) (newline))
            (progn(end-of-line) )
       ;(insert-and-indent-line-below)
-      ;add an extra line above and below      
+      ;add an extra line above and below
       (if(> 0 arg)
       (progn
          (insert-and-indent-line-above)
@@ -206,7 +204,7 @@ an extra line above and below"
 ;
 (defun insert-lastyank-above (arg)
 "Insert last cut text in a newline above the current line.
-With a negative preflx make the insertion roomy by adding 
+With a negative preflx make the insertion roomy by adding
 an extra line above and below"
    (interactive "p")
    (setq mytempstr (car kill-ring-yank-pointer))
@@ -227,7 +225,7 @@ an extra line above and below"
          ;FALSE:set a variable to indicate word
          (setq str_is_word_var (progn(message "Inserting a Word") t )))
          (buffer-string))) ; get result of temp buffer, pass it back
-      ; 
+      ;
       (if str_is_word_var
         ;TRUE:Indent for word
         (progn
@@ -241,7 +239,7 @@ an extra line above and below"
          ;FALSE:insert at prev BOL for line
         (progn
       (insert-and-indent-line-above)
-      ;add an extra line above and below      
+      ;add an extra line above and below
       (if(> 0 arg)
       (progn
          (insert-and-indent-line-above)
@@ -251,10 +249,9 @@ an extra line above and below"
       ;
       (insert mystrNew)
       (smart-beginning-of-line)
-)  
+)
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;Home Key Behavior improvement
@@ -273,7 +270,6 @@ an extra line above and below"
    (and (= oldpos (point))
         (beginning-of-line))))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;Home Key Behavior improvement
@@ -326,7 +322,7 @@ If point was at beginning of line, move to the end"
             (next-line 1))
         (progn
                (end-of-line))))))
-               
+
 (defun smart-end-of-line-select ()
  "Move point to first non-whitespace character or beginning-of-line.
 Move point to the first non-whitespace character on this line.
@@ -355,9 +351,9 @@ If point was already at that position, move point to beginning of line.
 If point was at beginning of line, move to the end"
  ;(interactive) ; Use (interactive "^") in Emacs 23 to make shift-select work
  (interactive "^")
- (if (= (point) (line-beginning-position) ) 
+ (if (= (point) (line-beginning-position) )
  (progn (set-mark (point)) (end-of-line)  )
- (progn 
+ (progn
  (let
    ((oldpos (point)))
    ;;(set-mark (point))
@@ -368,14 +364,12 @@ If point was at beginning of line, move to the end"
         (beginning-of-line))))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-next-line ()
  "Next line, honor shift selection"
  (interactive "^")
  (next-line 1))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (defun my-next-line (arg)
@@ -388,14 +382,12 @@ If point was at beginning of line, move to the end"
 ;;  (forward-line arg))
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-forward-char ()
  "Next char, honor shift selection"
  (interactive "^")
  (forward-char 1))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-backward-char ()
@@ -404,14 +396,12 @@ If point was at beginning of line, move to the end"
  (backward-char 1))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-left-word ()
  "backwards word, honor shift selection"
  (interactive "^")
  (left-word 1))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-right-word ()
@@ -420,14 +410,12 @@ If point was at beginning of line, move to the end"
  (right-word 1))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-prev-line ()
  "previous line, honor shift selection"
  (interactive "^")
  (previous-line 1))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;Move line and region
@@ -512,7 +500,6 @@ If point was at beginning of line, move to the end"
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;Sequential Power move and select
 ;http://www.emacswiki.org/emacs/SequentialCommand
@@ -552,7 +539,7 @@ If point was at beginning of line, move to the end"
            ((= n 3) (forward-word 1))
            ((= n 4) (forward-word 1))
            ((= n 5) (forward-word 1))
-           ((= n 6) (forward-word 1))           
+           ((= n 6) (forward-word 1))
            (t (goto-char seq-start-point)))))
 ;
 (defun power-move-word-left () "Go to end of line or first time 8 words, second time 3, third 1" (interactive)
@@ -564,7 +551,7 @@ If point was at beginning of line, move to the end"
            ((= n 3) (backward-word 1))
            ((= n 4) (backward-word 1))
            ((= n 5) (backward-word 1))
-           ((= n 6) (backward-word 1))           
+           ((= n 6) (backward-word 1))
            (t (goto-char seq-start-point)))))
 ;
 (defun power-select-word-left () "Go to end of line or first time 8 words, second time 3, third 1" (interactive "^")
@@ -576,10 +563,9 @@ If point was at beginning of line, move to the end"
            ((= n 3) (backward-word 1))
            ((= n 4) (backward-word 1))
            ((= n 5) (backward-word 1))
-           ((= n 6) (backward-word 1))           
+           ((= n 6) (backward-word 1))
            (t (goto-char seq-start-point)))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;From http://www.kieranhealy.org/esk/starter-kit-bindings.html
@@ -604,7 +590,6 @@ If point was at beginning of line, move to the end"
      (setq i (1+ i)))))))
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;from the Adams package at
@@ -659,23 +644,21 @@ from true window top and bottom."
 (substitute-key-definition   'recenter 'recenter-top-bottom global-map)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun my-move-word-left () 
-   "move left by a word honor shift selection" 
+(defun my-move-word-left ()
+   "move left by a word honor shift selection"
    (interactive "^")
    (backward-word 1) )
 ;
-(defun my-move-word-rt () 
-   "move rt by a word honor shift selection" 
+(defun my-move-word-rt ()
+   "move rt by a word honor shift selection"
    (interactive "^")
    (forward-word 1) )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun myjunk () 
-   "move rt by a word honor shift selection" 
+(defun myjunk ()
+   "move rt by a word honor shift selection"
    (interactive)
    (icy-mode 0)
    (ido-mode 1)
@@ -688,10 +671,9 @@ from true window top and bottom."
 ;;   (icy-mode t))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun power-down-para () 
-"Go down paragraphs first time 8, second time 4, third 2 4-7 1" 
+(defun power-down-para ()
+"Go down paragraphs first time 8, second time 4, third 2 4-7 1"
  (interactive "^")
    (let ((n (seq-times 'power-down-para 8)))
    ;(if (eq mark-active nil) (set-mark (point)))
@@ -705,14 +687,13 @@ from true window top and bottom."
            (t (goto-char seq-start-point)))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun power-down-select-para () 
-"Go down paragraphs and select, first time 8, second time 4, third 2 4-7 1" 
+(defun power-down-select-para ()
+"Go down paragraphs and select, first time 8, second time 4, third 2 4-7 1"
  (interactive "^")
    (let ((n (seq-times 'power-down-select-para 8)))
    ;(if (eq mark-active nil) (set-mark (point)))
-   (if (eq mark-active nil) (set-mark (point)))     
+   (if (eq mark-active nil) (set-mark (point)))
      (cond ((= n 0) (forward-paragraph 8)(message "selecting down 8 paragraphs"))
            ((= n 1) (forward-paragraph 4)(message "selecting down 4 paragraphs"))
            ((= n 2) (forward-paragraph 2)(message "selecting down 2 paragraphs"))
@@ -723,10 +704,9 @@ from true window top and bottom."
            (t (goto-char seq-start-point)))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun power-up-para () 
-"Go up  paragraphs first time 8, second time 4, third 2 4-7 1" 
+(defun power-up-para ()
+"Go up  paragraphs first time 8, second time 4, third 2 4-7 1"
  (interactive "^")
    (let ((n (seq-times 'power-up-para 8)))
    ;(if (eq mark-active nil) (set-mark (point)))
@@ -740,10 +720,9 @@ from true window top and bottom."
            (t (goto-char seq-start-point)))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun super-power-up-para () 
-"Go up  paragraphs first time 16, second time 8, third 4 4-7 1" 
+(defun super-power-up-para ()
+"Go up  paragraphs first time 16, second time 8, third 4 4-7 1"
  (interactive "^")
    (let ((n (seq-times 'super-power-up-para 8)))
    ;(if (eq mark-active nil) (set-mark (point)))
@@ -758,8 +737,8 @@ from true window top and bottom."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun super-power-down-para () 
-"Go up  paragraphs first time  16, second time 8, third 4 4-7 1" 
+(defun super-power-down-para ()
+"Go up  paragraphs first time  16, second time 8, third 4 4-7 1"
  (interactive "^")
    (let ((n (seq-times 'super-power-down-para 8)))
    ;(if (eq mark-active nil) (set-mark (point)))
@@ -773,10 +752,9 @@ from true window top and bottom."
            (t (goto-char seq-start-point)))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun super-duper-power-up-para () 
-"Go up  paragraphs first time 32, second time 16..." 
+(defun super-duper-power-up-para ()
+"Go up  paragraphs first time 32, second time 16..."
  (interactive "^")
    (let ((n (seq-times 'super-duper-power-up-para 8)))
    ;(if (eq mark-active nil) (set-mark (point)))
@@ -790,10 +768,9 @@ from true window top and bottom."
            (t (goto-char seq-start-point)))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun super-duper-power-down-para () 
-"Go up  paragraphs first time 32, second time 16..." 
+(defun super-duper-power-down-para ()
+"Go up  paragraphs first time 32, second time 16..."
  (interactive "^")
    (let ((n (seq-times 'super-duper-power-down-para 8)))
    ;(if (eq mark-active nil) (set-mark (point)))
@@ -807,9 +784,8 @@ from true window top and bottom."
            (t (goto-char seq-start-point)))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun power-up-select-para () 
+(defun power-up-select-para ()
 "Go up  paragraphs and select first time 8, second time 4, third 2 4-7 1"
  (interactive "^")
    (let ((n (seq-times 'power-up-select-para 8)))
@@ -824,7 +800,6 @@ from true window top and bottom."
            (t (goto-char seq-start-point)))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Orginally http://www.emacswiki.org/emacs/CopyWithoutSelection#toc6
 ;;Pulled it for copy para perhaps my own sub expression
@@ -833,7 +808,7 @@ from true window top and bottom."
       (funcall symbol arg)
       (point)
      )
-;;     
+;;
      (defun copy-thing (begin-of-thing end-of-thing &optional arg)
        "copy thing between beg & end into kill ring"
         (save-excursion
@@ -841,10 +816,10 @@ from true window top and bottom."
              (end (get-point end-of-thing arg)))
             (copy-region-as-kill beg end)))
      )
-;;     
+;;
      (defun paste-to-mark(&optional arg)
        "Paste things to mark, or to the prompt in shell-mode"
-       (let ((pasteMe 
+       (let ((pasteMe
        (lambda()
          (if (string= "shell-mode" major-mode)
            (progn (comint-next-prompt 25535) (yank))
@@ -865,13 +840,12 @@ from true window top and bottom."
 ;uding this binding for reeenter
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;KILL-BLANK-LINE function
 ;It saves the location of point and mark, executes the body of the
-; function, and then restores point and mark to their previous positions 
+; function, and then restores point and mark to their previous positions
 ;if their locations were changed. Its primary purpose is to keep the user
-; from being surprised and disturbed by unexpected movement of point or mark. 
+; from being surprised and disturbed by unexpected movement of point or mark.
 (defun undouble-newline ()
   "Delete doubled newlines from the current buffer."
   (interactive)
@@ -880,14 +854,12 @@ from true window top and bottom."
     (replace-regexp "\n\n" "\n")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun dosomething-region (p1 p2)
-  "Prints region starting and ending positions." 
+  "Prints region starting and ending positions."
   (interactive "r")
   (message "Region starts: %d, end at: %d" p1 p2))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun duplicate-line-or-region (&optional n)
@@ -897,10 +869,10 @@ With negative N, comment out original line and use the absolute value."
    (interactive "*p")
    (let ((use-region (use-region-p)))
       (save-excursion
-         (let ((text 
+         (let ((text
                   (if use-region        ;Get region if active, otherwise line
                      ;region true
-                     (progn 
+                     (progn
               ;when M-h is used to select a paragraph point ends up
               ;behind mark which this function does not like
               (if (< (point)(mark)) (exchange-point-and-mark) )
@@ -920,7 +892,7 @@ With negative N, comment out original line and use the absolute value."
             ;what happens near the end of file!
                         (if (< 0 (forward-line 1)) ;Go to beginning of next line, or make a new one
                             (newline))
-              ))));; end of assignment for let 
+              ))));; end of assignment for let
               ;;symbol text contains a region or line
         ;
             (kill-new text);Push what was coped to the kill ring
@@ -942,7 +914,6 @@ With negative N, comment out original line and use the absolute value."
   ;;end of defun
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;http://stackoverflow.com/questions/622440/emacs-command-to-insert-and-indent-line-above-cursor
@@ -995,53 +966,51 @@ With negative N, comment out original line and use the absolute value."
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; http://groups.google.com/group/gnu.emacs.help/browse_thread/thread/98a0ed755d0999a0?pli=1
-;; ;; by Nikolaj Schumacher, 2008-10-20. Released under GPL. 
-(defun semnav-up (arg) 
-  (interactive "p") 
-  (when (nth 3 (syntax-ppss)) 
-    (if (> arg 0) 
-        (progn 
-          (skip-syntax-forward "^\"") 
-          (goto-char (1+ (point))) 
-          (decf arg)) 
-      (skip-syntax-backward "^\"") 
-      (goto-char (1- (point))) 
-      (incf arg))) 
-  (up-list arg)) 
+;; ;; by Nikolaj Schumacher, 2008-10-20. Released under GPL.
+(defun semnav-up (arg)
+  (interactive "p")
+  (when (nth 3 (syntax-ppss))
+    (if (> arg 0)
+        (progn
+          (skip-syntax-forward "^\"")
+          (goto-char (1+ (point)))
+          (decf arg))
+      (skip-syntax-backward "^\"")
+      (goto-char (1- (point)))
+      (incf arg)))
+  (up-list arg))
 ;;
-(defun extend-selection (arg &optional incremental) 
-  "Select the current word. 
-Subsequent calls expands the selection to larger semantic unit." 
-  (interactive (list (prefix-numeric-value current-prefix-arg) 
-                     (or (and transient-mark-mode mark-active) 
-                         (eq last-command this-command)))) 
-  (if incremental 
-      (progn 
-        (semnav-up (- arg)) 
-        (forward-sexp) 
-        (mark-sexp -1)) 
-    (if (> arg 1) 
-        (extend-selection (1- arg) t) 
-      (if (looking-at "\\=\\(\\s_\\|\\sw\\)*\\_>") 
-          (goto-char (match-end 0)) 
-        (unless (memq (char-before) '(?\) ?\")) 
-          (forward-sexp))) 
-      (mark-sexp -1)))) 
+(defun extend-selection (arg &optional incremental)
+  "Select the current word.
+Subsequent calls expands the selection to larger semantic unit."
+  (interactive (list (prefix-numeric-value current-prefix-arg)
+                     (or (and transient-mark-mode mark-active)
+                         (eq last-command this-command))))
+  (if incremental
+      (progn
+        (semnav-up (- arg))
+        (forward-sexp)
+        (mark-sexp -1))
+    (if (> arg 1)
+        (extend-selection (1- arg) t)
+      (if (looking-at "\\=\\(\\s_\\|\\sw\\)*\\_>")
+          (goto-char (match-end 0))
+        (unless (memq (char-before) '(?\) ?\"))
+          (forward-sexp)))
+      (mark-sexp -1))))
 ;;
 ;
-;; In the above, Alt+8 is assigned to the command, because selecting 
-;; whole word is a commonly needed operation, and Alt+8 is one key 
-;; simpler than Alt+@ on a standard American layout PC keyboard. 
+;; In the above, Alt+8 is assigned to the command, because selecting
+;; whole word is a commonly needed operation, and Alt+8 is one key
+;; simpler than Alt+@ on a standard American layout PC keyboard.
 ;;
-;; Pressing Alt+8 will select the current whole word. Press it again 
-;; will extend the selection to the next outer parens. The above code 
-;; effectively does extend selection to higher level of semantic unit for 
+;; Pressing Alt+8 will select the current whole word. Press it again
+;; will extend the selection to the next outer parens. The above code
+;; effectively does extend selection to higher level of semantic unit for
 ;; lisp or simply nested syntax.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun select-text-in-quote ()
@@ -1064,7 +1033,6 @@ is easy to get content inside HTML tags."
  )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;don't forget m-w copies the line when nothing is selected, else the region
 (defun copy-word-near-point ()
@@ -1078,14 +1046,13 @@ is easy to get content inside HTML tags."
     (thing-copy-symbol)
     ;;MTF do not re-select bc any key that involves C-x like C-x C-s will blow
     ;selection away
-    ;;re-se;ect the word      
+    ;;re-se;ect the word
     ;(cycle-thing-region)
     ;get ready to move to the right using C-M Space
     (exchange-point-and-mark))
     ;
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;line oriented copy and kill functions overload some stantard EMACS commands
@@ -1109,7 +1076,6 @@ is easy to get content inside HTML tags."
        (list (line-beginning-position) (line-beginning-position 2)) ) ) ))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Select LIne
 (defun select-current-line ()
@@ -1119,7 +1085,6 @@ is easy to get content inside HTML tags."
   (set-mark (line-beginning-position)))
 ;;Needs a binding
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Select Word
@@ -1137,15 +1102,15 @@ is easy to get content inside HTML tags."
 ; aoeu  aoeu
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun whole-line-with-end ()
-  "if blank then delete line 
+  "if blank then delete line
       otherwise Kill Whole Line with end."
   (interactive)
   (if  (not (line-is-not-blank-p) )
      ;T -> line is blank
-     (progn 
+     (progn
      (del-whole-line-with-end)
-     )  
-     (progn 
+     )
+     (progn
      ;T -> line is blank
      (setq kill-whole-line t)
      (kill-whole-line)
@@ -1157,7 +1122,7 @@ is easy to get content inside HTML tags."
   "Delte Whole Line with end."
   (interactive)
   (beginning-of-line)
-  (delete-region (point) 
+  (delete-region (point)
     (save-excursion
     (forward-line 1) (point))))
 ;
@@ -1165,7 +1130,7 @@ is easy to get content inside HTML tags."
 (defun del-word-mike ()
   "Delte Word"
   (interactive)
-  (delete-region (point) 
+  (delete-region (point)
     (save-excursion
     (forward-word 1) (point))))
 ;
@@ -1173,12 +1138,11 @@ is easy to get content inside HTML tags."
 (defun del-word-backwards-mike ()
   "Delte Backwards Word"
   (interactive)
-  (delete-region 
+  (delete-region
     (save-excursion (backward-word 1) (point))
-    (point) 
+    (point)
      ))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-kill-backwards ()
@@ -1192,7 +1156,7 @@ is easy to get content inside HTML tags."
        (eshell-kill-input)
        (kill-line 0)))) ;0 arG -> kill before point
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;consider using delete-line"Like `kill-line', but does not save to the `kill-ring'."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1307,8 +1271,6 @@ is easy to get content inside HTML tags."
 ;sandbox
   ;sandbox sandboxg
 
-     
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun delete-horizontal-space-forward () ; adapted from `delete-horizontal-space'
       "*Delete all spaces and tabs after point."
@@ -1320,13 +1282,12 @@ is easy to get content inside HTML tags."
 ;;       ;(while (re-search-forward "^J" (line-end-position) t)
 ;;        ; (replace-match "" nil nil))
 ;;       (while (re-search-forward "\\(^\\s-*$\\)\n" nil t)
-;;           (replace-match "\n")      
+;;           (replace-match "\n")
 ;; )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun next-line-is-blank-p (&optional arg-verbose) 
+(defun next-line-is-blank-p (&optional arg-verbose)
       ""
       (interactive "*")
       (push-mark)
@@ -1338,9 +1299,8 @@ is easy to get content inside HTML tags."
        (setq my-temp next-line-blank))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun next-line-is-blank-se-p (&optional arg-verbose) 
+(defun next-line-is-blank-se-p (&optional arg-verbose)
       ""
       (interactive "*")
       (save-excursion
@@ -1353,9 +1313,8 @@ is easy to get content inside HTML tags."
        (setq my-temp next-line-blank)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun prev-line-is-blank-p (&optional arg-verbose) 
+(defun prev-line-is-blank-p (&optional arg-verbose)
       "MTF"
       (interactive "*")
       (if (not (first-line-of-buffer-p))
@@ -1375,9 +1334,8 @@ is easy to get content inside HTML tags."
        )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun my-prev-test-p () 
+(defun my-prev-test-p ()
       ""
       (interactive "*")
       (if (prev-line-is-blank-p)
@@ -1385,16 +1343,14 @@ is easy to get content inside HTML tags."
          (message "ret nil, prev not blank")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun my-next-test-p () 
+(defun my-next-test-p ()
       ""
       (interactive "*")
       (if (next-line-is-blank-p)
          (message "ret t")
          (message "ret nil")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;http://repo.or.cz/w/emacs.git/blob_plain/HEAD:/lisp/misc.el
@@ -1414,7 +1370,6 @@ Ignores CHAR at point."
          (point)))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;needed to get command c-hungry-backspace
 ;perhaps something smarter at beg and end (C-u ot prompt ot last command)
@@ -1425,7 +1380,7 @@ Ignores CHAR at point."
 (defun my-fixup-whitespace ()
   "On blank line, delete all surrounding blank lines, leaving just one.
    On isolated blank line, delete that one.
-   On nonblank line, delete any immediately following blank lines.   
+   On nonblank line, delete any immediately following blank lines.
    At the beginning of line delete preceding blank lines.
    At the end of line delete following blank lines."
    (interactive "*")
@@ -1446,7 +1401,7 @@ Ignores CHAR at point."
             ;(save-excursion (beginning-of-line)
             (delete-blank-lines)
             )
-            ;F -> NOT at eol           
+            ;F -> NOT at eol
             (progn
             (if (bolp)
                ;T -> beginning of line
@@ -1458,7 +1413,7 @@ Ignores CHAR at point."
                ;F -> not beginning of line
                (progn
                (message "line:not blank, not bol, not eol")
-               (save-excursion 
+               (save-excursion
                (delete-blank-lines)))
             ))
          )
@@ -1471,10 +1426,9 @@ Ignores CHAR at point."
 ;
 ;
 ;
-      ; kfgjkdfjgk 
+      ; kfgjkdfjgk
       ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;I;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun push-mark-no-activate ()
@@ -1503,7 +1457,6 @@ This is the same as using \\[set-mark-command] with the prefix argumentk."
          (setq mark-ring (nbutlast mark-ring))
          (goto-char (marker-position (car (last mark-ring))))))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Original idea from
@@ -1522,10 +1475,9 @@ This is the same as using \\[set-mark-command] with the prefix argumentk."
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun scroll-down-keep-cursor (arg) 
-   ;; Scroll the text one line up while keeping the cursor 
+(defun scroll-down-keep-cursor (arg)
+   ;; Scroll the text one line up while keeping the cursor
    (interactive "P")
    (let ((inside-arg 3))
    (cond
@@ -1547,8 +1499,8 @@ This is the same as using \\[set-mark-command] with the prefix argumentk."
    ;
    (scroll-down inside-arg)))
 ;
-(defun scroll-up-keep-cursor (arg) 
-   ;; Scroll the text one line up while keeping the cursor 
+(defun scroll-up-keep-cursor (arg)
+   ;; Scroll the text one line up while keeping the cursor
    (interactive "P")
    (let ((inside-arg 3))
    (cond
@@ -1571,18 +1523,17 @@ This is the same as using \\[set-mark-command] with the prefix argumentk."
    (scroll-up inside-arg)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-insert-file-name (filename &optional args)
     "Insert name of file FILENAME into buffer after point.
-;  
+;
   Prefixed with \\[universal-argument], expand the file name to
   its fully canocalized path.  See `expand-file-name'.
-;  
+;
   Prefixed with \\[negative-argument], use relative path to file
   name from current directory, `default-directory'.  See
   `file-relative-name'.
-;  
+;
   The default with no prefix is to insert the file name exactly as
   it appears in the minibuffer prompt."
     ;; Based on insert-file in Emacs -- ashawley 20080926
@@ -1593,17 +1544,15 @@ This is the same as using \\[set-mark-command] with the prefix argumentk."
            (insert (expand-file-name filename)))
           (t
            (insert filename))))
-;  
+;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (global-set-key (kbd "ESC '")  (lambda()
 ;;                                  (interactive)
-;;                                  (message "itserting 3 spaces as a tab ")   
-;;                                  (insert "   "))) 
+;;                                  (message "itserting 3 spaces as a tab ")
+;;                                  (insert "   ")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun two-blank-lines ()
@@ -1625,7 +1574,7 @@ This is the same as using \\[set-mark-command] with the prefix argumentk."
    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (if ( not (line-is-not-blank-se-p))
    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   ;T original line is blank 
+   ;T original line is blank
    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       (progn
       ;moves down from the starting point
@@ -1635,16 +1584,16 @@ This is the same as using \\[set-mark-command] with the prefix argumentk."
         (while ( not (line-is-not-blank-se-p))
           (del-whole-line-with-end)
           (forward-line -1))
-        
+
         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-        ;special cases 
+        ;special cases
         (if ( equal (line-number-at-pos) (count-lines (point-min) (point-max)))
-            ;last line 
-            (end-of-line)    
+            ;last line
+            (end-of-line)
                                         ;
           (if (and (equal (line-number-at-pos) 1) (equal my-first-line-flag t) )
               ;currently first and started out on first
-              (beginning-of-line)    
+              (beginning-of-line)
               ;not the last and not the first
             (end-of-line)))
         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1658,9 +1607,7 @@ This is the same as using \\[set-mark-command] with the prefix argumentk."
       (make-room-around-line))))
    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun make-room-around-line ()
@@ -1698,42 +1645,42 @@ This is the same as using \\[set-mark-command] with the prefix argumentk."
              (forward-line 1)
            )
     )
-   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;    
+   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
    ;2f
    (when (not ( equal (line-number-at-pos) (count-lines (point-min) (point-max))))
       ;T is not the last line
          (forward-line 1)
          (if  (not (line-is-not-blank-se-p))
-            (delete-blank-lines))          
+            (delete-blank-lines))
          (forward-line -1)
    )
    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
    ;2b
-   (when (not ( equal (line-number-at-pos)1))    
+   (when (not ( equal (line-number-at-pos)1))
        ;T is not the first line
          (forward-line -1)
          (if  (not (line-is-not-blank-se-p)    )
             (delete-blank-lines)
             ;
-         (if   (line-is-not-blank-se-p)    
+         (if   (line-is-not-blank-se-p)
             (forward-line 1))
          )
    )
-   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;       
-   (if ( equal (line-number-at-pos) (count-lines (point-min) (point-max)))    
+   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   (if ( equal (line-number-at-pos) (count-lines (point-min) (point-max)))
       ;T
       (progn
          ;last line
          (beginning-of-line)
-         (newline 2)      
+         (newline 2)
          (message "making 2 blank lines before non-blank."))
       ;F
-      (if ( equal (line-number-at-pos) 1)    
+      (if ( equal (line-number-at-pos) 1)
          ;T
          ;not last line, firstline
             (progn
                (end-of-line)
-               (newline 2)      
+               (newline 2)
                (forward-line -2)
                (message "making 2 blank lines after non-blank."))
                     ;
@@ -1741,16 +1688,16 @@ This is the same as using \\[set-mark-command] with the prefix argumentk."
          ;not last line, ;not firstline
             (progn
                (end-of-line)
-               (newline)      
+               (newline)
                (forward-line -1)
-               (newline)      
+               (newline)
                ;
                (end-of-line)
-               (newline)      
+               (newline)
                (forward-line -1)
-               (newline)      
+               (newline)
                (message "making 2 blank lines on both sides of non-blank."))
-            ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;       
+            ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
          )
    )
    ;restore the column
@@ -1759,11 +1706,10 @@ This is the same as using \\[set-mark-command] with the prefix argumentk."
 ;(global-set-key (kbd "<f12>") 'make-room-around-line)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;related to drag stuff
 (defun my-sel-symbol ()
-  "select the symbol at point"  
+  "select the symbol at point"
   (interactive "p")
   (beginning-of-thing 'symbol)
   (set-mark (point))
@@ -1788,7 +1734,6 @@ This is the same as using \\[set-mark-command] with the prefix argumentk."
       (drag-stuff-left 1))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;consider this from the emacswike cookbook
 (defun chomp (str)
@@ -1798,7 +1743,6 @@ This is the same as using \\[set-mark-command] with the prefix argumentk."
         (setq str (replace-match "" t t str)))
       str)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;EXPERIMENTAL 4-25-2012
@@ -1835,7 +1779,7 @@ This is the same as using \\[set-mark-command] with the prefix argumentk."
     Consecutive calls to this command append each line to the
     kill-ring."
       (interactive)
-      ;come back      
+      ;come back
       (when (not (eq last-command 'quick-copy-line)) (push-mark (point) t))
       ;
       (if (not (eq last-command 'quick-copy-line))
@@ -1865,7 +1809,7 @@ This is the same as using \\[set-mark-command] with the prefix argumentk."
     Consecutive calls to this command append each line to the
     kill-ring."
       (interactive)
-      ;come back      
+      ;come back
       (when (not (eq last-command 'quick-copy-line)) (push-mark (point) t))
       ;
       (if (not (eq last-command 'quick-copy-line))
@@ -1886,7 +1830,6 @@ This is the same as using \\[set-mark-command] with the prefix argumentk."
       (message "COPIED LN BEG IN: \"%s...\"  TO KILL RING" mymes_proc))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-smart-copy-line ()
  ""
@@ -1897,7 +1840,6 @@ This is the same as using \\[set-mark-command] with the prefix argumentk."
 ;
 ;(global-set-key [f7] 'my-smart-copy-line)
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun align-repeat-vhdl-signals-constants (start end)
     "Align signal region reference givee
@@ -1905,7 +1847,7 @@ This is the same as using \\[set-mark-command] with the prefix argumentk."
     (interactive "r")
     ;
     ;1st group is space to the left of
-    ;   ^<space>signal  OR ^<space>constant  
+    ;   ^<space>signal  OR ^<space>constant
     (align-regexp start end "\\(^\\s-*\\)[sScC]" 1 1 nil)
     ;
     ;1st group is space to the left of my_name
@@ -1920,10 +1862,9 @@ This is the same as using \\[set-mark-command] with the prefix argumentk."
     ;space to the left of :=
     (replace-regexp "(\\([ ]+\\):=" ":=" nil start end)
     ;
-    ;1st group is space to the left first word, align comments with other stuff    
+    ;1st group is space to the left first word, align comments with other stuff
     (align-regexp start end "\\(^\\s-*\\)" 1 1 nil))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-filter ()
@@ -1944,12 +1885,11 @@ This is the same as using \\[set-mark-command] with the prefix argumentk."
     ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun flush-pm ()
     "clean up the port map after processing"
     (interactive )
-       (beginning-of-buffer)              
+       (beginning-of-buffer)
        (flush-lines "^\\s-*$")
        (flush-lines "^\\s-*--")
        (flush-lines "open")
@@ -1967,30 +1907,29 @@ This is the same as using \\[set-mark-command] with the prefix argumentk."
        ;
        (while (re-search-forward "^.*=>" nil t)
        (replace-match ""))
-       (beginning-of-buffer)       
+       (beginning-of-buffer)
        ;q
        (while (re-search-forward "\\s-+$" nil t)
        (replace-match ""))
-       (beginning-of-buffer)       
+       (beginning-of-buffer)
        ;
        (while (re-search-forward "^\\s-+" nil t)
        (replace-match ""))
-       (beginning-of-buffer)       
+       (beginning-of-buffer)
        ;
        (while (re-search-forward "--.*$" nil t)
        (replace-match ""))
-       (beginning-of-buffer)       
-;              
+       (beginning-of-buffer)
+;
        (sort-lines nil (point-min) (point-max) )
        )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun flush-comp ()
     "clean up the component statement before processing"
     (interactive )
-       (beginning-of-buffer)              
+       (beginning-of-buffer)
        (flush-lines "^\\s-*$")
        (flush-lines "^\\s-*--")
        (flush-lines "open")
@@ -2001,43 +1940,41 @@ This is the same as using \\[set-mark-command] with the prefix argumentk."
        ;
        (while (re-search-forward "^\\s-+" nil t)
        (replace-match ""))
-       (beginning-of-buffer)       
+       (beginning-of-buffer)
        ;
        (while (re-search-forward "^\\s-*component" nil t)
        (replace-match ""))
-       (beginning-of-buffer)       
+       (beginning-of-buffer)
        ;
        (while (re-search-forward "^\\s-*end" nil t)
        (replace-match ""))
-       (beginning-of-buffer)       
+       (beginning-of-buffer)
        ;
        (while (re-search-forward "^\\s-*port" nil t)
        (replace-match ""))
-       (beginning-of-buffer)       
+       (beginning-of-buffer)
        ;
        (while (re-search-forward "^\\s-*generic" nil t)
        (replace-match ""))
-       (beginning-of-buffer)       
+       (beginning-of-buffer)
        ;
        (while (re-search-forward "\\s-+$" nil t)
        (replace-match ""))
-       (beginning-of-buffer)       
+       (beginning-of-buffer)
        ;
        (keep-lines ": in\\|: out")
        ;
-       (align-regexp (point-min) (point-max) "\\(\\s-*\\):" 1 1 nil) 
+       (align-regexp (point-min) (point-max) "\\(\\s-*\\):" 1 1 nil)
        )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
  ;(global-set-key [f12] 'my-filter)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;From the comments section of 
+;From the comments section of
 ; http://www.masteringemacs.org/articles/2011/03/16/removing-blank-lines-buffer/
 (defun flush-blank-lines-buffer-or-region ()
-  "Removes all blank lines from buffer or just a region if one is active" 
+  "Removes all blank lines from buffer or just a region if one is active"
   (interactive)
   (save-excursion
     (let (min max)
@@ -2047,18 +1984,17 @@ This is the same as using \\[set-mark-command] with the prefix argumentk."
    (flush-lines "^ *$" min max t))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun remove-newline-from-last-kill-as-new-kill (arg)
 "Insert last cut text in a newline below the current line
-With a negative preflx make the insertion roomy by adding 
+With a negative preflx make the insertion roomy by adding
 an extra line above and below"
    (interactive "p")
    (setq mytempstr (car kill-ring-yank-pointer))
    (setq mystrNew
          (with-temp-buffer
          (insert (car kill-ring-yank-pointer))
-         ;move point to just before the end of the buffer 
+         ;move point to just before the end of the buffer
          (end-of-buffer)
          (backward-char 2)
             ;
@@ -2076,7 +2012,6 @@ an extra line above and below"
             ;
    (kill-new mystrNew))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-thing-finder ()
@@ -2099,9 +2034,8 @@ an extra line above and below"
 ;; 61020
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;from emacswiki MTF DOOES NOT WORK 12-31-2012 
+;from emacswiki MTF DOOES NOT WORK 12-31-2012
 ;Update 6-15-2014 changed to use start if region, works better.
 ;rather just CALL delete-whitespace-rectangle whith a region selected.
 ;; (defun my-delete-leading-whitespace (start end)
@@ -2121,7 +2055,6 @@ an extra line above and below"
     (if (not (bolp)) (forward-line 1))
     (delete-whitespace-rectangle (point) end nil)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-     
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-backwards-indent ()
@@ -2133,7 +2066,7 @@ an extra line above and below"
     ;    ex     aoeu
     ;             |
     ;would be deleted.  Future option?
-    (if  (looking-at "\\S-") 
+    (if  (looking-at "\\S-")
         (skip-chars-backward   "a-zA-Z0-9_\.\\\\/()$" ))
     ;
     (let ((orig-col) (prev-indent-col))
@@ -2163,16 +2096,15 @@ an extra line above and below"
           ;must be the left most indent
            (progn
              ;(when (eq this-command last-command)
-             (beginning-of-line)    
+             (beginning-of-line)
              (tinyeat-forward-preserve);)
-             (setq remember-prev-indent-col nil))           
+             (setq remember-prev-indent-col nil))
            ;F
            (progn
              (tinyeat-forward-preserve)
              (setq remember-prev-indent-col prev-indent-col)))
        ))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-backwards-indent ()
@@ -2190,7 +2122,7 @@ an extra line above and below"
        ;    ex     aoeu
        ;             |
        ;would be deleted.  Future option?
-       (if  (looking-at "\\S-") 
+       (if  (looking-at "\\S-")
            (skip-chars-backward   "a-zA-Z0-9_\.\\\\/()$" ))
        ;
        (let ((orig-col) (target-indent-col))
@@ -2217,7 +2149,7 @@ an extra line above and below"
                ;
                ;(backward-char)
                (skip-chars-backward   " " )
-               ; 
+               ;
                (if (looking-at "^\\s-*")
                  (setq lkng-at-beg-ln-sp-ref-line t) (setq lkng-at-beg-ln-sp-ref-line nil)))
             ;
@@ -2246,11 +2178,10 @@ an extra line above and below"
                  (tinyeat-forward-preserve))
               ;
                 (progn
-                  ;(jump-to-mark)              
+                  ;(jump-to-mark)
                   (move-to-column target-indent-col t)
-                  (tinyeat-forward-preserve)))))))))   
+                  (tinyeat-forward-preserve)))))))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun last-line-of-buffer-p (&optional arg-verbose)
@@ -2276,7 +2207,7 @@ an extra line above and below"
  (if (eq (forward-line -2) -2)
      (progn
        (if arg-verbose
-         (message "first line of buffer")) 
+         (message "first line of buffer"))
      (setq temp-junk t))
      (setq temp-junk nil)
       ))))
@@ -2293,16 +2224,15 @@ an extra line above and below"
   (first-line-of-buffer-p))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-indentanion-fix-up (&optional arg-verbose)
  (interactive)
  "Move down a line, align to column above
   If a line is blank skip over it and move to the next line
   without user key presses.  Pop mark to go back to starting place"
- (when (not (last-line-of-buffer-p t)) 
+ (when (not (last-line-of-buffer-p t))
    ;
-     ;Welcome repeated runs 
+     ;Welcome repeated runs
      ;Set goal column on first time only (this command not = last command).
      (when (not (eq this-command last-command))
        (setq starting-column (current-column))
@@ -2311,9 +2241,9 @@ an extra line above and below"
      (forward-line 1)
      (while (not (line-is-not-blank-se-p))
        (forward-line 1))
-       (move-to-column starting-column) 
+       (move-to-column starting-column)
      ;
-     (if (looking-at "\\b") ;QUESTON: should be " \\S-" 
+     (if (looking-at "\\b") ;QUESTON: should be " \\S-"
        ;T
        (progn
          (when arg-verbose
@@ -2323,13 +2253,12 @@ an extra line above and below"
        ;Need to handle last line of file differently?
        ;specifically looking at \s-*\$
        ;integrate somewhere around here
-       (if (looking-at " ")  
+       (if (looking-at " ")
          (tinyeat-forward-preserve)
          (progn
            (skip-chars-backward "-_A-Za-z0-9");more flexable ex path, url's etc
            (indent-relative))))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-mark-line-forward ()
@@ -2357,7 +2286,6 @@ an extra line above and below"
        (forward-line -1)
        (beginning-of-line))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-mark-line-forward ()
@@ -2388,10 +2316,9 @@ an extra line above and below"
        (beginning-of-line))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-mark-paragraph (&optional arg)
-  "Select the current block of next between empty lines, 
+  "Select the current block of next between empty lines,
   If called 2x in a row mark the next block
   if called with a prefix arg search only from the beginning of the current line"
   ;"P" is the raw, called with no arg -> nil
@@ -2411,7 +2338,7 @@ an extra line above and below"
     (progn
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       ;--for partial para don't do this
-      (if (not arg) 
+      (if (not arg)
         (progn
           (if (re-search-backward "\n[ \t]*\n" nil "move")
               (progn (re-search-forward "\n[ \t]*\n")
@@ -2428,7 +2355,7 @@ an extra line above and below"
           (progn (re-search-backward "\n[ \t]*\n")
                  (setq p2 (point) ))
         (setq p2 (point) ) ) )
-    (set-mark p1) 
+    (set-mark p1)
     (forward-line 1)))
 ;
 (defun select-2nd-block ()
@@ -2445,7 +2372,6 @@ an extra line above and below"
   (forward-line 1)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;
 ;;;;;;;;;;
 ;;;;;;;;;;
@@ -2453,7 +2379,6 @@ an extra line above and below"
 ;;;;;;;;;;
 ;;;;;;;;;;
 ;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun forward-word-dont-go-over-non-words ()
@@ -2467,7 +2392,7 @@ an extra line above and below"
        ;
        (if (looking-at "\\W+\\s-*$")
        ;Inside if T
-       (progn (end-of-line) (message "Move over non-word") 
+       (progn (end-of-line) (message "Move over non-word")
        (if (looking-at "\\s-*$") (progn (message "EOL"))))
        ;
        ;Inside if F
@@ -2478,9 +2403,8 @@ an extra line above and below"
          (progn (message "EOL"))))))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun my-goto-bob-meaningful (&optional arg) 
+(defun my-goto-bob-meaningful (&optional arg)
   "Go near point min,end up in a meaningful place."
   (interactive)
   (if (eq major-mode 'dired-mode)
@@ -2492,9 +2416,8 @@ an extra line above and below"
     (goto-char (point-min))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun my-goto-eob-meaningful (&optional arg) 
+(defun my-goto-eob-meaningful (&optional arg)
   "Go near point max,end up in a meaningful place."
   (interactive)
   (if (eq major-mode 'eshell-mode)
@@ -2502,44 +2425,42 @@ an extra line above and below"
       (eshell-show-maximum-output)
       ;
       ;F
-      (if (or (equal major-mode 'shell-mode) 
+      (if (or (equal major-mode 'shell-mode)
               (equal major-mode 'eshell-mode)
               (equal major-mode 'inf-ruby-mode))
-        ;T      
+        ;T
         (comint-show-maximum-output)
         ;F
         (progn
             (goto-char (point-max))
             (forward-line -1)
             ;
-            (if (eq major-mode 'dired-mode)      
+            (if (eq major-mode 'dired-mode)
             (while (looking-at " ") (forward-char 1)))))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun replace-stars-in-middle-of-view-num (arg)
 "Insert last cut text in a newline below the current line
-With a negative preflx make the insertion roomy by adding 
+With a negative preflx make the insertion roomy by adding
 an extra line above and below"
    (interactive "p")
 
    (while (re-search-forward "*\n*\n*\n*\n" nil t)
        (replace-match "-\n-\n-\n-\n-\n")))
 
-
          ;
 ;
 (defun insert-lastyank-this-line (arg)
 "Insert last cut text on this line do not put in an newline
-With a negative preflx make the insertion roomy by adding 
+With a negative preflx make the insertion roomy by adding
 an extra line above and below"
    (interactive "p")
    (setq mytempstr (car kill-ring-yank-pointer))
    (setq mystrNew
    (with-temp-buffer
    (insert (car kill-ring-yank-pointer))
-   ;move point to just before the end of the buffer 
+   ;move point to just before the end of the buffer
    (end-of-buffer)
    (backward-char 2)
       ;
@@ -2571,7 +2492,7 @@ an extra line above and below"
            ;; (progn(end-of-line) (newline))
            (progn(end-of-line) )
       ;(insert-and-indent-line-below)
-      ;add an extra line above and below      
+      ;add an extra line above and below
       (if(> 0 arg)
       (progn
          (insert-and-indent-line-above)
@@ -2584,7 +2505,7 @@ an extra line above and below"
 ;
 (defun insert-lastyank-above (arg)
 "Insert last cut text in a newline above the current line.
-With a negative preflx make the insertion roomy by adding 
+With a negative preflx make the insertion roomy by adding
 an extra line above and below"
    (interactive "p")
    (setq mytempstr (car kill-ring-yank-pointer))
@@ -2605,7 +2526,7 @@ an extra line above and below"
          ;FALSE:set a variable to indicate word
          (setq str_is_word_var (progn(message "Inserting a Word") t )))
          (buffer-string))) ; get result of temp buffer, pass it back
-      ; 
+      ;
       (if str_is_word_var
         ;TRUE:Indent for word
         (progn
@@ -2619,7 +2540,7 @@ an extra line above and below"
          ;FALSE:insert at prev BOL for line
         (progn
       (insert-and-indent-line-above)
-      ;add an extra line above and below      
+      ;add an extra line above and below
       (if(> 0 arg)
       (progn
          (insert-and-indent-line-above)
@@ -2628,32 +2549,30 @@ an extra line above and below"
       (beginning-of-line)))
       ;
       (insert mystrNew)
-      (smart-beginning-of-line))  
+      (smart-beginning-of-line))
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun line-is-not-blank-se-p (&optional arg-verbose)
-"Determine if current line is not blank, 
+"Determine if current line is not blank,
    return cursor to orginal position in the non-blank case"
  (interactive)
    (save-excursion
    (beginning-of-line)
    (if (not  (or (looking-at "^\\s-$") (looking-at "\n") (looking-at "^ +\n")))
       ;T
-      (progn 
+      (progn
          (if arg-verbose
         (message "not blank"))
          (setq line-is-not-blank-ret-val t))
       ;F
-      (progn       
+      (progn
          (if arg-verbose
         (message " blank"))
          (setq line-is-not-blank-ret-val nil)))))
 ;binding 4 test only (global-set-key (kbd "<f9>") 'line-is-not-blank-p)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun line-is-not-blank-p (&optional arg-verbose)
@@ -2662,33 +2581,32 @@ an extra line above and below"
    (beginning-of-line)
    (if (not  (or (looking-at "^\\s-$") (looking-at "\n") (looking-at "^ +\n")))
       ;T
-      (progn 
+      (progn
          (if arg-verbose
         (message "not blank"))
          (setq line-is-not-blank-ret-val t))
       ;F
-      (progn       
+      (progn
          (if arg-verbose
-        (message "not blank")) 
+        (message "not blank"))
          (setq line-is-not-blank-ret-val nil))))
 ;binding 4 test only (global-set-key (kbd "<f9>") 'line-is-not-blank-p)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mark-debug (start end)
 "Insert last cut text in a newline below the current line
-With a negative preflx make the insertion roomy by adding 
+With a negative preflx make the insertion roomy by adding
 an extra line above and below"
    (interactive "r")
    ;Create empty list
    (setq second-word-list (list ))
-   
+
    (message "start is %s end is %s " start end)
    (goto-char start)
 
    (while (< (point) end)
-       ; 
+       ;
        ;get the 2and word
        (re-search-forward "\\w+\\s-\\w+" nil t)
        ;
@@ -2702,54 +2620,44 @@ an extra line above and below"
        ;
      (forward-line 1)))
 
-
 ;; (setq temp '("\n" "aoeu\n" "htns\n"))
 
-;; (dolist (myvar temp [RESULT]) 
+;; (dolist (myvar temp [RESULT])
 
 ;; BODY...)
 
 ;; (dolist (x '(1 2 3)) (insert (number-to-string x)))
 
 ;; (defun my-insert-list (arg)
-;;   (dolist (x arg x) 
+;;   (dolist (x arg x)
 ;;     (insert  x)))
-
 
 ;; (setq htns (my-insert-list temp))
 ;; aoeu
 ;; htns
-
-
-
-
 
 ;region stuff
 ;stackoverflow.com/questions/14201740/replace-region-with-result-of-calling-a-function-on-region
 
 ;(length second-word-list)
 
-
 ; iterate a list of signal names, prepend and append mark_debug stuff.
 ;
 ; this is close
-;; (setq temp (-map (lambda (num) 
-;;       (concat "attribute mark_debug of " num ": signal is \\"true\\";")) 
+;; (setq temp (-map (lambda (num)
+;;       (concat "attribute mark_debug of " num ": signal is \\"true\\";"))
 ;;   mylist))
 
 ; this is closer
-; (setq temp (-map (lambda (num) 
-;       (concat "attribute mark_debug of " num ": signal is \"true\";")) 
+; (setq temp (-map (lambda (num)
+;       (concat "attribute mark_debug of " num ": signal is \"true\";"))
 ;   second-word-list))
-  
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-  
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "Reached the end if move-ins-sel-kill")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'move-ins-sel-kill)
