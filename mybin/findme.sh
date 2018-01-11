@@ -12,6 +12,8 @@
    -o -iname "*.log" \
    -o -iname "*.bat" \
    -o -iname "*.sh" \
+   -o -iname "*.csh" \
+   -o -iname "*.runsim" \
    -o -iname "transcript" \
    -o -iname "*config*" \
    -o -iname "*.xdc"  \) \
