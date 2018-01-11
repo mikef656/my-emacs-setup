@@ -37,7 +37,7 @@
    (quote
     ((foreground-color . "white")
      (background-color . "#3f3f3f")
-     (font . "DejaVu Sans Mono 13")
+     (font . "DejaVu Sans Mono 12")
      (mouse-color . "#dcdccc")
      (cursor-color . "red")
      (menu-bar-lines . 0)
