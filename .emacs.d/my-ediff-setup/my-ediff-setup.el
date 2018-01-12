@@ -18,7 +18,7 @@
 (defvar REPO_INDICATION_STRING ".~REPO-HEAD~" 
   "string used to mark the buffer as associated with the repositery head")
 
-(defvar EDIFF-RESTORE-ORIG-WIN-CONFIG t
+(defvar EDIFF-RESTORE-ORIG-WIN-CONFIG nil
   "Run a hook that attemps to restore the original window config after
    ediff exits")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

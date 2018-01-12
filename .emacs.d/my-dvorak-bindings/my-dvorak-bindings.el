@@ -908,8 +908,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define-key global-map [(control meta ?z)] 'ace-jump-zap-to-char)
-(define-key global-map [(control meta ?Z)] 'ace-jump-zap-up-to-char)
+;; (define-key global-map [(control meta ?z)] 'ace-jump-zap-to-char)
+;; (define-key global-map [(control meta ?Z)] 'ace-jump-zap-up-to-char)
+(define-key global-map [(control meta ?z)] 'zop-to-char)
+(define-key global-map [(control meta ?Z)] 'zop-up-to-char)
 ;(define-key esc-map "~" 'ace-jump-mode-pop-mark)
 
 (global-set-key (kbd "<S-f10>") 'my-indentanion-fix-up)
@@ -1027,7 +1029,7 @@
 (define-key vc-prefix-map (kbd "U") 'my-svn-update-for-vc-map)
 ;   
 (define-key vc-prefix-map (kbd "u") 'vc-update);small u is only 1 file
-(define-key vc-prefix-map (kbd "=") 'my-ediff-cur-buf-against-repo-head)
+; probably not for git ?? (define-key vc-prefix-map (kbd "=") 'my-ediff-cur-buf-against-repo-head)
 
 (global-set-key (kbd "C-=") 'iedit-dwim)
 (global-set-key [(control meta f12)] 'insert-text-move-block-right)

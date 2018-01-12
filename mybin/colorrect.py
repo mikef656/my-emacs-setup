@@ -1,4 +1,6 @@
+#!/usr/bin/python3
 # based on chapter 12 of Python for Kids page174 "Setting The Color"
+print("got here")
 from tkinter import *
 import random
 tk = Tk()

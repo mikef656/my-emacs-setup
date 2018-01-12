@@ -586,7 +586,7 @@
   ;; )
 ;;
 ;; MTF I don't always want this stuff, its usually more trouble than it's worth
-(when nil
+(when t
   (require 'package) ;; You might already have this line
    ; 
   (when (< emacs-major-version 24)
@@ -634,7 +634,8 @@
     (unless
       (ignore-errors ;if an error occurs return nil
     (require 'package)
-    (setq package-enable-at-startup nil)
+    ;; (setq package-enable-at-startup nil)
+    (setq package-enable-at-startup t)
     ; 
     (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
     ;

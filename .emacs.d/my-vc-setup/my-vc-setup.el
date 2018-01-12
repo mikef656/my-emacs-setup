@@ -1019,11 +1019,12 @@ PROMPT is as for `y-or-n-p'."
     (lambda (files) (vc-git-command nil 0 files "reset" "-q" "--"))))
 
 (define-key vc-prefix-map [(r)] 'vc-revert-buffer)
-(define-key vc-dir-mode-map [(r)] 'vc-revert-buffer)
 (define-key vc-prefix-map [(a)] 'my-vc-git-add)
-(define-key vc-dir-mode-map [(a)] 'my-vc-git-add)
 (define-key vc-prefix-map [(u)] 'my-vc-git-reset)
-(define-key vc-dir-mode-map [(u)] 'my-vc-git-reset)
+; probably need to be on a hook, errors as written here
+;(define-key vc-dir-mode-map [(r)] 'vc-revert-buffer)
+;(define-key vc-dir-mode-map [(a)] 'my-vc-git-add)
+;(define-key vc-dir-mode-map [(u)] 'my-vc-git-reset)
 
 ;; hide up to date files after refreshing in vc-dir
 ;(define-key vc-dir-mode-map [(g)]
@@ -1055,9 +1056,15 @@ PROMPT is as for `y-or-n-p'."
     (ewoc-filter vc-ewoc
                  (lambda (file)
                    (not (memq (vc-dir-fileinfo->state file) states))))))
+
 (eval-after-load "vc-dir"
   '(define-key vc-dir-mode-map "H" 'my-vc-dir-hide-some))
 
+(eval-after-load "vc-dir"
+  '(define-key vc-dir-mode-map "=" 'vc-ediff))
+
+(eval-after-load "vc-hooks"
+         '(define-key vc-prefix-map "=" 'ediff-revision))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "Reached the end of %s" (buffer-name))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -542,6 +542,7 @@
    (quote
     (dired-do-create-files grep-read-files expand-file-name dired-create-files)))
  '(ido-use-filename-at-point nil)
+ '(indent-tabs-mode nil)
  '(isearchp-deactivate-region-flag nil)
  '(isearchp-highlight-regexp-group-levels-flag nil)
  '(isearchp-initiate-edit-commands

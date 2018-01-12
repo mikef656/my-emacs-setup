@@ -1,7 +1,8 @@
 import re
 
 # f = open("colorrect.py","r")
-f = open("c:/Users/family/AppData/Roaming/stuff/Verilog/School_Verilog_Project/div_top.v","r")
+#f = open("c:/Users/family/AppData/Roaming/stuff/Verilog/School_Verilog_Project/div_top.v","r")
+f = open("/gitshared/ptgd73/jira_erlmfpga_29_clone_wb_dmr_super/super_m4c8_wideband_dmr/psd_iqrec/testbench/wideband_channelizer/fft_ram/top.sv","r")
 string_to_test = f.read()
 
 # guide
