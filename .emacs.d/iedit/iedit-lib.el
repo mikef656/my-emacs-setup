@@ -3,10 +3,10 @@
 
 ;; Copyright (C) 2010, 2011, 2012 Victor Ren
 
-;; Time-stamp: <2016-05-24 10:36:51 Victor Ren>
+;; Time-stamp: <2017-09-16 19:31:32 Victor Ren>
 ;; Author: Victor Ren <victorhge@gmail.com>
 ;; Keywords: occurrence region simultaneous rectangle refactoring
-;; Version: 0.97
+;; Version: 0.9.9
 ;; X-URL: http://www.emacswiki.org/emacs/Iedit
 ;; Compatibility: GNU Emacs: 22.x, 23.x, 24.x
 
@@ -29,18 +29,30 @@
 ;;; Commentary:
 
 ;; This package is iedit APIs library that allow you to write your own minor mode.
+;; The functionalities of the APIs:
+;; - Create occurrence overlays
+;; - Navigate in the occurrence overlays
+;; - Modify the occurrences
+;; - Hide/show
+;; - Other basic support APIs
+;; 
+;; A few concepts that help you understand what this is about:
+;; Occurrence
+;; Occurrence overlay
+;; Unmatched lines
+;; Context lines
 
 ;;; todo:
 ;; - Update comments for APIs
 ;; - Add more easy access keys for whole occurrence
-;; - More APIs: extend occurrences,
 
 ;;; Code:
 
 (eval-when-compile (require 'cl))
 
 (defgroup iedit nil
-  "Edit multiple regions in the same way simultaneously."
+  "Edit multiple regions in the same way simultaneously.
+The regions are usually the same, called occurrences in the mode."
   :prefix "iedit-"
   :group 'replace
   :group 'convenience)
@@ -57,11 +69,6 @@
 
 (defcustom iedit-case-sensitive-default t
   "If no-nil, matching is case sensitive."
-  :type 'boolean
-  :group 'iedit)
-
-(defcustom iedit-unmatched-lines-invisible-default nil
-  "If no-nil, hide lines that do not cover any occurrences by default."
   :type 'boolean
   :group 'iedit)
 
@@ -96,7 +103,8 @@ If no-nil, matching is case sensitive.")
 
 (defvar iedit-unmatched-lines-invisible nil
   "This is buffer local variable which indicates whether
-unmatched lines are hided.")
+unmatched lines are hided.
+Unmatched lines are the lines that don't have occurrences.")
 
 (defvar iedit-forward-success t
   "This is buffer local variable which indicates the moving
@@ -109,7 +117,7 @@ that is going to be changed.")
 (defvar iedit-before-modification-undo-list nil
   "This is buffer local variable which is the buffer undo list before modification.")
 
-;; `iedit-occurrence-update-hook' gets called twice when change==0 and
+;; `iedit-update-occurrences' gets called twice when change==0 and
 ;; occurrence is zero-width (beg==end) -- for front and back insertion.
 (defvar iedit-skip-modification-once t
   "Variable used to skip first modification hook run when
@@ -123,7 +131,7 @@ insertion against a zero-width occurrence.")
 
 (defvar iedit-post-undo-hook-installed nil
   "This is buffer local variable which indicated if
-`iedit-post-undo-hook' is installed in `post-command-hook'.")
+`iedit-post-undo' is installed in `post-command-hook'.")
 
 (defvar iedit-buffering nil
   "This is buffer local variable which indicates iedit-mode is
@@ -158,13 +166,18 @@ is not applied to other occurrences when it is true.")
     (define-key map (kbd "<S-tab>") 'iedit-prev-occurrence)
     (define-key map (kbd "<S-iso-lefttab>") 'iedit-prev-occurrence)
     (define-key map (kbd "<backtab>") 'iedit-prev-occurrence)
-    (define-key map (kbd "C-'") 'iedit-toggle-unmatched-lines-visible)
+    (define-key map (kbd "C-'") 'iedit-show/hide-unmatched-lines)
     map)
   "Keymap used while Iedit mode is enabled.")
 
 (defvar iedit-occurrence-keymap-default
   (let ((map (make-sparse-keymap)))
-;;  (set-keymap-parent map iedit-lib-keymap)
+    ;; `yas-minor-mode' uses tab by default and installs its keymap in
+    ;; `emulation-mode-map-alists', which is used before before
+    ;; ‘minor-mode-map-alist’.  So TAB is bond to get used even before
+    ;; `yas-minor-mode', to prevent overriding.
+    (define-key map (kbd "TAB") 'iedit-next-occurrence)
+    (define-key map (kbd "<tab>") 'iedit-next-occurrence)
     (define-key map (kbd "M-U") 'iedit-upcase-occurrences)
     (define-key map (kbd "M-L") 'iedit-downcase-occurrences)
     (define-key map (kbd "M-R") 'iedit-replace-occurrences)
@@ -175,8 +188,40 @@ is not applied to other occurrences when it is true.")
     (define-key map (kbd "M-<") 'iedit-goto-first-occurrence)
     (define-key map (kbd "M->") 'iedit-goto-last-occurrence)
     (define-key map (kbd "C-?") 'iedit-help-for-occurrences)
+    (define-key map [remap keyboard-escape-quit] 'iedit-quit)
+    (define-key map [remap keyboard-quit] 'iedit-quit)
     map)
   "Default keymap used within occurrence overlays.")
+
+(eval-after-load  'multiple-cursors-core
+  '(progn
+     ;; The declarations are to avoid compile errors if mc is unknown by Emacs. 
+     (declare-function mc/create-fake-cursor-at-point "mutiple-cursor-core.el" nil)
+     (declare-function multiple-cursors-mode "mutiple-cursor-core.el")
+     (defun iedit-switch-to-mc-mode ()
+       "Switch to multiple-cursors-mode.  So that you can navigate
+out of the occurrence and edit simultaneously with multiple
+cursors."
+       (interactive "*")
+       (iedit-barf-if-buffering)
+       (let* ((ov (iedit-find-current-occurrence-overlay))
+	      (offset (- (point) (overlay-start ov)))
+	      (master (point)))
+	 (save-excursion
+	  (dolist (occurrence iedit-occurrences-overlays)
+	    (goto-char (+ (overlay-start occurrence) offset))
+	    (unless (= master (point))
+	      (mc/create-fake-cursor-at-point))
+	    ))
+	 (run-hooks 'iedit-aborting-hook)
+	 (multiple-cursors-mode 1)
+	 ))
+     ;; `multiple-cursors-mode' runs `post-command-hook' function for all the
+     ;; cursors. `post-command-hook' is setup in `iedit-switch-to-mc-mode' So the
+     ;; function is executed after `iedit-switch-to-mc-mode'. It is not expected.
+     ;; `mc/cmds-to-run-once' is for skipping this.
+     (add-to-list 'mc/cmds-to-run-once 'iedit-switch-to-mc-mode)
+     (define-key iedit-occurrence-keymap-default (kbd "M-M") 'iedit-switch-to-mc-mode)))
 
 (defvar iedit-occurrence-keymap 'iedit-occurrence-keymap-default
   "Keymap used within occurrence overlays.
@@ -196,6 +241,18 @@ It should be set before occurrence overlay is created.")
                    (substitute-command-keys "\\[iedit-goto-first-occurrence]") "/"
                    (substitute-command-keys "\\[iedit-goto-last-occurrence]") ":first/last "
                    )))
+
+(defun iedit-quit ()
+  "Quit the current mode."
+  (interactive)
+  (run-hooks 'iedit-aborting-hook))
+
+(defun iedit-make-markers-overlays (markers)
+  "Create occurrence overlays on a list of markers."
+  (setq iedit-occurrences-overlays
+       (mapcar #'(lambda (marker)
+                   (iedit-make-occurrence-overlay (car marker) (cdr marker)))
+               markers)))
 
 (defun iedit-make-occurrences-overlays (occurrence-regexp beg end)
   "Create occurrence overlays for `occurrence-regexp' in a region.
@@ -220,11 +277,8 @@ Return the number of occurrences."
                       iedit-read-only-occurrences-overlays)
               (push (iedit-make-occurrence-overlay beginning ending)
                     iedit-occurrences-overlays))
-            (setq counter (1+ counter))))
-        (when (/= 0 counter)
-          (if iedit-unmatched-lines-invisible
-              (iedit-hide-unmatched-lines iedit-occurrence-context-lines))))
-      counter)))
+            (setq counter (1+ counter))))))
+    counter))
 
 (defun iedit-add-next-occurrence-overlay (occurrence-exp &optional point)
   "Create next occurrence overlay for `occurrence-exp'."
@@ -255,8 +309,10 @@ Return the start position of the new occurrence if successful."
                                              (match-end 0))
               iedit-occurrences-overlays)
         (message "Add one match for \"%s\"." (iedit-printable occurrence-exp))
-        (if iedit-unmatched-lines-invisible
-            (iedit-hide-unmatched-lines iedit-occurrence-context-lines))))
+        (when iedit-unmatched-lines-invisible
+          (iedit-show-all)
+          (iedit-hide-unmatched-lines iedit-occurrence-context-lines))
+        ))
     pos))
 
 (defun iedit-add-region-as-occurrence (beg end)
@@ -297,9 +353,9 @@ occurrences if the user starts typing."
     (overlay-put occurrence iedit-occurrence-overlay-name t)
     (overlay-put occurrence 'face 'iedit-occurrence)
     (overlay-put occurrence 'keymap iedit-occurrence-keymap)
-    (overlay-put occurrence 'insert-in-front-hooks '(iedit-occurrence-update-hook))
-    (overlay-put occurrence 'insert-behind-hooks '(iedit-occurrence-update-hook))
-    (overlay-put occurrence 'modification-hooks '(iedit-occurrence-update-hook))
+    (overlay-put occurrence 'insert-in-front-hooks '(iedit-update-occurrences))
+    (overlay-put occurrence 'insert-behind-hooks '(iedit-update-occurrences))
+    (overlay-put occurrence 'modification-hooks '(iedit-update-occurrences))
     (overlay-put occurrence 'priority iedit-overlay-priority)
     occurrence))
 
@@ -318,7 +374,7 @@ occurrences if the user starts typing."
     ;;    (overlay-put unmatched-lines-overlay 'intangible t)
     unmatched-lines-overlay))
 
-(defun iedit-post-undo-hook ()
+(defun iedit-post-undo ()
   "Check if it is time to abort iedit after undo command is executed.
 
 This is added to `post-command-hook' when undo command is executed
@@ -326,7 +382,7 @@ in occurrences."
   (if (iedit-same-length)
       nil
     (run-hooks 'iedit-aborting-hook))
-  (remove-hook 'post-command-hook 'iedit-post-undo-hook t)
+  (remove-hook 'post-command-hook 'iedit-post-undo t)
   (setq iedit-post-undo-hook-installed nil))
 
 (defun iedit-reset-aborting ()
@@ -334,7 +390,7 @@ in occurrences."
 
 This is added to `post-command-hook' when aborting Iedit mode is
 decided.  `iedit-aborting-hook' is postponed after the current
-command is executed for avoiding `iedit-occurrence-update-hook'
+command is executed for avoiding `iedit-update-occurrences'
 is called for a removed overlay."
   (run-hooks 'iedit-aborting-hook)
   (remove-hook 'post-command-hook 'iedit-reset-aborting t)
@@ -343,7 +399,7 @@ is called for a removed overlay."
 ;; There are two ways to update all occurrences.  One is to redefine all key
 ;; stroke map for overlay, the other is to figure out three basic modification
 ;; in the modification hook.  This function chooses the latter.
-(defun iedit-occurrence-update-hook (occurrence after beg end &optional change)
+(defun iedit-update-occurrences (occurrence after beg end &optional change)
   "Update all occurrences.
 This modification hook is triggered when a user edits any
 occurrence and is responsible for updating all other
@@ -355,7 +411,7 @@ occurrence, it will abort Iedit mode."
       ;; If the "undo" change make occurrences different, it is going to mess up
       ;; occurrences.  So a check will be done after undo command is executed.
       (when (not iedit-post-undo-hook-installed)
-        (add-hook 'post-command-hook 'iedit-post-undo-hook nil t)
+        (add-hook 'post-command-hook 'iedit-post-undo nil t)
         (setq iedit-post-undo-hook-installed t))
     (when (not iedit-aborting)
     ;; before modification
@@ -381,9 +437,9 @@ occurrence, it will abort Iedit mode."
                     (eq beg end)  ;; deletion
                     (not (string= iedit-before-modification-string
                                   (buffer-substring-no-properties beg end))))
-            (iedit-update-occurrences  occurrence after beg end change))))))))
+            (iedit-update-occurrences-2  occurrence after beg end change))))))))
 
-(defun iedit-update-occurrences (occurrence after beg end &optional change)
+(defun iedit-update-occurrences-2 (occurrence after beg end &optional change)
   ""
   (let ((inhibit-modification-hooks t)
         (offset (- beg (overlay-start occurrence)))
@@ -505,8 +561,8 @@ the buffer."
         (setq pos (previous-single-char-property-change pos 'iedit-occurrence-overlay-name)))
     pos))
 
-(defun iedit-toggle-unmatched-lines-visible (&optional arg)
-  "Toggle whether to display unmatched lines.
+(defun iedit-show/hide-unmatched-lines (&optional arg)
+  "Show or hide unmatched lines.
 A prefix ARG specifies how many lines before and after the
 occurrences are not hided; negative is treated the same as zero.
 
@@ -579,6 +635,8 @@ value of `iedit-occurrence-context-lines' is used for this time."
   (interactive "*")
   (iedit-barf-if-buffering)
   (iedit-apply-on-occurrences 'upcase-region))
+
+
 
 (defun iedit-downcase-occurrences()
   "Covert occurrences to lower case."
@@ -888,7 +946,8 @@ it just means mark is active."
   (and (if iedit-transient-mark-sensitive
            transient-mark-mode
          t)
-       mark-active (not (equal (mark) (point)))))
+       mark-active
+       (not (equal (mark) (point)))))
 
 (defun iedit-barf-if-lib-active()
   "Signal error if Iedit lib is active."
@@ -910,4 +969,5 @@ it just means mark is active."
 ;;  LocalWords:  substring cadr keymap defconst purecopy bkm defun princ prev
 ;;  LocalWords:  iso lefttab backtab upcase downcase concat setq autoload arg
 ;;  LocalWords:  refactoring propertize cond goto nreverse progn rotatef eq elp
-;;  LocalWords:  dolist pos unmatch args ov sReplace iedit's cdr quote'ed
+;;  LocalWords:  dolist pos unmatch args ov sReplace iedit's cdr quote'ed yas
+;;  LocalWords:  defface alists SPC mc cmds
