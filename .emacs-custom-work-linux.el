@@ -118,7 +118,7 @@
  '(custom-safe-themes
    (quote
     ("d8cec8251169ccfe192aa87d69b9378bc81599330f31498f85deaef633721302" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
- '(debug-on-error t)
+ '(debug-on-error nil)
  '(default-frame-alist
     (quote
      ((menu-bar-lines . 0)
