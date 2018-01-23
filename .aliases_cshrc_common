@@ -121,3 +121,8 @@ alias startserver 'vncserver -depth 24 -geometry 1970x1055'
 #-------------------------------------------------------------------------------
 alias ve 'grep -B 3 -m 1  -n --color=always '^ERROR' vivado.log'
 
+#-------------------------------------------------------------------------------
+#grep for Errors in the irun.log file
+#-------------------------------------------------------------------------------
+alias ce 'grep -B 3 --color=always "*E" irun.log'
+
