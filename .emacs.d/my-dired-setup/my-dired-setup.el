@@ -3,11 +3,10 @@
 (require 'dash)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;DIRED
 ;; allow dired to be able to delete or copy a whole dir.
-;; always means no asking. top means ask once. 
+;; always means no asking. top means ask once.
 ;;Any other symbol means ask each and every time for a dir and subdir.
 (setq dired-recursive-copies (quote always))
 (setq dired-recursive-deletes (quote top))
@@ -18,9 +17,9 @@
 ;
 ;1/26/2012 seem to be causing some wierd stuff where two dired buffers open
 ;at the same time would interact in underisable ways
-;; ;;If you want Enter and ^ (parent dir) to use the same buffer, 
+;; ;;If you want Enter and ^ (parent dir) to use the same buffer,
 ;; ;;put the following in your emacs init file:
-;; ;ALSO:In dired, you can press a instead of Enter to open the dir. 
+;; ;ALSO:In dired, you can press a instead of Enter to open the dir.
 ;; ;This way, the previous dir will be automatically closed.
 ;; (add-hook 'dired-mode-hook
 ;;  (lambda ()
@@ -34,13 +33,11 @@
 (put 'dired-find-alternate-file 'disabled nil)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (when (eq load-dired+ t)
    (add-to-list 'load-path "~/.emacs.d/icicles/")
    (require 'dired+))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-to-list 'load-path "~/.emacs.d/icicles/")
@@ -49,8 +46,8 @@
 ; hovever what is in 24.4 does not properly hide details in sunrise-commander
 
 ; and this is wrong it puts in dired-details when the rev is less than or =
-; to 24.4.  Leave it for now because of the issue with SR. 
-(when 
+; to 24.4.  Leave it for now because of the issue with SR.
+(when
   ;; (and (eq load-dired-details t) (>= emacs-major-version 24) (<= emacs-minor-version 3))
   (and (eq load-dired-details t) (>= emacs-major-version 24) (>= emacs-minor-version 3))
      ;
@@ -59,17 +56,22 @@
        (require 'dired-details+)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Some of the functionality associated with dired-sort-menu+ and dired-sort-menu
+; is for Windows only.  The key binding "/" to toggle dirs first does not work
+; on linux systems by design.  This can be discovered by looking in
+; dired-sort-menu+  where the binding is made and this check is performed
+; (ls-lisp-var-p 'ls-lisp-dirs-first).  The varibale doc string for
+; ls-lisp-dirs-first says it depends on Windows Explorer.  This is irritating
+; bc it's not stated on the emacs Wiki that it is for Windows only.
 (add-to-list 'load-path "~/.emacs.d/dired-sort-menu/")
 (when (eq load-dired-sort-menu+ t)
    (require 'dired-sort-menu+))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "reached before load-diredful")
-(when  load-diredful; 
+(when  load-diredful;
   (unless
     (ignore-errors ;if an error occurs return nil
     ;
@@ -80,7 +82,6 @@
   ;
   (message "--Error in load-diredful")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "reached before load-dired-hacks")
@@ -98,7 +99,6 @@
     ;
   (message "--Error in load-dired-hacks")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;BEGIN DiredSortBySizeAndExtension
@@ -199,7 +199,7 @@
                (cond ((string-match "^-[^t]*t[^t]*$" dired-actual-switches)
                       "Dired by date" (message "Dired by date"))
                      ((string-match "^-[^X]*X[^X]*$" dired-actual-switches)
-                      "Dired by ext"   (message "Dired by ext")) 
+                      "Dired by ext"   (message "Dired by ext"))
                      ((string-match "^-[^S]*S[^S]*$" dired-actual-switches)
                       "Dired by sz"   (message "Dired by sz"))
                      ((string-match "^-[^SXUt]*$" dired-actual-switches)
@@ -208,9 +208,8 @@
                       (concat "Dired " dired-actual-switches)))))
        (force-mode-line-update)))
    ;;END DiredSortBySizeAndExtension
-;   
+;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;default value is the empty list
@@ -226,31 +225,30 @@
    ;
    ;push before dir unless it' already at the beginning of the list
    (unless (equal (car my-dired-his-var-list) default-directory)
-     (setq my-dired-his-var-list 
+     (setq my-dired-his-var-list
            (cons default-directory my-dired-his-var-list)))
    ;
    (find-alternate-file"..")
    ;
    ;push after dir unless it' already at the beginning of the list
    (unless (equal (car my-dired-his-var-list) default-directory)
-     (setq my-dired-his-var-list 
+     (setq my-dired-his-var-list
            (cons default-directory my-dired-his-var-list)))
    ;
-   ; In the case where a dired window is a sidebar, then 
+   ; In the case where a dired window is a sidebar, then
    ; don't do the fitting to match the cwd lenght
    (if (equal 1 (length (window-list)) )
        (progn
          (setq my_default_directory_lenght  (length default-directory))
          (fit-frame  nil (+ 3 my_default_directory_lenght) nil)))
-   ;     
-   (message 
+   ;
+   (message
     ;; (string-utils-squeeze-filename default-directory his-msg-lim))
     (string-utils-squeeze-url default-directory his-msg-lim))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;in dired call this with M-left 
+;in dired call this with M-left
 (defun my-dired-go-to-prev-his-folder (&optional arg)
    "Go to previous dir in history list, "
    (interactive )
@@ -258,7 +256,7 @@
    ;rotate the list if its car is the pwd, don't want to cd to pwd
    (if (equal (car my-dired-his-var-list) default-directory)
      (setq my-dired-his-var-list (-rotate -1 my-dired-his-var-list)))
-   ;      
+   ;
    (find-alternate-file (car my-dired-his-var-list))
    ;
    ;rotate the list so the first item becomes the second
@@ -269,13 +267,13 @@
          (setq my_default_directory_lenght  (length default-directory))
          (fit-frame  nil (+ 3 my_default_directory_lenght) nil)))
    ;
-   (message 
+   (message
     (string-utils-squeeze-url default-directory his-msg-lim)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;in dired call this with M-right   
+;in dired call this with M-right
 (defun my-dired-go-to-next-his-folder (&optional arg)
    "IN DIRED, use arrow keys line Win7."
    (interactive )
@@ -283,7 +281,7 @@
    ;rotate the list if its last item is the pwd, don't want to cd to pwd
    (if (equal (-last-item my-dired-his-var-list) default-directory)
      (setq my-dired-his-var-list (-rotate 1 my-dired-his-var-list)))
-   ;   
+   ;
    ;rotate list so the last becomes the first
    (setq my-dired-his-var-list (-rotate 1 my-dired-his-var-list))
    ;
@@ -294,11 +292,11 @@
          (setq my_default_directory_lenght  (length default-directory))
          (fit-frame  nil (+ 3 my_default_directory_lenght) nil)))
    ;
-   (message 
+   (message
     (string-utils-squeeze-url default-directory his-msg-lim)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
-;   
+;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-dired-drill-down-dir (&optional arg)
   "Wrap dired-find-file with pushes to the history list"
@@ -306,13 +304,13 @@
   ;
   ;push before dir unless it' already at the beginning of the list
     (unless (equal (car my-dired-his-var-list) default-directory)
-      (setq my-dired-his-var-list 
+      (setq my-dired-his-var-list
             (cons default-directory my-dired-his-var-list)))
   ;
   (dired-find-file)
   ;
    (unless (equal (car my-dired-his-var-list) default-directory)
-     (setq my-dired-his-var-list 
+     (setq my-dired-his-var-list
            (cons default-directory my-dired-his-var-list))))
 ;
 ; iterate a list into string-match
@@ -338,16 +336,15 @@
         (message "its a word doc")
         (dired-find-file)))))
 ;
-;perhaps add a message showing the new directory changed to by 
-;  jump up 
+;perhaps add a message showing the new directory changed to by
+;  jump up
 ;  my-dired-find-file
 ;
 ;perhaps add a check then message for nil history
 ;
-;perhaps add a completing read jump based on the history 
+;perhaps add a completing read jump based on the history
 ;(use an extended history including other dir history, SR??)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun diredp-or-sr-do-bookmark (&optional arg)
@@ -360,7 +357,7 @@
   (setq mode-line-format '("%17b")))
 
 ;(add-hook 'dired-mode-hook #'peep-dired-mode)
-  ;(peep-dired-mode 1) 
+  ;(peep-dired-mode 1)
 
 (add-hook 'dired-mode-hook
  (lambda ()
@@ -373,7 +370,7 @@
   (define-key dired-mode-map "F"    'my-dired-do-find-marked-files)
   (define-key dired-mode-map "\M-G"    'diredp-do-grep)
   (define-key dired-mode-map [(control shift s )] 'isearch-backward)
-  (define-key dired-mode-map [(control shift return)] 'my-launch-tortoise)    
+  (define-key dired-mode-map [(control shift return)] 'my-launch-tortoise)
   (define-key dired-mode-map "o" 'nil)
   (define-key dired-mode-map "\r" 'nil)
   (define-key dired-mode-map "\r" 'my-dired-find-file)
@@ -392,13 +389,12 @@
   (define-key dired-mode-map [(meta  G)] 'diredp-do-grep)
   (define-key dired-mode-map [(control meta shift b)] 'diredp-do-bookmark)
   (define-key dired-mode-map [f2] 'dired-toggle-read-only)
-  (define-key dired-mode-map [(meta up)] 'jump-up-manage-history) 
+  (define-key dired-mode-map [(meta up)] 'jump-up-manage-history)
   (define-key dired-mode-map [(meta left)] 'my-dired-go-to-prev-his-folder)
   ;(define-key dired-mode-map "u" 'jump-up-manage-history)
   (define-key dired-mode-map [(control meta v )] 'dired-w32explore);ahk
   (define-key dired-mode-map [(meta right)] 'my-dired-go-to-next-his-folder)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;compare files marked in dired
@@ -411,10 +407,9 @@
     (ediff-files (nth 0 marked-files) (nth 1 marked-files)))
   (when (= (safe-length marked-files) 3)
     (ediff3 (buffer-file-name (nth 0 marked-files))
-            (buffer-file-name (nth 1 marked-files)) 
+            (buffer-file-name (nth 1 marked-files))
             (buffer-file-name (nth 2 marked-files)))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;Note: Files (zip.exe and unzip.exe )downloaded put in this path, did not work
@@ -422,7 +417,6 @@
 ;and it worked?? 4-3-2012
 (add-to-list 'exec-path "C:/Users/mfitzgerald/Downloads/unzip")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;stackoverflow.com/questions/1431351/how-do-i-uncompress-unzip-within-emacs
@@ -435,37 +429,35 @@
   "Create an archive containing the marked files."
   (interactive "sEnter name of zip file: ")
   ;; create the zip file
-  (let ((zip-file 
+  (let ((zip-file
   (if (string-match ".zip$" zip-file) zip-file (concat zip-file ".zip"))))
-    (shell-command 
-     (concat "zip " 
+    (shell-command
+     (concat "zip "
              zip-file
              " "
-             (concat-string-list 
+             (concat-string-list
               (mapcar
                '(lambda (filename)
                   (file-name-nondirectory filename))
                (dired-get-marked-files))))))
   (revert-buffer))
 ;
-(defun concat-string-list (list) 
-   "Return a string which is a concatenation of all elements 
-   of the list separated by spaces" 
+(defun concat-string-list (list)
+   "Return a string which is a concatenation of all elements
+   of the list separated by spaces"
     (mapconcat '(lambda (obj) (format "%s" obj)) list " "))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; http://stackoverflow.com/questions/4471835/emacs-dired-mode-and-isearch
 ;;end isearch with a single ret and end up in the file or next dir you wanted
-;; (add-hook 'isearch-mode-end-hook 
+;; (add-hook 'isearch-mode-end-hook
 ;;   (lambda ()
 ;;     (when (and (eq major-mode 'dired-mode)
 ;;            (not isearch-mode-end-hook-quit))
 ;;       ;(dired-w32-browser)))) 		;
-;;       (dired-find-file )))) 
+;;       (dired-find-file ))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; http://stackoverflow.com/questions/4471835/emacs-dired-mode-and-isearch
@@ -474,16 +466,15 @@
  ;     )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-isearch-finish ()
    "IN DIRED, use arrow keys line Win7."
    (interactive )
    (isearch-exit)
-   (when 
+   (when
        (or (string-equal major-mode "dired-mode")
            (string-equal major-mode "sr-mode"))
-       (dired-find-alternate-file)))   
+       (dired-find-alternate-file)))
 ;
 (defun my-isearch-finish-2-w32 ()
    "IN DIRED, use arrow keys line Win7."
@@ -496,7 +487,7 @@
  (interactive )
  (isearch-exit)
  (dired-w32explore))
-; 
+;
  (eval-after-load "isearch+"
   '(progn
    ;ret->finish or dired-find-alternate-file in dired
@@ -509,16 +500,14 @@
    (define-key isearch-mode-map (kbd "C-<return>") 'my-isearch-finish-2-w32exp)
    ;
    ;C-M-ret -> leave point at the destination, nothing else
-   (define-key isearch-mode-map (kbd "C-M-<return>") 'isearch-exit)   
-   (define-key isearch-mode-map (kbd "S-<return>") 'isearchp-act-on-demand)))   
+   (define-key isearch-mode-map (kbd "C-M-<return>") 'isearch-exit)
+   (define-key isearch-mode-map (kbd "S-<return>") 'isearchp-act-on-demand)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;always show dirs first 
-(setq ls-lisp-dirs-first t) 
+;always show dirs first
+(setq ls-lisp-dirs-first t)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun dired-sort-extension ()
@@ -527,14 +516,12 @@
   (dired-sort-other (concat dired-listing-switches "X")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun dired-sort-name ()
   "Dired sort by name."
   (interactive)
   (dired-sort-other (concat dired-listing-switches "")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun dired-find-file-other-frame ()
@@ -546,7 +533,6 @@
     '(define-key dired-mode-map "O" 'dired-find-file-other-frame))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-dired-do-find-marked-files ()
     "Wrap dired-do-find-marked-files so that when visiting files each
@@ -557,31 +543,29 @@
       (dired-do-find-marked-files)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defadvice dired-mark-read-file-name
- (after rv:dired-create-dir-when-needed 
+ (after rv:dired-create-dir-when-needed
         (prompt dir op-symbol arg files &optional default) activate)
  (when (member op-symbol '(copy move))
   (let ((directory-name (if (< 1 (length files))
                             ad-return-value
                             (file-name-directory ad-return-value))))
     (when (and (not (file-directory-p directory-name))
-      (y-or-n-p 
+      (y-or-n-p
        (format "directory %s doesn't exist, create it?" directory-name)))
       (make-directory directory-name t)))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;ZIP STUFF
 ;http://stackoverflow.com/questions/1431351/
 ;                                how-do-i-uncompress-unzip-within-emacs
-;ZIP:To zip files (create new archive), 
-;  1) Open the directory in dired. 
-;  2) Mark the files to zip using dired command 'm'. 
-;  3a) If marked is top dir tree run dired command '!' , 
-;      then at minibuffer prompt 'zip -r my-new.zip * <RET>' 
+;ZIP:To zip files (create new archive),
+;  1) Open the directory in dired.
+;  2) Mark the files to zip using dired command 'm'.
+;  3a) If marked is top dir tree run dired command '!' ,
+;      then at minibuffer prompt 'zip -r my-new.zip * <RET>'
 ;  ---Note *NOT M-!*---
 ;
 ;  3b) If marked are files       type ! zip my-new.zip * <RET>
@@ -589,28 +573,26 @@
 ;  3b)alt(if marked are files) Use "z" from the above defun
 ;  keystroke '!' runs the command:
 ;     dired-do-shell-command Run a shell command COMMAND on the marked files.
-;;  
+;;
 ;UNZIP:To extract archive
 ;  from dired mark a file and run '&' ***NOT M-&***
 ;     keystroke '&' runs
 ;        dired-do-async-shell-command
 ;        Run a shell command COMMAND on the marked files asynchronously
 ;;
-;zip-archive mode will allow you to browse zip files in a dired-like fashion. 
-;  should come with recent versions of  emacs and will be used by default when 
-;  you visit a file with the .zip extension. From this mode you can 
+;zip-archive mode will allow you to browse zip files in a dired-like fashion.
+;  should come with recent versions of  emacs and will be used by default when
+;  you visit a file with the .zip extension. From this mode you can
 ;  extract individual files into a buffer, then save them with C-x C-s.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;http://jungels.net/articles/diff-patch-ten-minutes.html
-;To apply a patch run the following command in a shell: 
+;To apply a patch run the following command in a shell:
 ;$ patch < /path/to/file
-;From dired mark the patch file then  
+;From dired mark the patch file then
 ;  "! patch < *"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;Set up AUTO-mode-alist for dired virtual
@@ -618,11 +600,9 @@
                                    auto-mode-alist))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "Reached the end of my-dired-setup")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'my-dired-setup)
