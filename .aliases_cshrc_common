@@ -75,6 +75,7 @@ alias ms 'svn status | grep -v \? '
 
 # grep
 alias agrepi   'alias|grep -i --color'
+alias dgrep    'dirs|grep -i --color'
 alias agrep    'alias|grep  --color'
 alias agrepv  'alias|grep  --color'
 
