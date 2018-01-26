@@ -37,7 +37,7 @@
    (quote
     ((foreground-color . "white")
      (background-color . "#3f3f3f")
-     (font . "DejaVu Sans Mono 12")
+     (font . "DejaVu Sans Mono 11")
      (mouse-color . "#dcdccc")
      (cursor-color . "red")
      (menu-bar-lines . 0)
@@ -160,7 +160,7 @@
    (quote
     ("total used in directory" "^\\s-*$" "find finished" "find \\." "  wildcard " "Google" "HDI")))
  '(dired-listing-switches "-alogGh")
- '(dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|\\.svn")
+ '(dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|\\.svn\\|\\.git")
  '(dired-sort-menu-saved-config
    (quote
     ((dired-actual-switches . "-lagGSh")
@@ -617,6 +617,7 @@
  '(verilog-indent-level-declaration 2)
  '(verilog-indent-level-directive 2)
  '(verilog-indent-level-module 2)
+ '(verilog-indent-lists nil)
  '(verilog-tab-always-indent nil)
  '(verilog-tab-to-comment t)
  '(vhdl-basic-offset 3)
@@ -638,6 +639,7 @@
  '(bmkp-t-mark ((t (:foreground "medium spring green"))))
  '(ediff-current-diff-B ((t (:background "#3f3f4d"))))
  '(ediff-fine-diff-B ((t (:background "#3f3fCA"))))
+ '(iswitchb-virtual-matches ((t (:background "#3f3f3f" :foreground "blue"))))
  '(lazy-highlight ((t (:inherit isearch))))
  '(mode-line ((t (:background "#1e2320" :foreground "#acbc90" :inverse-video nil :box (:line-width 2 :color "#1e2320") :height 1.0 :width normal))))
  '(replacep-msg-emphasis ((t (:foreground "yellow"))))
