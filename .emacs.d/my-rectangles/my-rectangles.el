@@ -134,6 +134,7 @@
   (interactive)
   (setq temps (tap-bounds-of-string-at-point)))
 
+;this works 1/26/2018 emacs 25.3
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-rect-block-sel (&optional arg-verbose arg-decend-raged)
    "select a block as a cua-rectangler dont' go thur
@@ -156,6 +157,29 @@
    ;
    ;this protocol goes one to far
    (cua-resize-rectangle-left 1))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;this works 1/26/2018 emacs 25.3
+; setting cua-mark is getting corrupted by next-line-is-almost-blank-se-p
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun my-rect-block-col-sel (&optional arg-verbose arg-decend-raged)
+   "select a block as a cua-rectangler dont' go thur
+   blank or almost blank (blank from current col to eol) lines"
+   (interactive)
+   arg-decend-raged
+   (cua-set-rectangle-mark)
+   ;
+   (setq running-max-delta-to-eol 0)
+   ;
+   (while  (not (next-line-is-almost-blank-se-p nil arg-decend-raged))
+     (my-longest-rect-block-line)
+     (cua-resize-rectangle-down 1))
+   ;
+   (cua-resize-rectangle-right 1)
+   (cua-resize-rectangle-left 1)
+   ;one more time in case the last line is the longest
+   (my-longest-rect-block-line))
+   ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -337,8 +361,8 @@ boundaries until a newline is encountered"
          (cua-toggle-rectangle-mark))))
 ;
 ;needs to happen one time to make above work
-(cua-set-rectangle-mark)
-(cua-toggle-rectangle-mark)
+;(cua-set-rectangle-mark)
+;(cua-toggle-rectangle-mark)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
