@@ -134,7 +134,6 @@
   (interactive)
   (setq temps (tap-bounds-of-string-at-point)))
 
-;this works 1/26/2018 emacs 25.3
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-rect-block-sel (&optional arg-verbose arg-decend-raged)
    "select a block as a cua-rectangler dont' go thur
@@ -159,8 +158,6 @@
    (cua-resize-rectangle-left 1))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;this works 1/26/2018 emacs 25.3
-; setting cua-mark is getting corrupted by next-line-is-almost-blank-se-p
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-rect-block-col-sel (&optional arg-verbose arg-decend-raged)
    "select a block as a cua-rectangler dont' go thur
@@ -187,16 +184,32 @@
       ""
       (interactive "*")
       arg-decend-raged
+      ;
+      ; save-mark-and-excursion is for emacs versions >= 25.1 
+      (if (fboundp 'save-mark-and-excursion)
+      ;    
+      ; T
+      (save-mark-and-excursion
+        (push-mark nil nil)
+        (setq my-prev-keep-col (current-column))
+        (forward-line)
+        (move-to-column my-prev-keep-col nil)
+        (if (almost-blank-line arg-decend-raged)
+             (setq next-line-blank t)
+             (setq next-line-blank nil))
+         (jump-to-mark)
+         (setq my-temp next-line-blank))
+      ; F
       (save-excursion
-      (push-mark nil nil)
-      (setq my-prev-keep-col (current-column))
-      (forward-line)
-      (move-to-column my-prev-keep-col nil)
-      (if (almost-blank-line arg-decend-raged)
-           (setq next-line-blank t)
-           (setq next-line-blank nil))
-       (jump-to-mark)
-       (setq my-temp next-line-blank)))
+        (push-mark nil nil)
+        (setq my-prev-keep-col (current-column))
+        (forward-line)
+        (move-to-column my-prev-keep-col nil)
+        (if (almost-blank-line arg-decend-raged)
+             (setq next-line-blank t)
+             (setq next-line-blank nil))
+         (jump-to-mark)
+         (setq my-temp next-line-blank))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
