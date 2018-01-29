@@ -159,20 +159,57 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun my-rect-block-col-sel (&optional arg-verbose arg-decend-raged)
+   "select a block as a cua-rectangler dont' go thur
+   blank or almost blank (blank from current col to eol) lines"
+   (interactive)
+   arg-decend-raged
+   (cua-set-rectangle-mark)
+   ;
+   (setq running-max-delta-to-eol 0)
+   ;
+   (while  (not (next-line-is-almost-blank-se-p nil arg-decend-raged))
+     (my-longest-rect-block-line)
+     (cua-resize-rectangle-down 1))
+   ;
+   (cua-resize-rectangle-right 1)
+   (cua-resize-rectangle-left 1)
+   ;one more time in case the last line is the longest
+   (my-longest-rect-block-line))
+   ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun next-line-is-almost-blank-se-p (&optional arg-verbose arg-decend-raged)
       ""
       (interactive "*")
       arg-decend-raged
+      ;
+      ; save-mark-and-excursion is for emacs versions >= 25.1 
+      (if (fboundp 'save-mark-and-excursion)
+      ;    
+      ; T
+      (save-mark-and-excursion
+        (push-mark nil nil)
+        (setq my-prev-keep-col (current-column))
+        (forward-line)
+        (move-to-column my-prev-keep-col nil)
+        (if (almost-blank-line arg-decend-raged)
+             (setq next-line-blank t)
+             (setq next-line-blank nil))
+         (jump-to-mark)
+         (setq my-temp next-line-blank))
+      ; F
       (save-excursion
-      (push-mark nil nil)
-      (setq my-prev-keep-col (current-column))
-      (forward-line)
-      (move-to-column my-prev-keep-col nil)
-      (if (almost-blank-line arg-decend-raged)
-           (setq next-line-blank t)
-           (setq next-line-blank nil))
-       (jump-to-mark)
-       (setq my-temp next-line-blank)))
+        (push-mark nil nil)
+        (setq my-prev-keep-col (current-column))
+        (forward-line)
+        (move-to-column my-prev-keep-col nil)
+        (if (almost-blank-line arg-decend-raged)
+             (setq next-line-blank t)
+             (setq next-line-blank nil))
+         (jump-to-mark)
+         (setq my-temp next-line-blank))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -337,8 +374,8 @@ boundaries until a newline is encountered"
          (cua-toggle-rectangle-mark))))
 ;
 ;needs to happen one time to make above work
-(cua-set-rectangle-mark)
-(cua-toggle-rectangle-mark)
+;(cua-set-rectangle-mark)
+;(cua-toggle-rectangle-mark)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
