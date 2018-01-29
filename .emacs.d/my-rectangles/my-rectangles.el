@@ -424,6 +424,37 @@ boundaries until a newline is encountered"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun my-rect-long-second-word-sel (&optional arg-decend-raged)
+   "select a block where the rhs of the block is the rt most char of
+   words going down.  Don't go thru blank lines."
+   (interactive)
+   (let ((target-column nil))
+   ;
+   (setq max-word-column 0)
+   arg-decend-raged
+   ;
+   (cua-set-rectangle-mark)
+   (setq orig-column (current-column))
+   ;
+   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   ; this loop is really awkward, maybe move the check to the end by
+   ; moving it there and assigning it to a var, and the var is checked
+   ; at the top using while
+   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   (while  (not (next-line-is-almost-blank-se-p nil arg-decend-raged))
+     (progn
+       (setq target-column (my-last-col-of-second-word))
+       (cua-resize-rectangle-down 1)))
+   ;
+   (setq target-column (my-last-col-of-second-word))
+   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   ;
+   ;re-size is the delta rather than absolute column
+   ;"How many additional columns rt to move"
+   (cua-resize-rectangle-right (-  target-column orig-column 1))))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-last-col-of-word ()
   "- and _ need to be part of the word for this to work"
   (interactive)
@@ -431,6 +462,41 @@ boundaries until a newline is encountered"
   (with-syntax-table my-rectangle-syntax-table
   ;
   (let ((new-end-of-word-column 0))
+  ;
+  ; need to be of a word boundry for this to work
+  (when (looking-at "\\>") (forward-char 1))
+  ;
+  ;find the end of a word
+  (re-search-forward "\\>" (line-end-position) t)
+  ;
+  ;save the colum at the end of the word boundry
+  (setq new-end-of-word-column (current-column))
+  ;
+  ;if it's > the old max then save it as the new max
+  (if (> new-end-of-word-column max-word-column)
+    (setq max-word-column new-end-of-word-column))
+  ;
+  max-word-column)))
+
+; example
+; use1 this t o get the word bound (bounds-of-thing-at-point 'symbol)
+; use12 this t o get the word bound (bounds-of-thing-at-point 'symbol)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun my-last-col-of-second-word ()
+  "- and _ need to be part of the word for this to work"
+  (interactive)
+  ;
+  (with-syntax-table my-rectangle-syntax-table
+  ;
+  (let ((new-end-of-word-column 0))
+  ;
+  ; need to be of a word boundry for this to work
+  (when (looking-at "\\>") (forward-char 1))
+  ;
+  ;find the end of a word
+  (re-search-forward "\\>" (line-end-position) t)
   ;
   ; need to be of a word boundry for this to work
   (when (looking-at "\\>") (forward-char 1))
@@ -543,6 +609,15 @@ boundaries until a newline is encountered"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun my-rect-wrap-end-of-second-words (&optional arg-ragged-decent)
+"End of first word"
+  (interactive "P")
+  (cua-toggle-rectangle-mark)
+  (goto-char orig-rect-start)
+  (my-rect-long-second-word-sel  arg-ragged-decent))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-rect-wrap-block-to-end-of-line (&optional arg-ragged-decent)
 "Block to end of line"
   (interactive "P")
@@ -565,6 +640,7 @@ boundaries until a newline is encountered"
     my-rect-wrap-set-rect-mark
     my-rect-wrap-thin-strip
     my-rect-wrap-end-of-words
+    my-rect-wrap-end-of-second-words
     my-rect-wrap-block-to-end-of-line)
 ;
 ;(global-set-key "\C-x\C-z" 'seq-rect)
