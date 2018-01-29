@@ -185,9 +185,9 @@
       (interactive "*")
       arg-decend-raged
       ;
-      ; save-mark-and-excursion is for emacs versions >= 25.1 
+      ; save-mark-and-excursion is for emacs versions >= 25.1
       (if (fboundp 'save-mark-and-excursion)
-      ;    
+      ;
       ; T
       (save-mark-and-excursion
         (push-mark nil nil)
@@ -711,21 +711,21 @@ boundaries until a newline is encountered"
 (defun my-ace-jump-rectangle()
   (interactive)
   (cua-cancel)
-  (add-hook 'ace-jump-mode-end-hook 'get/save-position-end-of-ace-jump)
-  (call-interactively 'ace-jump-char-mode))
-  ;; (call-interactively  'ace-jump-rect-set-and-movement))
+  ;(add-hook 'ace-jump-mode-end-hook 'get/save-position-end-of-avy-jump)
+  ;(call-interactively 'ace-jump-char-mode)
+  (call-interactively 'avy-goto-char))
+  ;; (call-interactively  'avy-jump-rect-set-and-movement))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun get/save-position-end-of-ace-jump ()
+(defun get/save-position-end-of-avy-jump ()
   "return the position of where ace jumps to"
   (interactive)
     ;
-    (setq ace-jump-end-position (point))
-    (setq ace-jump-end-column (current-column))
-    (setq ace-jump-end-line  (line-number-at-pos))
+    (setq avy-jump-end-position (point))
+    (setq avy-jump-end-column (current-column))
+    (setq avy-jump-end-line  (line-number-at-pos)))
     ;
-    (goto-char my-orig-position))
     ;
     ;; (setq ace-jump-mode-end-hook nil))
     ;(setq ace-jump-mode-end-hook nil))
@@ -744,25 +744,32 @@ boundaries until a newline is encountered"
     (setq my-go-back nil))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-(defun foo ()
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; use avy-jump to set the new corner
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun avy-jump-rect ()
   (interactive)
-  (my-ace-jump-rectangle)
-  (ace-jump-rect-set-and-movement))
+  (position-prior-to-ace-jump)
+  (setq rectangle-lower-left-target (my-ace-jump-rectangle))
+  (get/save-position-end-of-avy-jump)
+  (message "got here")
+  (goto-char my-orig-position)
+  (avy-jump-rect-set-and-movement))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun ace-jump-rect-set-and-movement (&optional arg)
-   ""
+(defun avy-jump-rect-set-and-movement (&optional arg)
+   "Improve this by allowing cases other than down right
+    add up right, up left and down left movement"
    (interactive "p")
    (message "got here before")
    ; set the mark
    (cua-set-rectangle-mark nil)
    ; move the row
-   (while (not ( equal (current-line) ace-jump-end-line))
+   (while (not ( equal (current-line) avy-jump-end-line))
      (cua-resize-rectangle-down 1))
    (cua-resize-rectangle-down 1)
    ;move the column
-   (while (not ( equal (current-column) ace-jump-end-column))
+   (while (not ( equal (current-column) avy-jump-end-column))
      (cua-resize-rectangle-right 1))
    (message "got here after"))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
