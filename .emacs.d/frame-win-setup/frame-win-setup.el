@@ -229,7 +229,7 @@
     ;used by frame re-sizing functions, part of set-frame-size-according-to-resolution
      (cond 
       ((eq screen-size 'work-big)
-         (setq max-vertical-frame-size 65)          
+         (setq max-vertical-frame-size 40)          
          (setq max-horizontal-frame-size 231)
          (setq fit-frame-max-height-percent 82 ))
          ;
@@ -728,7 +728,7 @@ User buffers are those not starting with *."
 ; the environment by default.
  (cond 
   ((eq screen-size 'work-big) ;; MSI Linux
-     (setq max-vertical-frame-size 65)          
+     (setq max-vertical-frame-size 40)          
      (setq max-horizontal-frame-size 171))
      ;
   ((eq screen-size 'work-small)
