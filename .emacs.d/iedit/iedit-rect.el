@@ -177,6 +177,7 @@ The behavior is the same as `kill-rectangle' in rect mode."
                     (marker-position (cadr iedit-rectangle)) fill)))
 
 (provide 'iedit-rect)
+(require 'iedit-rect)
 
 ;;; iedit-rect.el ends here
 
