@@ -210,6 +210,7 @@
         ("\\.svp$" . verilog-mode)
         ("\\.f$" . verilog-mode)
         ("\\.log$" . verilog-mode)
+        ("\\.m$" . verilog-mode)
      ) auto-mode-alist))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
