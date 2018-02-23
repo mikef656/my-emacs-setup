@@ -14,6 +14,7 @@ alias d              'ls -l  --color=always| egrep ^d'
 alias ld             'ls -l  --color=always| egrep ^d'
 alias ldir           'ls -l  --color=always| egrep ^d'
 alias t              'ls -alrt --color=always'
+alias tt             'ls -alrt --color=always|tail -10'
 alias l              'ls -l --color=always'
 
 alias ctdiff        'cleartool diff -pred -serial'
