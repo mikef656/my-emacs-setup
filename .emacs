@@ -355,6 +355,12 @@
 (setq load-highlight-symbol          (and t   load-essentials_2))
 ;
 (setq load-my-vc-setup               (and t   load-essentials_3))
+(setq load-vc-svn                    (and nil load-essentials_3))
+; was using psvn before switching to git, it might be causing
+; some issues now that i am usin git.  Disable it until
+; maybe needing SVN again someday
+(setq load-psvn                      (and nil load-essentials_3))
+;
 (setq load-my-tinyeat-setup          (and t   load-essentials_3))
 (setq load-filesets                  (and t   load-essentials_5))
 (setq load-drag-stuff                (and nil load-essentials_5))
