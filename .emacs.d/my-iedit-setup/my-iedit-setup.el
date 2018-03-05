@@ -1,5 +1,6 @@
 (add-to-list 'load-path "~/.emacs.d/iedit/")
 (require 'iedit)
+(require 'iedit-rect)
 
 
 (defun iedit-dwim (arg)
