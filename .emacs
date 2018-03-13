@@ -566,6 +566,7 @@
 (setq load-narrow-indirect      (and t   load-essentials_5))
 (setq load-git-timemachine      (and t   load-essentials_5))
 (setq load-zop-to-char          (and t   load-essentials_5))
+(setq load-insert-shebang       (and t   load-essentials_5))
 (setq load-start-menu-at-init   (and nil load-essentials_5))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -3231,6 +3232,17 @@
     (require 'zop-to-char)
     t)
   (message "--Error in load-zop-to-char")))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(message "reached before load insert-shebang")
+(when  load-insert-shebang
+  (unless 
+    (ignore-errors ;if an error occurs return nil
+    (add-to-list 'load-path "~/.emacs.d/insert-shebang/")
+    (require 'insert-shebang)
+    t)
+  (message "--Error in load-load-insert-shebang")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
