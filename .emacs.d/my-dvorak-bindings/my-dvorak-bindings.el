@@ -628,6 +628,10 @@
 (defalias 'mfsr 'move-frame-to-screen-right)
 (defalias 'dr 'downcase-region)
 (defalias 'ur 'downcase-region)
+(defalias 'ibk  'insert-bracket)
+(defalias 'ibr 'insert-brace)
+(defalias 'ip   'insert-paren)
+
 ;use the meta key for many curser movements
 (global-set-key   (kbd "M-h")	'my-backward-char)
 (global-set-key   (kbd "M-n")	'my-forward-char)
