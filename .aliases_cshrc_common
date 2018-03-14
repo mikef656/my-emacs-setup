@@ -76,11 +76,17 @@ alias rlw 'readlink -f \!$ | sed "s/\//\\/g" | sed "s/\\home\\ptgd73/z:/g"'
 # svn st
 alias ms 'svn status | grep -v \? '
 
-# grep
-alias agrepi   'alias|grep -i --color'
-alias dgrep    'dirs|grep -i --color'
+# grep aliases
 alias agrep    'alias|grep  --color'
-alias agrepv  'alias|grep  --color'
+alias agrepi   'alias|grep -i --color'
+alias agrepv   'alias|grep -v  --color'
+#
+# grep directories
+alias dgrep    'dirs|grep -i --color'
+alias dgrepv    'dirs|grep -v --color'
+#
+#grep git config
+alias ggrep  'git config --list |grep  --color'
 
 #emacs general
 alias ec 'emacsclient \!^ &'
