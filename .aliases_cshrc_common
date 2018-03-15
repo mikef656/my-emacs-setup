@@ -31,6 +31,8 @@ alias cdph          'cd $PROJ_HOME'
 alias cdsim         'cd $PROJ_HOME/sim'
 alias cdsim         'cd $PROJ_HOME/sim'
 
+alias mark          'setenv \!:1 $cwd'
+
 #------------------------------------------------------------------------
 # VNC aliases
 #------------------------------------------------------------------------

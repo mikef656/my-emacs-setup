@@ -92,7 +92,7 @@
      ("\\.xls" . w32-browser)
      ("\\.xlsx" . w32-browser)
      ("\\.lnk" . w32-browser))))
- '(bmkp-last-as-first-bookmark-file "~/save/lethalotter.bmk")
+ '(bmkp-last-as-first-bookmark-file "~/.emacs.d/PSDENG-68_ideal_packing_in_psd_mode")
  '(bmkp-light-left-fringe-bitmap (quote right-arrow))
  '(bmkp-light-style-autonamed (quote lfringe))
  '(bmkp-light-style-non-autonamed (quote lfringe))
@@ -544,6 +544,19 @@
     (dired-do-create-files grep-read-files expand-file-name dired-create-files)))
  '(ido-use-filename-at-point nil)
  '(indent-tabs-mode nil)
+ '(insert-shebang-env-path "/bin/bash")
+ '(insert-shebang-file-types
+   (quote
+    (("py" . "python")
+     ("groovy" . "groovy")
+     ("fish" . "fish")
+     ("robot" . "robot")
+     ("rb" . "ruby")
+     ("lua" . "lua")
+     ("php" . "php")
+     ("" . "")
+     ("csh" . "")
+     ("pl" . "perl"))))
  '(isearchp-deactivate-region-flag nil)
  '(isearchp-highlight-regexp-group-levels-flag nil)
  '(isearchp-initiate-edit-commands

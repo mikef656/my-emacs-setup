@@ -355,6 +355,12 @@
 (setq load-highlight-symbol          (and t   load-essentials_2))
 ;
 (setq load-my-vc-setup               (and t   load-essentials_3))
+(setq load-vc-svn                    (and nil load-essentials_3))
+; was using psvn before switching to git, it might be causing
+; some issues now that i am usin git.  Disable it until
+; maybe needing SVN again someday
+(setq load-psvn                      (and nil load-essentials_3))
+;
 (setq load-my-tinyeat-setup          (and t   load-essentials_3))
 (setq load-filesets                  (and t   load-essentials_5))
 (setq load-drag-stuff                (and nil load-essentials_5))
@@ -560,6 +566,8 @@
 (setq load-narrow-indirect      (and t   load-essentials_5))
 (setq load-git-timemachine      (and t   load-essentials_5))
 (setq load-zop-to-char          (and t   load-essentials_5))
+(setq load-insert-shebang       (and t   load-essentials_5))
+(setq load-xah-insert           (and t   load-essentials_5))
 (setq load-start-menu-at-init   (and nil load-essentials_5))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -3228,6 +3236,28 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(message "reached before load insert-shebang")
+(when  load-insert-shebang
+  (unless 
+    (ignore-errors ;if an error occurs return nil
+    (add-to-list 'load-path "~/.emacs.d/insert-shebang/")
+    (require 'insert-shebang)
+    t)
+  (message "--Error in load-load-insert-shebang")))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(message "reached before load xah-insert")
+(when  load-xah-insert
+  (unless 
+    (ignore-errors ;if an error occurs return nil
+    (add-to-list 'load-path "~/.emacs.d/xah-insert/")
+    (require 'insert-shebang)
+    t)
+  (message "--Error in load-xah-insert")))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "reached before load bookmarks bmenu at init")
 (when  load-start-menu-at-init;
   (unless
@@ -3258,7 +3288,6 @@
   (message "--Error in load bookmarks at init")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;aoe
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; final message
 (message "---REACHED END OF THE %s for %s system---" (buffer-name) home-work)
