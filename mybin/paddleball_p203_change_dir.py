@@ -31,14 +31,17 @@ class Ball:
     def draw(self):
       self.canvas.move(self.id,self.x,self.y)
       pos = self.canvas.coords(self.id)
-      print("  Ball bottom = ",pos[1])
-      print("  Ball top    = ",pos[3])
-      print("  Ball right  = ",pos[2])
-      print("  Ball left   = ",pos[3])        
+      print("  Ball Left   = ",pos[0])
+      print("  Ball Top    = ",pos[1])
+      print("  Ball Right  = ",pos[2])
+      print("  Ball Bottom = ",pos[3])
+      print("----------------------------------\n")
       if pos[1] <= 0:
           self.y = 3
+          print("---------------------")
           print("**setting y =3")
           print("        x = %d base 10" % self.x)
+          print("---------------------\n")
       if pos[3] >= self.canvas_height:
           self.y = -3
           print("**Canvas height = ",self.canvas_height)
@@ -59,7 +62,7 @@ ball = Ball(canvas, 'red')
 
 while 1:
     ball.draw()
-    print("------------------ drew the ball -------------------------")
+    print("-------- drew the ball -----------")
     tk.update_idletasks()
     tk.update()
     time.sleep(0.1)
