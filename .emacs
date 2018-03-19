@@ -568,6 +568,7 @@
 (setq load-zop-to-char          (and t   load-essentials_5))
 (setq load-insert-shebang       (and t   load-essentials_5))
 (setq load-xah-insert           (and t   load-essentials_5))
+(setq load-avy-zap              (and t   load-essentials_5))
 (setq load-start-menu-at-init   (and nil load-essentials_5))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -3252,9 +3253,20 @@
   (unless 
     (ignore-errors ;if an error occurs return nil
     (add-to-list 'load-path "~/.emacs.d/xah-insert/")
-    (require 'insert-shebang)
+    (require 'xah-insert)
     t)
   (message "--Error in load-xah-insert")))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(message "reached before load avy-zap")
+(when  load-avy-zap
+  (unless 
+    (ignore-errors ;if an error occurs return nil
+    (add-to-list 'load-path "~/.emacs.d/avy-zap/")
+    (require 'avy-zap)
+    t)
+  (message "--Error in avy-zap")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
