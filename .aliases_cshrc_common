@@ -15,7 +15,7 @@ alias ld             'ls -l  --color=always| egrep ^d'
 alias ldir           'ls -l  --color=always| egrep ^d'
 alias t              'ls -alrt --color=always'
 alias tt             'ls -alrt --color=always|tail -10'
-alias l              'ls -l --color=always'
+#alias l              'ls -l --color=always'
 
 alias ctdiff        'cleartool diff -pred -serial'
 
@@ -115,7 +115,9 @@ alias gvi 'grep -i -v --color'
 alias gs 'git status -s'
 alias mystat 'git status -suno'
 alias m 'git status -suno'
-
+alias l 'git log'
+alias lns 'git log --name-status'
+alias lo 'git log --oneline'
 # Start vncserver session
 alias startserver 'vncserver -depth 24 -geometry 1970x1055'
 
