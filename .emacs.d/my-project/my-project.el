@@ -138,9 +138,7 @@
   "project file selection"
   (interactive)
   ;
-  ; Don't open a new frame
-  ; Maybe prompt or C-u to open a new frame
-  (let ((pop-up-frames ))
+  (let ((pop-up-frames t ))
   ;
   ;need code to search up the path to this file
   ;
@@ -153,7 +151,7 @@
     (setq parpath-to-selected-file (ido-completing-read "Choose a file: " project-file-as-list))
     (setq parpath-to-selected-file
           (let ((completion-ignore-case t))
-            (completing-read "Choose a file: " project-file-as-list))))
+            (icicle-completing-read "Choose a file: " project-file-as-list))))
   ;
   ;. (dot character) is put in by find, don't want it in the full hard path
   ;
