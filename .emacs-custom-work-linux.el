@@ -584,7 +584,7 @@
    (quote
     (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".Xil")))
  '(projectile-indexing-method (quote alien))
- '(projectile-mode nil)
+ '(projectile-mode nil nil (projectile))
  '(reb-re-syntax (quote string))
  '(rebox-min-fill-column 80)
  '(saint/iswitchb-highlight-modes-alist
@@ -633,7 +633,8 @@
  '(verilog-indent-lists nil)
  '(verilog-tab-always-indent nil)
  '(verilog-tab-to-comment t)
- '(vhdl-basic-offset 3)
+ '(vhdl-basic-offset 2)
+ '(vhdl-underscore-is-part-of-word t)
  '(window-min-height 8)
  '(winner-dont-bind-my-keys t)
  '(wrap-region-except-modes (quote (calc-mode dired-mode sr-mode))))
