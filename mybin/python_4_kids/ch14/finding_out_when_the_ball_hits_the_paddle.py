@@ -26,6 +26,8 @@ class Ball:
       print(" __init__ fn setting x starting position to be",self.x)
       self.canvas_height = self.canvas.winfo_height()
       self.canvas_width  = self.canvas.winfo_width()
+      self.hit_paddle_count = 0
+      self.paddle_count_handle = canvas.create_text(180,20,text=str(0),font=('Courier',8))
 
     def hit_paddle(self,pos):
         paddle_pos = self.canvas.coords(self.paddle.id)
@@ -56,6 +58,7 @@ class Ball:
           print("        x = %d base 10" % self.x)
       if self.hit_paddle(pos) == True:
           self.y = -3
+          self.hit_paddle_count = self.hit_paddle_count +1
       if pos[0] <= 0:
           self.x = 3
           print("**Setting x = 3")
@@ -99,6 +102,10 @@ while 1:
     print("-------- drew the ball -----------")
     tk.update_idletasks()
     tk.update()
+    #------------------------------------------------------------------------
+    # Add this line to update the text on the screen dynamically
+    #------------------------------------------------------------------------    
+    canvas.itemconfigure(ball.paddle_count_handle ,text="Hit Paddle Score = {}".format(ball.hit_paddle_count),font=('Courier',20),)    
     time.sleep(0.001)
 
 
