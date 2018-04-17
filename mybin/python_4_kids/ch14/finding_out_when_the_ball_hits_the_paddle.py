@@ -5,6 +5,8 @@ from tkinter import *
 import random
 import time
 
+TEXT_COLOR = 'green'
+    
 tk = Tk()
 tk.title("Game")
 tk.resizable(0, 0)
@@ -27,7 +29,7 @@ class Ball:
       self.canvas_height = self.canvas.winfo_height()
       self.canvas_width  = self.canvas.winfo_width()
       self.hit_paddle_count = 0
-      self.paddle_count_handle = canvas.create_text(180,20,text=str(0),font=('Courier',8))
+      self.paddle_count_handle = canvas.create_text(180,20,text=str(0),font=('Courier',8),fill=TEXT_COLOR)
 
     def hit_paddle(self,pos):
         paddle_pos = self.canvas.coords(self.paddle.id)
