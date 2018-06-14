@@ -65,7 +65,7 @@ while 1:
     print("-------- drew the ball -----------")
     tk.update_idletasks()
     tk.update()
-    time.sleep(0.1)
+    time.sleep(0.010)
 
 
 

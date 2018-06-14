@@ -5,6 +5,8 @@ from tkinter import *
 import random
 import time
 
+from playsound import playsound
+
 TEXT_COLOR = 'green'
     
 tk = Tk()
@@ -14,6 +16,7 @@ tk.wm_attributes("-topmost", 1)
 canvas = Canvas(tk, width=500, height=400, bd=0, highlightthickness=0)
 canvas.pack()
 tk.update()
+playsound('C:/Users/family/Downloads/Kid_Laugh.mp3',False)
 
 class Ball:
     def __init__(self,canvas,paddle,color):
@@ -35,6 +38,9 @@ class Ball:
         paddle_pos = self.canvas.coords(self.paddle.id)
         if pos[2] >= paddle_pos[0] and pos[0] <= paddle_pos[2]:
             if pos[3] >= paddle_pos[1] and pos[3] <= paddle_pos[3]:
+                #https://pypi.org/project/playsound/1.2.1/
+                # the 2nd arg causes the playsound not to block
+                playsound('C:/Users/family/Downloads/Pew_Pew.mp3',False)
                 return True
         return False
     
@@ -53,7 +59,15 @@ class Ball:
           print("        x = %d base 10" % self.x)
           print("---------------------\n")
       if pos[3] >= self.canvas_height:
+          #ball hits bottom
           self.y = -3
+          #playsound('C:/Users/family/Downloads/Cow_Moo.mp3',False)
+          #playsound('C:/Users/family/Downloads/mburger.mp3',False)
+          #playsound('C:/Users/family/Downloads/swvader01.mp3',False)
+          #playsound('C:/Users/family/Downloads/poop2mch.mp3',False)
+          #playsound('C:/Users/family/Downloads/aallrighty.mp3',False)
+          playsound('C:/Users/family/Downloads/blaster-firing.mp3',False)
+          #
           print("**Canvas height = ",self.canvas_height)
           print("**setting y = -3")
           print("        x =",self.x)
@@ -74,7 +88,7 @@ class Ball:
 class Paddle:
     def __init__(self,canvas,color):
       self.canvas = canvas
-      self.id = canvas.create_rectangle(0,0,70,10, fill = color)
+      self.id = canvas.create_rectangle(0,0,100,10, fill = color)
       self.canvas.move(self.id,200,300)
       self.x = 0
       self.canvas_width = self.canvas.winfo_width()

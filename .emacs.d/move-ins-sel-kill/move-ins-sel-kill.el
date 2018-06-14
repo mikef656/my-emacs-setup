@@ -2653,6 +2653,21 @@ an extra line above and below"
 ;       (concat "attribute mark_debug of " num ": signal is \"true\";"))
 ;   second-word-list))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; from https://emacs.stackexchange.com/questions/3809/indentation-of-newlines
+; Find a key for this C-M-return
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun indent-relative (&optional arg)
+  "Newline and indent 2 spaces relative to previous line.  With
+C-u, indent to same level as previous line."
+  (interactive "P")
+  (let* ((amount (if arg 0 2))
+         (indent (+ amount (save-excursion
+                             (back-to-indentation)
+                             (current-column)))))
+    (newline 1)
+    (insert (make-string indent ?\s))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
