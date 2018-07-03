@@ -20,6 +20,7 @@ alias tt             'ls -alrt --color=always|tail -10'
 alias ctdiff        'cleartool diff -pred -serial'
 
 alias h             'history 30'
+alias hh            'history 30'
 alias pwd           'echo $cwd'
 
 alias sv            'simvision waves.shm'
