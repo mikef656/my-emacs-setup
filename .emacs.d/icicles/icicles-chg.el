@@ -6,9 +6,9 @@
 ;; Maintainer: Drew Adams (concat "drew.adams" "@" "oracle" ".com")
 ;; Copyright (C) 2007-2018, Drew Adams, all rights reserved.
 ;; Created: Tue Nov 27 07:47:53 2007
-;; Last-Updated: Sat Mar  3 09:37:46 2018 (-0800)
+;; Last-Updated: Fri Jun 29 14:57:00 2018 (-0700)
 ;;           By: dradams
-;;     Update #: 11835
+;;     Update #: 11843
 ;; URL: https://www.emacswiki.org/emacs/download/icicles-chg.el
 ;; Doc URL: https://www.emacswiki.org/emacs/Icicles
 ;; Keywords: extensions, help, abbrev, local, minibuffer,
@@ -85,6 +85,10 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-cmd1.el'")
 ;;
+;; 2018/06/29 dadams
+;;     icicle-pp-eval-expression: Ensure not just (boundp 'lexical-binding) but also Emacs 24+.
+;; 2018/06/21 dadams
+;;     Added: icicle-delete-window-by-name.
 ;; 2018/03/02 dadams
 ;;     icicle-buffer: Updated doc string for C-x i -|+.
 ;; 2018/02/13 dadams
@@ -2298,6 +2302,8 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-fn.el'")
 ;;
+;; 2018/06/01 dadams
+;;     icicle-filter-wo-input: Protect against improper default value passed to completing-read.
 ;; 2018/03/03 dadams
 ;;     icicle-delete-dups: defalias the symbol, not its symbol-function (dunno why I did the latter).
 ;; 2018/02/13 dadams
@@ -4416,6 +4422,9 @@
 ;;       macros needs to be byte-compiled anew after loading the updated macros.
 ;; ****************************************************************************************************
 ;;
+;; 2018/06/01 dadams
+;;     icicle-(buffer|file)-bindings:
+;;       Bind icicle-sort-comparer, since set it to icicle-(buffer|file)-sort.
 ;; 2017/12/10 dadams
 ;;     icicle-buffer-bindings:
 ;;       Bind icicle-pref-arg and use it, not current-prefix-arg.
@@ -4678,6 +4687,9 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-mcmd.el'")
 ;;
+;; 2018/04/02 dadams
+;;     icicle-sit-for, 3rd cond clause: do it also if defining-kbd-macro.
+;;       Thx to Charles Roelli.  Same fix as for Emacs bug#21329.
 ;; 2018/03/02 dadams
 ;;     Added: icicle-keep/remove-buffer-cands-for-indirect, icicle-keep-only-buffer-cands-for-indirect,
 ;;            icicle-remove-buffer-cands-for-indirect.
