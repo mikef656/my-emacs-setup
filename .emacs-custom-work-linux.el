@@ -174,7 +174,7 @@
  '(electric-indent-mode nil)
  '(fill-column 100)
  '(fit-frame-crop-end-blank-flag t)
- '(fit-frame-max-height-percent 86)
+ '(fit-frame-max-height-percent 85)
  '(fit-frame-max-width 120)
  '(fit-frame-max-width-percent 100)
  '(font-lock-maximum-decoration (quote ((verilog-mode . 2) (t . 1))))
@@ -584,7 +584,7 @@
    (quote
     (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".Xil")))
  '(projectile-indexing-method (quote alien))
- '(projectile-mode nil nil (projectile))
+ '(projectile-mode nil)
  '(reb-re-syntax (quote string))
  '(rebox-min-fill-column 80)
  '(saint/iswitchb-highlight-modes-alist
@@ -653,8 +653,9 @@
  '(bmkp-t-mark ((t (:foreground "medium spring green"))))
  '(ediff-current-diff-B ((t (:background "#3f3f4d"))))
  '(ediff-fine-diff-B ((t (:background "#3f3fCA"))))
+ '(isearch ((t (:background "gold" :foreground "black"))))
  '(iswitchb-virtual-matches ((t (:background "#3f3f3f" :foreground "deep sky blue"))))
- '(lazy-highlight ((t (:inherit isearch))))
+ '(lazy-highlight ((t (:background "light gray" :foreground "black"))))
  '(mode-line ((t (:background "#1e2320" :foreground "#acbc90" :inverse-video nil :box (:line-width 2 :color "#1e2320") :height 1.0 :width normal))))
  '(replacep-msg-emphasis ((t (:foreground "yellow"))))
  '(replacep-msg-emphasis2 ((t (:foreground "green"))))
