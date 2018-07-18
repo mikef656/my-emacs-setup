@@ -677,11 +677,11 @@
  ;; (use-package projectile
  ;;   :ensure t)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Set some faces have been having trouble with customize
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (set-face-foreground 'isearch "red")
-  (set-face-background 'isearch "blue")
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ; Set some faces have been having trouble with customize
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;   (set-face-foreground 'isearch "red")
+;;   (set-face-background 'isearch "blue")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; don't wrap lines
@@ -786,15 +786,15 @@
   (ignore-errors ;if an error occurs return nil
     ;
     (setq load-delete-selection-mode (and t   load-essentials_1))
-    (setq load-global-linum-mode (and t   load-essentials_2))
-    (setq load-savehist-mode (and t   load-essentials_2))
+    (setq load-global-linum-mode     (and t   load-essentials_2))
+    (setq load-savehist-mode         (and t   load-essentials_2))
     ;
     (setq recentf-auto-cleanup 'never) ;; disable before we start recentf!
-    (setq load-recentf-mode (and t   load-essentials_1))
+    (setq load-recentf-mode           (and t   load-essentials_1))
     ;
-    (cua-mode (and t   load-essentials_1))
+    (cua-mode                       (and t   load-essentials_1))
     (setq delete-by-moving-to-trash (and t   load-essentials_2))
-    (winner-mode (and t   load-essentials_3)))
+    (winner-mode                    (and t   load-essentials_3)))
   ;
   (message "--Error loading utility modes"))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -952,6 +952,7 @@
 (cond
   ((eq home-work 'home) (setq my-color-theme 'zenburn));home
   ((eq home-work 'work) (setq my-color-theme 'zenburn))  ;work
+  ;((eq home-work 'work) (setq my-color-theme 'tango))  ;work
   (t (setq my-color-theme 'zenburn) (message "no home or work specified")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

@@ -575,6 +575,9 @@
  '(mouse-yank-at-point t)
  '(org-M-RET-may-split-line (quote ((default))))
  '(org-todo-keywords (quote ((sequence "TODO" "STARTED" "DONE"))))
+ '(package-selected-packages
+   (quote
+    (use-package tiny projectile magit git-gutter-fringe)))
  '(peep-dired-ignored-extensions
    (quote
     ("mkv" "iso" "mp4" "exe" "bin" "so" "dcp" "mcs" "bit")))
@@ -655,7 +658,7 @@
  '(ediff-fine-diff-B ((t (:background "#3f3fCA"))))
  '(isearch ((t (:background "gold" :foreground "black"))))
  '(iswitchb-virtual-matches ((t (:background "#3f3f3f" :foreground "deep sky blue"))))
- '(lazy-highlight ((t (:background "light gray" :foreground "black"))))
+ '(lazy-highlight ((t (:background "gray" :foreground "black"))))
  '(mode-line ((t (:background "#1e2320" :foreground "#acbc90" :inverse-video nil :box (:line-width 2 :color "#1e2320") :height 1.0 :width normal))))
  '(replacep-msg-emphasis ((t (:foreground "yellow"))))
  '(replacep-msg-emphasis2 ((t (:foreground "green"))))
