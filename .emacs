@@ -427,7 +427,8 @@
 ;want to run buf-menu+
 (setq load-buf-menu                     (and nil load-icicles_helpers_3))
 ;
-(setq load-my-isearch-plus-setup        (and t load-icicles_helpers_3))
+;; (setq load-my-isearch-plus-setup        (and t load-icicles_helpers_3))
+(setq load-my-isearch-plus-setup        (and t nil))
 (setq load-grep+                        (and t load-icicles_helpers_3))
 (setq load-hl-line+                     (and t load-icicles_helpers_2))
 (setq load-ace-jump-mode                (and t load-essentials_2))
@@ -679,9 +680,12 @@
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ; Set some faces have been having trouble with customize
+;; Even it emacs 26.1 !!!arg!!!
+;; Maybe bisect the .emacs a few times to see who/what is changing the face
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;   (set-face-foreground 'isearch "red")
-;;   (set-face-background 'isearch "blue")
+   (set-face-foreground 'isearch "black")
+   (set-face-background 'isearch "gold")
+   (set-face-background 'lazy-highlight "gray")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; don't wrap lines
