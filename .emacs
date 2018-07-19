@@ -380,9 +380,9 @@
 ;
 (setq load-ido-vertical-mode           (and t   load-ido))
 (setq load-my-ido-setup                (and t   load-ido))
-(setq load-browse-kill-ring+           (and nil   load-ido));--mq
+(setq load-browse-kill-ring+           (and nil load-ido));--mq
 (setq load-ido-ubiquitous              (and t   load-ido))
-(setq load-ido-sunrise                 (and nil    load-ido))
+(setq load-ido-sunrise                 (and nil load-ido))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -398,8 +398,10 @@
 (setq load-icomplete+                   (and t load-icicles_helpers_2))
 (setq load-oneonone                     (and t load-icicles_helpers_1))
 ;
-;make this nil for light themes
-(setq load-oneonone-params              (and nil load-icicles_helpers_1));fix bad backgrounds in light themes
+; Older comment:Make this nil for light themes
+; 7/19/2018: This sets special-display-regexps which is absolutly necessary for oneonone
+;            Maybe seperate out the color changes from the setting of special-display-regexps
+(setq load-oneonone-params              (and t load-icicles_helpers_1));fix bad backgrounds in light themes
 ;
 (setq load-icicles-iswitchb             (and t load-icicles_helpers_2));
 (setq load-replace+                     (and t load-icicles_helpers_3));
