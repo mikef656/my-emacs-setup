@@ -1,5 +1,6 @@
 ﻿
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; consider using hideshow mode with verilog begin,end
 ; this might be helpful 
