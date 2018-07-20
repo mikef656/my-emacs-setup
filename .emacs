@@ -403,7 +403,7 @@
 ; Older comment:Make this nil for light themes
 ; 7/19/2018: This sets special-display-regexps which is absolutly necessary for oneonone
 ;            Maybe seperate out the color changes from the setting of special-display-regexps
-(setq load-oneonone-params              (and nil load-icicles_helpers_1));fix bad backgrounds in light themes
+(setq load-oneonone-params              (and t load-icicles_helpers_1));fix bad backgrounds in light themes
 ;
 
 (setq load-icicles-iswitchb             (and t load-icicles_helpers_2));
@@ -576,6 +576,7 @@
 (setq load-insert-shebang       (and t   load-essentials_5))
 (setq load-xah-insert           (and t   load-essentials_5))
 (setq load-avy-zap              (and t   load-essentials_5))
+(setq load-sync-recentf         (and t   load-essentials_5))
 (setq load-start-menu-at-init   (and nil load-essentials_5))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -3278,6 +3279,17 @@
     (require 'avy-zap)
     t)
   (message "--Error in avy-zap")))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(message "reached before load sync-recentf")
+(when  load-sync-recentf
+  (unless 
+    (ignore-errors ;if an error occurs return nil
+    (add-to-list 'load-path "~/.emacs.d/sync-recentf/")
+    (require 'sync-recentf)
+    t)
+  (message "--Error in sync-recenf")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
