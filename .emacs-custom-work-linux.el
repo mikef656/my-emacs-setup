@@ -50,7 +50,7 @@
      (name . "Emacs Minibuffer")
      (desktop-dont-save . t))))
  '(1on1-minibuffer-frame-flag t)
- '(1on1-minibuffer-frame-top/bottom -60)
+ '(1on1-minibuffer-frame-top/bottom -10)
  '(1on1-minibuffer-frame-width-percent 99)
  '(1on1-remap-other-frame-command-flag nil)
  '(1on1-special-display-frame-alist
@@ -174,7 +174,7 @@
  '(electric-indent-mode nil)
  '(fill-column 100)
  '(fit-frame-crop-end-blank-flag t)
- '(fit-frame-max-height-percent 85)
+ '(fit-frame-max-height-percent 84)
  '(fit-frame-max-width 120)
  '(fit-frame-max-width-percent 100)
  '(font-lock-maximum-decoration (quote ((verilog-mode . 2) (t . 1))))
@@ -608,6 +608,7 @@
  '(sml/shorten-directory t)
  '(sml/vc-mode-show-backend t)
  '(solarized-contrast (quote normal))
+ '(sr-attributes-display-mask (quote (nil nil nil nil nil nil nil nil)))
  '(sr-tabs-max-tabsize 20)
  '(tab-width 3)
  '(thing-types
