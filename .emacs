@@ -403,7 +403,7 @@
 ; Older comment:Make this nil for light themes
 ; 7/19/2018: This sets special-display-regexps which is absolutly necessary for oneonone
 ;            Maybe seperate out the color changes from the setting of special-display-regexps
-(setq load-oneonone-params              (and t load-icicles_helpers_1));fix bad backgrounds in light themes
+(setq load-oneonone-params              (and nil load-icicles_helpers_1));fix bad backgrounds in light themes
 ;
 
 (setq load-icicles-iswitchb             (and t load-icicles_helpers_2));
