@@ -102,6 +102,9 @@ alias e25 '/usr/bin/emacs-25.1.50-snapshot'
 #emacs 24.3
 alias e24 '/usr/bin/emacs24-x & '
 
+#emacs 26.1
+alias e26 '/home/ptgd73/emacs26/emacs-26.1/src/emacs'
+
 # find
 alias fin 'find . -iname'
 alias fn 'find . -name'
