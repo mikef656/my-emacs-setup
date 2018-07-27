@@ -272,6 +272,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; customize to off, will the customization work? (electric-indent-mode -1)
 
+
 ;MASTER CONTROL
 ;
 ;these two work together
@@ -3300,6 +3301,18 @@
     t)
   (message "--Error in load bookmarks at init")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun mike/vc-next ()
+  "VC next action in the current window (no pop up)"
+  (interactive)
+  (let ((fit-frame-inhibit-fitting-flag t)
+        (pop-up-frames nil))
+          ;
+          (vc-next-action nil)))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; final message
