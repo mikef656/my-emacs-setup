@@ -60,6 +60,15 @@ class Sprite:
         pass
     def coords(self):
         return self.coordinates
+
+class PlatformSprite(Sprite):
+    def __init__(self, game, photo_image, x, y, width,height):
+        Sprite.__init__(self,game)
+        self.photo_image = photo_image
+        self.image = game.canvas.create_image(x,y, \
+                image=self.photo_image, anchor='nw')
+        self.coordinates = Coords(x,y, x + width, y + height)
+        print("Constructing PlatformSprite object")
         
 class Game:
     # don't forget its a double under __init__
@@ -95,6 +104,8 @@ class Game:
             time.sleep(0.01)
 
 g = Game()
+platform1 = PlatformSprite(g,PhotoImage(file="platform1.gif"), 0,480, 100, 10)
+g.sprites.append(platform1)
 g.mainloop()
 
 
