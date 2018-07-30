@@ -1,10 +1,8 @@
 ﻿
 
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; consider using hideshow mode with verilog begin,end
-; this might be helpful 
+; this might be helpful
 ; https://emacs.stackexchange.com/questions/37753/
 ;   folding-code-between-a-literal-begin-end-block-using-hideshow
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -15,15 +13,15 @@
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Use this to return a list produced by Python
-;; (setq mystring 
-;;       (split-string 
-;;        (setq mytemp 
-;;              (shell-command-to-string "ls")) 
+;; (setq mystring
+;;       (split-string
+;;        (setq mytemp
+;;              (shell-command-to-string "ls"))
 ;;       " "))
-; 
+;
 ;; (car mystring)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 
+;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; global minor mode or bindkey for keymap
 ;https://emacs.stackexchange.com/
@@ -31,17 +29,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Sidebar integrates with projectile and GIT                                                          
+; Sidebar integrates with projectile and GIT
 ;  https://github.com/sebastiencs/sidebar.el
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Project Explorer integrates with projectile                                                          
+; Project Explorer integrates with projectile
 ;  https://github.com/sabof/project-explorer
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Control of poped up frames                                                          
+; Control of poped up frames
 ;  https://github.com/wasamasa/shackle                                       ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
@@ -65,15 +63,14 @@
 ; C-<SPC>        'peep-dired-scroll-page-up
 ; <backspace>    'peep-dired-scroll-page-up
 ; ----- DIRED+ -----
-; space       currently move cursor down 
-; shift space currently move cursor down 
+; space       currently move cursor down
+; shift space currently move cursor down
 ; backspace   currently move cursor up
 ; ----- SR -----
 ; Space       sr-scroll-quick-view)
 ; Shift space sr-scroll-quick-view-down
 ; Meta        sr-scroll-quick-view-down
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; a workspaces library, interesting
@@ -331,7 +328,7 @@
        ;
     (when ( and load-essentials_1 load-custom-file)
       ;; (load custom-file 'message)))
-      ;; Drew recomended load-file <filename> rather than 
+      ;; Drew recomended load-file <filename> rather than
       ;;  load-custom-file 'message on 11/20/2017
       (load-file custom-file)))
     ;
@@ -546,7 +543,7 @@
 (if  (>= emacs-major-version 24 )
   (setq load-company-mode         (and t   load-essentials_3))
   (setq load-company-mode         (and nil   load-essentials_3)) )
-;  
+;
 (setq load-avy-jump-mode        (and nil load-essentials_3))
 (setq load-avy-mode             (and t   load-essentials_3))
 (setq load-multiple-cursors     (and t   exp_did_not_work_out))
@@ -567,7 +564,7 @@
 ;
 ;(setq load-settings-tramp      (and t   load-essentials_5))
 (setq load-tramp-settings       (and t load-essentials_5))
-;  
+;
 (setq load-my-mode              (and t   load-essentials_5))
 (setq load-ack-and-a-half       (and t   load-essentials_5))
 (setq load-narrow-indirect      (and t   load-essentials_5))
@@ -605,7 +602,7 @@
 ;; MTF I don't always want this stuff, its usually more trouble than it's worth
 (when t
   (require 'package) ;; You might already have this line
-   ; 
+   ;
   (when (< emacs-major-version 24)
     ;; For important compatibility libraries like cl-lib
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -653,14 +650,14 @@
     (require 'package)
     ;; (setq package-enable-at-startup nil)
     (setq package-enable-at-startup t)
-    ; 
+    ;
     (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
     ;
     ; seems to be an error contacting this computer when running package-refresh-contents
     ;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
     ;
     (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
-    ; 
+    ;
     (package-initialize)
     ;
     (unless (package-installed-p 'use-package)
@@ -709,7 +706,7 @@
 ; About 1 or 2 years ago, Hippie Expand started to have annoying behavior of
 ; expanding a word into a line or a blob of long text.
 ;
-; Here's how to fix. Put this in your init. 
+; Here's how to fix. Put this in your init.
 ; Note maybe this should be controlled on/of? How where?
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (when t
@@ -734,7 +731,7 @@
 (when  load-magit;
     (unless
       (ignore-errors ;if an error occurs return nil
-      ;  
+      ;
       (use-package magit
         :ensure t
         :bind(( "C-x g"   . magit-status)
@@ -890,7 +887,6 @@
           (shell)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; calc mode bindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -904,7 +900,6 @@
   ;Put them in anyway while I debug why they are not doing what I want.
   (define-key calc-mode-map (kbd "M-n") 'my-backward-char)
   (define-key calc-mode-map (kbd "M-h") 'my-forward-char)))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Use spaces, not tabs.
@@ -1498,7 +1493,7 @@
 (message "reached before my-wm3-setup")
 ;; Has issues, don't have time to explore, maybe emacs must be compiled
 ;; with the proper support.
-;; (when  (and load-my-wm3-setup (eq home-work 'work)) 
+;; (when  (and load-my-wm3-setup (eq home-work 'work))
 (when  (and load-my-wm3-setup (eq home-work 'work))
     (unless
       (ignore-errors ;if an error occurs return nil
@@ -3192,7 +3187,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "reached before load my-mode")
 (when  load-my-mode
-  (unless 
+  (unless
     (ignore-errors ;if an error occurs return nil
     (add-to-list 'load-path "~/.emacs.d/my-mode/")
     (require 'my-mode)
@@ -3203,7 +3198,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "reached before load ack-and-a-half")
 (when  load-ack-and-a-half
-  (unless 
+  (unless
     (ignore-errors ;if an error occurs return nil
     (add-to-list 'load-path "~/.emacs.d/ack-and-a-half/")
     (require 'ack-and-a-half)
@@ -3218,7 +3213,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "reached before load narrow-indirect")
 (when  load-narrow-indirect
-  (unless 
+  (unless
     (ignore-errors ;if an error occurs return nil
     (add-to-list 'load-path "~/.emacs.d/narrow-indirect/")
     (require 'narrow-indirect)
@@ -3229,7 +3224,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "reached before load git-timemachine")
 (when  load-git-timemachine
-  (unless 
+  (unless
     (ignore-errors ;if an error occurs return nil
     (add-to-list 'load-path "~/.emacs.d/git-timemachine/")
     (require 'git-timemachine)
@@ -3240,7 +3235,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "reached before load zop-to-char")
 (when  load-zop-to-char
-  (unless 
+  (unless
     (ignore-errors ;if an error occurs return nil
     (add-to-list 'load-path "~/.emacs.d/zop-to-char/")
     (require 'zop-to-char)
@@ -3251,7 +3246,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "reached before load insert-shebang")
 (when  load-insert-shebang
-  (unless 
+  (unless
     (ignore-errors ;if an error occurs return nil
     (add-to-list 'load-path "~/.emacs.d/insert-shebang/")
     (require 'insert-shebang)
@@ -3262,7 +3257,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "reached before load xah-insert")
 (when  load-xah-insert
-  (unless 
+  (unless
     (ignore-errors ;if an error occurs return nil
     (add-to-list 'load-path "~/.emacs.d/xah-insert/")
     (require 'xah-insert)
@@ -3273,7 +3268,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "reached before load avy-zap")
 (when  load-avy-zap
-  (unless 
+  (unless
     (ignore-errors ;if an error occurs return nil
     (add-to-list 'load-path "~/.emacs.d/avy-zap/")
     (require 'avy-zap)
@@ -3284,7 +3279,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "reached before load sync-recentf")
 (when  load-sync-recentf
-  (unless 
+  (unless
     (ignore-errors ;if an error occurs return nil
     (add-to-list 'load-path "~/.emacs.d/sync-recentf/")
     (require 'sync-recentf)
@@ -3321,6 +3316,26 @@
     ;
     t)
   (message "--Error in load bookmarks at init")))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun mike/vc-next ()
+  "VC next action in the current window (no pop up)"
+  (interactive)
+  (let ((fit-frame-inhibit-fitting-flag t)
+        (special-display-regexps  nil)
+        (pop-up-frames nil))
+          (vc-next-action nil)))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun mike/m-status ()
+  "VC next action in the current window (no pop up)"
+  (interactive)
+  (let ((fit-frame-inhibit-fitting-flag t)
+        (special-display-regexps  nil)
+        (pop-up-frames nil))
+          (magit-status)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

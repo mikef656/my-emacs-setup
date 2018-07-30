@@ -1022,6 +1022,9 @@ PROMPT is as for `y-or-n-p'."
 (define-key vc-prefix-map [(r)] 'vc-revert-buffer)
 (define-key vc-prefix-map [(a)] 'my-vc-git-add)
 (define-key vc-prefix-map [(u)] 'my-vc-git-reset)
+
+(define-key vc-prefix-map [(v)] nil)
+(define-key vc-prefix-map [(v)] 'mike/vc-next)
 ; probably need to be on a hook, errors as written here
 ;(define-key vc-dir-mode-map [(r)] 'vc-revert-buffer)
 ;(define-key vc-dir-mode-map [(a)] 'my-vc-git-add)
