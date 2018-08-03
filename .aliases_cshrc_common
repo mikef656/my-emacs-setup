@@ -87,9 +87,10 @@ alias dgrep    'dirs|grep -i --color'
 alias dgrepv    'dirs|grep -v --color'
 #
 #grep git config
-alias ggrep  'git config --list |grep  --color'
-alias bgrep  'git branch   |grep  --color'
-alias bagrep  'git branch -a  |grep  --color'
+alias ggrep    'git config --list |grep  --color'
+alias bgrep    'git branch   |grep  --color'
+alias bagrep   'git branch -a  |grep  --color'
+alias bagrepa  'git branch -a  |grep  --color'
 
 #emacs general
 alias ec 'emacsclient \!^ &'
