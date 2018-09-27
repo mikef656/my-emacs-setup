@@ -395,6 +395,8 @@
 (setq load-my-icicle-setup              (and t load-icicles))
 ;
 (setq load-icomplete+                   (and t load-icicles_helpers_2))
+; To get rid of the stand-alone minibufer, remove minibuffer from
+; default-frame-alist in custom.
 (setq load-oneonone                     (and t load-icicles_helpers_1))
 ;
 ; Older comment:Make this nil for light themes
@@ -3337,6 +3339,34 @@
         (pop-up-frames nil))
           (magit-status)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun mike/v-status ()
+  "VC next action in the current window (no pop up)"
+  (interactive)
+  (let ((fit-frame-inhibit-fitting-flag t)
+        (special-display-regexps  nil)
+        (pop-up-frames nil))
+          (vc-dir "./")))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; This is handy don't know where to put it 
+; Based on Drew's SO answer here
+; https://emacs.stackexchange.com/questions/24459/revert-all-open-buffers-and-ignore-errors
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun revert-all-no-confirm ()
+  "Revert all file buffers, without confirmation.
+Buffers visiting files that no longer exist are ignored.
+Files that are not readable (including do not exist) are ignored.
+Other errors while reverting a buffer are reported only as messages."
+  (interactive)
+  (let (file)
+    (dolist (buf  (buffer-list))
+      (setq file  (buffer-file-name buf))
+      (when (and file  (file-readable-p file))
+        (with-current-buffer buf
+          (with-demoted-errors "Error: %S" (revert-buffer t t)))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; final message

@@ -181,7 +181,7 @@
 (global-set-key [(control shift s )] 'isearch-backward)
 
 (global-set-key [f12] 'write-file)
-(global-set-key [M-f4] 'save-buffers-kill-emacs)
+(global-set-key [M-f4] 'save-buffers-kill-terminal)
 ;isearch
 
 (global-set-key [(meta f12)] 'block-right)
