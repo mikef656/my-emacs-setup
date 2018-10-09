@@ -143,4 +143,5 @@ alias ve 'grep -B 3 -m 1  -n --color=always '^ERROR' vivado.log'
 #-------------------------------------------------------------------------------
 #grep for Errors in the irun.log file
 #-------------------------------------------------------------------------------
-alias ce 'grep -B 2 -m 1 --color=always "*E" irun.log'
+alias ce 'grep -B 2 -A 1 -m 1 --color=always "*E" irun.log'
+alias cet 'ls -rt *.log tail -2 |grep -B 2 -m 1 --color=always "*E"'
