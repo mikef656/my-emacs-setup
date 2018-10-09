@@ -103,6 +103,37 @@ class Game:
             self.tk.update()
             time.sleep(0.01)
 
+class StickFigureSprite(Sprite):
+    def __init__(self, game):
+        Sprite.__init__(self,game)
+        print("Creating StickFigureSprite object")
+        self.images_left = [
+            PhotoImage(file="figure-L1.gif"),
+            PhotoImage(file="figure-L2.gif"),
+            PhotoImage(file="figure-L3.gif")
+            ]
+        self.images_right = [
+            PhotoImage(file="figure-R1.gif"),
+            PhotoImage(file="figure-R2.gif"),
+            PhotoImage(file="figure-R3.gif")
+            ]        
+        
+        self.image = game.canvas.create_image(200, 470, \
+                image=self.images_left[0], anchor='nw')
+        self.x = -2
+        self.y = 0
+        self.current_image = 0
+        self.current_image_add = 1
+        self.jump_count = 0
+        self.last_time = time.time()
+        self.coordinates = Coords()
+        game.canvas.bind_all('<KeyPress-Left>', self.turn_left)
+        game.canvas.bind_all('<KeyPress-Right>', self.turn_right)
+        game.canvas.bind_all('<space>', self.jump)
+        
+        
+        
+
 g = Game()
 
 platform1  = PlatformSprite(g,PhotoImage(file="platform1.gif"),   0,480, 100, 10)
