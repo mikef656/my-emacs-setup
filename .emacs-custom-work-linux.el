@@ -648,7 +648,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ace-jump-face-foreground ((t (:foreground "yellow" :weight ultra-bold))))
+q '(ace-jump-face-foreground ((t (:foreground "yellow" :weight ultra-bold))))
  '(aw-leading-char-face ((t (:background "white" :foreground "red"))))
  '(bmkp-heading ((t (:foreground "azure1"))))
  '(bmkp-local-directory ((t (:background "#4c7073" :foreground "#dcdccc"))))
