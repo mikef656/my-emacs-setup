@@ -639,6 +639,7 @@
  '(verilog-tab-to-comment t)
  '(vhdl-basic-offset 2)
  '(vhdl-underscore-is-part-of-word t)
+ '(warning-suppress-types (quote ((\(undo\ discard-info\)))))
  '(window-min-height 8)
  '(winner-dont-bind-my-keys t)
  '(wrap-region-except-modes (quote (calc-mode dired-mode sr-mode))))
@@ -648,7 +649,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-q '(ace-jump-face-foreground ((t (:foreground "yellow" :weight ultra-bold))))
+ '(ace-jump-face-foreground ((t (:foreground "yellow" :weight ultra-bold))))
  '(aw-leading-char-face ((t (:background "white" :foreground "red"))))
  '(bmkp-heading ((t (:foreground "azure1"))))
  '(bmkp-local-directory ((t (:background "#4c7073" :foreground "#dcdccc"))))
