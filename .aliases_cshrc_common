@@ -10,7 +10,7 @@ alias la            'ls -aF'
 alias lal           'ls -al'
 alias lst           'ls -alt'
 
-alias d              'ls -l  --color=always| egrep ^d'
+alias d              'ls -lrt  --color=always| egrep ^d'
 alias ld             'ls -l  --color=always| egrep ^d'
 alias ldir           'ls -l  --color=always| egrep ^d'
 alias t              'ls -alrt --color=always'
