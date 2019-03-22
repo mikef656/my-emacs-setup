@@ -13,9 +13,9 @@ alias lst           'ls -alt'
 alias d              'ls -lrt  --color=always| egrep ^d'
 alias ld             'ls -l  --color=always| egrep ^d'
 alias ldir           'ls -l  --color=always| egrep ^d'
-alias t              'ls -alrt --color=always'
-alias tt             'ls -alrt --color=always|tail -10'
-#alias l              'ls -l --color=always'
+alias t              'ls -Alrt --color=always'
+alias tt             'ls -Alrt --color=always|tail -10'
+#alias l             'ls -l --color=always'
 
 alias ctdiff        'cleartool diff -pred -serial'
 
@@ -33,6 +33,10 @@ alias cdsim         'cd $PROJ_HOME/sim'
 alias cdsim         'cd $PROJ_HOME/sim'
 
 alias mark          'setenv \!:1 $cwd'
+alias mypath        '~/bin/showpath'
+alias my_path       '~/bin/showpath'
+alias showpath      '~/bin/showpath'
+alias show_path     '~/bin/showpath'
 
 #------------------------------------------------------------------------
 # VNC aliases
@@ -108,6 +112,7 @@ alias e26 '/home/ptgd73/emacs26/emacs-26.1/src/emacs'
 
 # find
 alias fin 'find . -iname'
+alias finm5 'find . -maxdepth 5 -iname'
 alias fn 'find . -name'
 
 # grep
