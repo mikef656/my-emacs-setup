@@ -3340,8 +3340,10 @@
 (defun mike/vc-next ()
   "VC next action in the current window (no pop up)"
   (interactive)
-  (vc-next-action nil))
+  (vc-next-action nil)
+  (kill-buffer "*log-edit-files*"))vc
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mike/m-status ()
