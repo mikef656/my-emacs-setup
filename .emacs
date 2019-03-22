@@ -3341,9 +3341,9 @@
   "VC next action in the current window (no pop up)"
   (interactive)
   (vc-next-action nil)
-  ; this seems to work, but the buffer gets killed before the user is promted
-  ; which does not make sense, you would think that (vc-next-action nil) would
-  ; block execution until the user typed C-c C-c.  Maybe
+  ; This seems to kind of work, but the buffer gets killed before the user is
+  ; promted which does not make sense, you would think that (vc-next-action nil)
+  ; would  block execution until the user typed C-c C-c.  Maybe
   ; (kill-buffer "*log-edit-files*") shoud be in it's own defun and run on the
   ; after commit hook.
   (kill-buffer "*log-edit-files*"))
