@@ -3341,9 +3341,8 @@
   "VC next action in the current window (no pop up)"
   (interactive)
   (vc-next-action nil)
-  (kill-buffer "*log-edit-files*"))vc
+  (kill-buffer "*log-edit-files*"))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mike/m-status ()
