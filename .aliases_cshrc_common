@@ -10,12 +10,12 @@ alias la            'ls -aF'
 alias lal           'ls -al'
 alias lst           'ls -alt'
 
-alias d              'ls -l  --color=always| egrep ^d'
+alias d              'ls -lrt  --color=always| egrep ^d'
 alias ld             'ls -l  --color=always| egrep ^d'
 alias ldir           'ls -l  --color=always| egrep ^d'
-alias t              'ls -alrt --color=always'
-alias tt             'ls -alrt --color=always|tail -10'
-#alias l              'ls -l --color=always'
+alias t              'ls -Alrt --color=always'
+alias tt             'ls -Alrt --color=always|tail -10'
+#alias l             'ls -l --color=always'
 
 alias ctdiff        'cleartool diff -pred -serial'
 
@@ -33,6 +33,10 @@ alias cdsim         'cd $PROJ_HOME/sim'
 alias cdsim         'cd $PROJ_HOME/sim'
 
 alias mark          'setenv \!:1 $cwd'
+alias mypath        '~/bin/showpath'
+alias my_path       '~/bin/showpath'
+alias showpath      '~/bin/showpath'
+alias show_path     '~/bin/showpath'
 
 #------------------------------------------------------------------------
 # VNC aliases
@@ -87,9 +91,10 @@ alias dgrep    'dirs|grep -i --color'
 alias dgrepv    'dirs|grep -v --color'
 #
 #grep git config
-alias ggrep  'git config --list |grep  --color'
-alias bgrep  'git branch   |grep  --color'
-alias bagrep  'git branch -a  |grep  --color'
+alias ggrep    'git config --list |grep  --color'
+alias bgrep    'git branch   |grep  --color'
+alias bagrep   'git branch -a  |grep  --color'
+alias bagrepa  'git branch -a  |grep  --color'
 
 #emacs general
 alias ec 'emacsclient \!^ &'
@@ -102,8 +107,12 @@ alias e25 '/usr/bin/emacs-25.1.50-snapshot'
 #emacs 24.3
 alias e24 '/usr/bin/emacs24-x & '
 
+#emacs 26.1
+alias e26 '/home/ptgd73/emacs26/emacs-26.1/src/emacs'
+
 # find
 alias fin 'find . -iname'
+alias finm5 'find . -maxdepth 5 -iname'
 alias fn 'find . -name'
 
 # grep
@@ -139,4 +148,5 @@ alias ve 'grep -B 3 -m 1  -n --color=always '^ERROR' vivado.log'
 #-------------------------------------------------------------------------------
 #grep for Errors in the irun.log file
 #-------------------------------------------------------------------------------
-alias ce 'grep -B 2 -m 1 --color=always "*E" irun.log'
+alias ce 'grep -B 2 -A 1 -m 1 --color=always "*E" irun.log'
+alias cet 'ls -rt *.log tail -2 |grep -B 2 -m 1 --color=always "*E"'

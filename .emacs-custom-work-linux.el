@@ -50,7 +50,7 @@
      (name . "Emacs Minibuffer")
      (desktop-dont-save . t))))
  '(1on1-minibuffer-frame-flag t)
- '(1on1-minibuffer-frame-top/bottom -60)
+ '(1on1-minibuffer-frame-top/bottom -10)
  '(1on1-minibuffer-frame-width-percent 99)
  '(1on1-remap-other-frame-command-flag nil)
  '(1on1-special-display-frame-alist
@@ -174,7 +174,7 @@
  '(electric-indent-mode nil)
  '(fill-column 100)
  '(fit-frame-crop-end-blank-flag t)
- '(fit-frame-max-height-percent 86)
+ '(fit-frame-max-height-percent 84)
  '(fit-frame-max-width 120)
  '(fit-frame-max-width-percent 100)
  '(font-lock-maximum-decoration (quote ((verilog-mode . 2) (t . 1))))
@@ -575,6 +575,9 @@
  '(mouse-yank-at-point t)
  '(org-M-RET-may-split-line (quote ((default))))
  '(org-todo-keywords (quote ((sequence "TODO" "STARTED" "DONE"))))
+ '(package-selected-packages
+   (quote
+    (use-package tiny projectile magit git-gutter-fringe)))
  '(peep-dired-ignored-extensions
    (quote
     ("mkv" "iso" "mp4" "exe" "bin" "so" "dcp" "mcs" "bit")))
@@ -584,7 +587,7 @@
    (quote
     (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".Xil")))
  '(projectile-indexing-method (quote alien))
- '(projectile-mode nil nil (projectile))
+ '(projectile-mode nil)
  '(reb-re-syntax (quote string))
  '(rebox-min-fill-column 80)
  '(saint/iswitchb-highlight-modes-alist
@@ -605,6 +608,7 @@
  '(sml/shorten-directory t)
  '(sml/vc-mode-show-backend t)
  '(solarized-contrast (quote normal))
+ '(sr-attributes-display-mask (quote (nil nil nil nil nil nil nil nil)))
  '(sr-tabs-max-tabsize 20)
  '(tab-width 3)
  '(thing-types
@@ -635,6 +639,7 @@
  '(verilog-tab-to-comment t)
  '(vhdl-basic-offset 2)
  '(vhdl-underscore-is-part-of-word t)
+ '(warning-suppress-types (quote ((\(undo\ discard-info\)))))
  '(window-min-height 8)
  '(winner-dont-bind-my-keys t)
  '(wrap-region-except-modes (quote (calc-mode dired-mode sr-mode))))
@@ -653,8 +658,9 @@
  '(bmkp-t-mark ((t (:foreground "medium spring green"))))
  '(ediff-current-diff-B ((t (:background "#3f3f4d"))))
  '(ediff-fine-diff-B ((t (:background "#3f3fCA"))))
+ '(isearch ((t (:background "gold" :foreground "black"))))
  '(iswitchb-virtual-matches ((t (:background "#3f3f3f" :foreground "deep sky blue"))))
- '(lazy-highlight ((t (:inherit isearch))))
+ '(lazy-highlight ((t (:background "gray" :foreground "black"))))
  '(mode-line ((t (:background "#1e2320" :foreground "#acbc90" :inverse-video nil :box (:line-width 2 :color "#1e2320") :height 1.0 :width normal))))
  '(replacep-msg-emphasis ((t (:foreground "yellow"))))
  '(replacep-msg-emphasis2 ((t (:foreground "green"))))

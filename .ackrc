@@ -3,6 +3,8 @@
 --type-set=hdl:ext:vhd,v,vh,sv,svh,svp
 --type-set=constraint:ext:xdc
 --type-set=verilog:ext:v,vh,sv,svh,svp
+--type-set=vl:ext:v,vh,sv,svh,svp
 --type-set=vhdl:ext:vhd
 --type-set=script:ext:rb,py,sh,csh,do,tcl,bat
 --type-set=scripts:ext:rb,py,sh,csh,do,tcl,bat
+--type-set=matlab:ext:m

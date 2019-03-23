@@ -11,7 +11,7 @@
 ;; my-dired-find-file-other-window-same-frame ()
 ;; my-dired-ff-other-win-same-frm-maybe-replace (arg)
 ;; my-ff ()
-;; my-dired-jump () 
+;; my-dired-jump ()
 ;; my-dired-jump-back ()
 ;; toggle-window-split ()
 ;; w32-maximize-frame ()
@@ -33,7 +33,7 @@
 ;; my-toggle-dired-same-frame ()
 ;; left-most-window-mode ()
 ;; my-delete-leftmost-window ()
-;; my-make-buffer-utf8 () 
+;; my-make-buffer-utf8 ()
 ;; my-make-frame-one-char-taller ()
 ;; my-move-framer ()
 ;; temp-test ()
@@ -73,7 +73,7 @@
 ;; my-dired-find-file-other-window-same-frame ()
 ;; my-dired-ff-other-win-same-frm-maybe-replace (arg)
 ;; my-ff ()
-;; my-dired-jump () 
+;; my-dired-jump ()
 ;; my-dired-jump-back ()
 ;; toggle-window-split ()
 ;; w32-maximize-frame ()
@@ -95,7 +95,7 @@
 ;; my-toggle-dired-same-frame ()
 ;; left-most-window-mode ()
 ;; my-delete-leftmost-window ()
-;; my-make-buffer-utf8 () 
+;; my-make-buffer-utf8 ()
 ;; my-make-frame-one-char-taller ()
 ;; my-move-framer ()
 ;; temp-test ()
@@ -128,7 +128,6 @@
 ;; split-window-right (&optional size)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;   HERE IS SOME FRAME PAREMETER KNOWLEDGE
    ;http://www.gnu.org/software/emacs/manual/html_node/elisp/
@@ -137,21 +136,21 @@
 ;   ;how to set a var to the frame width
 ;   (setq my-frame-rhs-pix
 ;         (+ (frame-parameter nil 'left) (frame-pixel-width)))
-;    
+;
 ;   ;list em
 ;
 ;   (frame-parameters) --mtf note the plural s
 ;
 ;   (frame-parameter (selected-frame) 'left) --mtf note singular
-;    
-;    
+;
+;
 ;   ;change just the left
 ;   (modify-frame-parameters nil '((left . 0))
-;    
-;    
+;
+;
 ;   (add-to-list 'default-frame-alist `(width . ,my-frame-width))
-;    
-;    
+;
+;
 ;   (modify-frame-parameters nil `(
 ;                                  ;(top . +100) ;from the lhs
 ;                                  ;(left . +100) ;from the lhs
@@ -159,10 +158,10 @@
 ;                                  ;(width . 100)
 ;                                  ;(width . 200);char
 ;                                  ))
-;    
-;    
+;
+;
 ;   ;Great example of using the backquote to force evaluation
-;   ;of a quoted list.  Also see 
+;   ;of a quoted list.  Also see
 ;   http://stackoverflow.com/questions/1664202/
 ;     emacs-lisp-evaluate-variable-in-alist
 ;
@@ -170,12 +169,10 @@
 ;   (modify-frame-parameters nil `((left . ,my-frame-rhs-pix)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;(defvar SYMBOL &optional INITVALUE DOCSTRING)
 (defvar screen-size nil "set acording to screen size")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun set-frame-size-according-to-resolution ()
@@ -189,15 +186,15 @@
     (progn
       ;
        (if (> (x-display-pixel-width) 1900)
-          ;T 
+          ;T
           ;desktop is 1920
           (progn
           (setq default-frame-alist (append (list
           '(top . 10)
           '(left . 10)
-            ;; 7-2-12 a littli wider ? '(width  . 220) 
-            '(width  . 228) 
-            '(height . 60))  
+            ;; 7-2-12 a littli wider ? '(width  . 220)
+            '(width  . 228)
+            '(height . 60))
             default-frame-alist))
             (setq screen-size 'work-big))
           ;F
@@ -206,8 +203,8 @@
           (setq default-frame-alist (append (list
           '(top . 7)
           '(left . 7)
-            '(width  . 180) 
-            '(height . 45))  
+            '(width  . 180)
+            '(height . 45))
             default-frame-alist))
            (setq  screen-size 'work-small )
            (if (string-equal system-type "gnu/linux")
@@ -219,17 +216,17 @@
     (setq default-frame-alist (append (list
     '(top . 10)
     '(left . 10)
-      '(width  . 110) 
-      '(height . 33)) 
+      '(width  . 110)
+      '(height . 33))
       default-frame-alist))
     (setq screen-size 'home)
     (message "home sized frame")
     ))))
-    
+
     ;used by frame re-sizing functions, part of set-frame-size-according-to-resolution
-     (cond 
+     (cond
       ((eq screen-size 'work-big)
-         (setq max-vertical-frame-size 40)          
+         (setq max-vertical-frame-size 40)
          (setq max-horizontal-frame-size 231)
          (setq fit-frame-max-height-percent 82 ))
          ;
@@ -239,10 +236,9 @@
          (setq fit-frame-max-height-percent 86 )) ; hackd
          ;
       ((eq screen-size 'home)
-         (setq max-vertical-frame-size 46)     
+         (setq max-vertical-frame-size 46)
          (setq max-horizontal-frame-size 156))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;Mtf not sure why this needs to be called bc it was just eval'd above
@@ -251,25 +247,21 @@
 (set-frame-size-according-to-resolution)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;This may be usefull sometime
 ;(set-frame-size (selected-frame) 110 33)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; turn on highlighting current line
 ;(global-hl-line-mode 1)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;Don't need it create space
 ;(tool-bar-mode 0)  ;note that (tool-bar-mode nil) turns it on
 ;this is interesting bc I had nil before, try to control it in the .emacs
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;http://xahlee.org/emacs/emacs_make_modern.html
@@ -283,18 +275,18 @@
 ;(global-set-key (kbd "<f8>") 'visual-line-mode)
 ;(global-set-key (kbd "<f9>") 'toggle-truncate-lines)
 ;
-;;Make it a toggle 
+;;Make it a toggle
 ;(defun mikes-fn ()
 ;  "Move Stuff"
 ;(interactive)
-;(visual-line-mode  1) 
+;(visual-line-mode  1)
 ;(setq truncate-lines nill)
 ;)
 ;(global-set-key (kbd "<f8>") 'mikes-fn)
 ;
 (defun mikes-word-wrap-tog ()
   "Move Stuff"
- (interactive) 
+ (interactive)
 'visual-line-mode;do not unserstand why thins works
 ;(toggle-vlm);did no twork
 (toggle-truncate-lines)
@@ -312,7 +304,6 @@
 ;    ) )
 ;(setq truncate-lines t)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; make whitespace-mode use just basic coloring
@@ -332,25 +323,21 @@
 ))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; turn on highlight matching parens when cursor is on one
 (show-paren-mode 1)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Scroll down with the cursor,move down the buffer one 
+;; Scroll down with the cursor,move down the buffer one
 ;; line at a time, instead of in larger amounts.
 (setq scroll-step 1)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Changes all yes/no questions to y/n type
 (fset 'yes-or-no-p 'y-or-n-p)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;window/buffer close
@@ -360,7 +347,7 @@
       (other-window 1)
       (kill-buffer)
       (delete-window)
-    ) 
+    )
 (defun close-and-kill-this-pane ()
       "Close this pane and kill the buffer in it also."
       (interactive)
@@ -371,15 +358,13 @@
 (global-set-key "\C-cK" 'close-and-kill-next-pane)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'uniquify) 
+(require 'uniquify)
 ;set in custom
-;; (setq 
+;; (setq
 ;;   uniquify-buffer-name-style 'post-forward
 ;;   uniquify-separator ":")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Buffer Switching
@@ -392,7 +377,7 @@ User buffers are those not starting with *."
     (while (and (string-match "^*" (buffer-name)) (< i 50))
       (setq i (1+ i)) (next-buffer) )))
 ;try buffer stack package
-;(global-set-key (kbd "C-<tab>") 'next-user-buffer) ; 
+;(global-set-key (kbd "C-<tab>") 'next-user-buffer) ;
 ;
 ;
 (defun previous-user-buffer ()
@@ -404,9 +389,8 @@ User buffers are those not starting with *."
     (while (and (string-match "^*" (buffer-name)) (< i 50))
       (setq i (1+ i)) (previous-buffer) )))
 ;try buffer stack package
-;(global-set-key (kbd "C-S-<tab>") 'previous-user-buffer) ; 
+;(global-set-key (kbd "C-S-<tab>") 'previous-user-buffer) ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;line numbers in most modes, not info
@@ -422,7 +406,6 @@ User buffers are those not starting with *."
    (linum-mode 0)
 ))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;open .pdf's as text
@@ -446,15 +429,13 @@ User buffers are those not starting with *."
     (set-buffer-modified-p modified)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-dired-jump-same-frame ()
  (interactive)
  "Open a dired buffer in the same frame different window
   while running oneonone and fit-frame"
  (if  (not (eq major-mode 'dired-mode))
-     (progn   
+     (progn
      (let
       ((window-min-width 10) (pop-up-frames))
          (split-window-right)
@@ -464,11 +445,10 @@ User buffers are those not starting with *."
          (set-window-width mywin-side-dired-width)))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq mywin-side-dired-width 25)
 ;
-(cond 
+(cond
   ((eq home-work 'home) (setq mywin-frame-height 25));home
   ((eq home-work 'work) (setq mywin-frame-height 40))  ;work
   (t (setq mywin-frame-height 40))
@@ -499,7 +479,7 @@ User buffers are those not starting with *."
        ;Don't want to see any super short frames
        (if (> 20 (frame-height))
          (set-frame-height nil mywin-frame-height)))
-      
+
      ;(message "finished")
     ;F
     ;assume that you are in a left hand dired pane pointing
@@ -515,8 +495,6 @@ User buffers are those not starting with *."
     ;(other-window -1)
     (find-file my-path-name)
     )))
-
-
 
 (defun my-dired-ff-other-win-same-frm-maybe-replace (arg)
  (interactive "p")
@@ -544,7 +522,7 @@ User buffers are those not starting with *."
        ;Don't want to see any super short frames
        (if (> 20 (frame-height))
          (set-frame-height nil mywin-frame-height)))
-      
+
      ;(message "finished")
     ;F
     ;assume that you are in a left hand dired pane pointing
@@ -580,7 +558,6 @@ User buffers are those not starting with *."
          ;(other-window -1)
          (find-file my-path-name))))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-       
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-ff ()
@@ -590,14 +567,13 @@ User buffers are those not starting with *."
       )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun my-dired-jump () 
+(defun my-dired-jump ()
  (interactive)
  "Open a dired buffer in the same frame different window
   while running oneonone and fit-frame"
  (if  (not (eq major-mode 'dired-mode))
-    (progn   
+    (progn
     (let (pop-up-frames)
     (dired-jump -1)
     (toggle-window-split)))
@@ -607,7 +583,6 @@ User buffers are those not starting with *."
     (fit-frame))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-dired-jump-back ()
  (interactive)
@@ -615,7 +590,6 @@ User buffers are those not starting with *."
 (delete-window)
  (fit-frame))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun toggle-window-split ()
@@ -644,14 +618,12 @@ User buffers are those not starting with *."
 	  (if this-win-2nd (other-window 1))))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun w32-maximize-frame ()
   "Maximize the current frame"
   (interactive)
   (w32-send-sys-command 61488))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;http://dse.livejournal.com/67732.html
@@ -672,7 +644,7 @@ User buffers are those not starting with *."
   (interactive "P")
   (condition-case nil
       (fix-window-horizontal-size width)
-    (error 
+    (error
      (condition-case nil
 	 (fix-frame-horizontal-size width)
        (error
@@ -680,7 +652,6 @@ User buffers are those not starting with *."
 ;
 ;(global-set-key (kbd "C-x W") 'fix-horizontal-size)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;http://nullprogram.com/blog/2010/10/06/
@@ -704,7 +675,6 @@ User buffers are those not starting with *."
 ;(global-set-key "\C-x~" 'set-20-columns)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;How do I detect that an Emacs window has already been split?
 ;window-list will return you a list of the windows (for the current frame),
@@ -714,7 +684,6 @@ User buffers are those not starting with *."
 ; (split-window-horizontally))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; To change the size of an Emacs frame using elisp, you can use the two
 ;;     functions set-frame-width and set-frame-height. For example, to resize
@@ -722,13 +691,12 @@ User buffers are those not starting with *."
 ;;     (selected-frame) 40) (set-frame-width (selected-frame) 80)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;Used by frame re-sizing functions, run outside a defun should be used by
 ; the environment by default.
- (cond 
+ (cond
   ((eq screen-size 'work-big) ;; MSI Linux
-     (setq max-vertical-frame-size 40)          
+     (setq max-vertical-frame-size 40)
      (setq max-horizontal-frame-size 171))
      ;
   ((eq screen-size 'work-small)
@@ -736,20 +704,19 @@ User buffers are those not starting with *."
      (setq max-horizontal-frame-size 185))
      ;
   ((eq screen-size 'home)
-     (setq max-vertical-frame-size 46)     
+     (setq max-vertical-frame-size 46)
      (setq max-horizontal-frame-size 156)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;; ;amounts
-;;  (cond 
+;;  (cond
 ;;   ((eq screen-size 'work-big)
 ;;      (setq my-large-enlarge-vertical-amount 25)
 ;;      (setq my-medium-enlarge-vertical-amount 15)
 ;;      (setq my-small-enlarge-vertical-amount 4)
-;;      (setq my-very-small-enlarge-vertical-amount 1)     
+;;      (setq my-very-small-enlarge-vertical-amount 1)
 ;;      ;
-;;      (setq move-pop-up-frame-to-screen-right-amount 425)     
+;;      (setq move-pop-up-frame-to-screen-right-amount 425)
 ;;      ;
 ;;      (setq my-large-enlarge-horiz-amount 70)
 ;;      (setq my-medium-enlarge-horiz-amount 25)
@@ -760,9 +727,9 @@ User buffers are those not starting with *."
 ;;    (setq my-large-enlarge-vertical-amount 22)
 ;;      (setq my-medium-enlarge-vertical-amount 12)
 ;;      (setq my-small-enlarge-vertical-amount 3)
-;;      (setq my-very-small-enlarge-vertical-amount 1)     
+;;      (setq my-very-small-enlarge-vertical-amount 1)
 ;;      ;
-;;      (setq move-pop-up-frame-to-screen-right-amount 100)     
+;;      (setq move-pop-up-frame-to-screen-right-amount 100)
 ;;      ;
 ;;      (setq my-large-enlarge-horiz-amount 60)
 ;;      (setq my-medium-enlarge-horiz-amount 30)
@@ -773,9 +740,9 @@ User buffers are those not starting with *."
 ;;      (setq my-large-enlarge-vertical-amount 20)
 ;;      (setq my-medium-enlarge-vertical-amount 6)
 ;;      (setq my-small-enlarge-vertical-amount 3)
-;;      (setq my-very-small-enlarge-vertical-amount 2)     
+;;      (setq my-very-small-enlarge-vertical-amount 2)
 ;;      ;
-;;      (setq move-pop-up-frame-to-screen-right-amount 50)     
+;;      (setq move-pop-up-frame-to-screen-right-amount 50)
 ;;      ;
 ;;      (setq my-large-enlarge-horiz-amount 60)
 ;;      (setq my-medium-enlarge-horiz-amount 30)
@@ -784,11 +751,10 @@ User buffers are those not starting with *."
 ;;  )
 ;(frame-height)
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-enlarge-frame-horzontally ()
   "DWIM"
-    (interactive) 
+    (interactive)
     ;
     (if
        (and (< (frame-width) 41)
@@ -797,7 +763,7 @@ User buffers are those not starting with *."
                 (eq major-mode 'custom-mode)
                 ));
       ;T
-      (progn 
+      (progn
          (enlarge-frame-horizontally 40)
          (sit-for .01)
          (enlarge-frame 20)
@@ -805,7 +771,7 @@ User buffers are those not starting with *."
       ;
       ;F
       (progn
-       (if (<(frame-width) my-small-frame-boundry-for-horiz-enlarge ) 
+       (if (<(frame-width) my-small-frame-boundry-for-horiz-enlarge )
          (enlarge-frame-horizontally my-large-enlarge-horiz-amount)
          ;
          (if (<(frame-width) my-medium-frame-boundry-for-horiz-enlarge )
@@ -817,14 +783,13 @@ User buffers are those not starting with *."
          ;
          (sit-for .001)))
     ))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;       
-       
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;       
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;depricated
 ;; (global-set-key [(control meta kp-left)] (lambda ()
-;;        (interactive)          
-;;        (if (> (frame-width) 200 ) 
+;;        (interactive)
+;;        (if (> (frame-width) 200 )
 ;;          (shrink-frame-horizontally 80)
 ;;          ;
 ;;          (if (>(frame-width) 140 )
@@ -832,60 +797,58 @@ User buffers are those not starting with *."
 ;;            ;
 ;;             (shrink-frame-horizontally 10))
 ;;          ;
-;;          (sit-for .001) 
+;;          (sit-for .001)
 ;;        )
 ;;     ))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;       
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;       
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;(global-set-key [(control meta kp-up)] 'my-shrink-frame)
 ;(global-set-key [(control meta kp-up)] 'my-shrink-frame-test)
 ;(global-set-key [(control meta kp-down)] 'my-enlarge-frame-test)
 ;
 ;; (defun my-shrink-frame ()
-;;   (interactive)          
-;;    (if (eq last-command 'my-enlarge-frame) 
+;;   (interactive)
+;;    (if (eq last-command 'my-enlarge-frame)
 ;;       ;T shrink by 1/2 of what it was just enlarged
 ;;       ;no counting on the result of 0/2
 ;;       (if (>= cur-enlrg-vert-amount 2)
-;;         (shrink-frame ( / cur-enlrg-vert-amount 2))   
-;;         (shrink-frame cur-enlrg-vert-amount ))   
+;;         (shrink-frame ( / cur-enlrg-vert-amount 2))
+;;         (shrink-frame cur-enlrg-vert-amount ))
 ;;       ;
 ;;       ;F
-;;       (if (> (frame-height) 60 ) 
+;;       (if (> (frame-height) 60 )
 ;;         (shrink-frame 30)
 ;;         ;
 ;;         (if (>(frame-height) 40 )
 ;;           (shrink-frame 20)
 ;;           ;
-;;            (shrink-frame 10)) 
+;;            (shrink-frame 10))
 ;;       )
 ;;    )
-;;    (sit-for .001) 
+;;    (sit-for .001)
 ;;  )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (defun my-enlarge-frame ()
 ;;  "Nice steps for whatever machine you are on"
-;;     (interactive)     
+;;     (interactive)
 ;;     (if
 ;;        (and (< (frame-width) 40)
 ;;        (or (eq major-mode 'dired-mode)
 ;;            (eq major-mode 'help-mode)
 ;;            (eq custom-mode 'custom-mode)))
 ;;     ;
-;;     ;T special mode       
-;;     (progn 
+;;     ;T special mode
+;;     (progn
 ;;       ;(menu-bar-mode 0)
 ;;       (enlarge-frame 4))
 ;;     ;
 ;;     ;F Not a special mode
 ;;     (progn
 ;;      ;small vertical frame
-;;       (if (<=(frame-height) my-small-frame-boundry-for-vertical-enlarge ) 
+;;       (if (<=(frame-height) my-small-frame-boundry-for-vertical-enlarge )
 ;;         ;
 ;;         (progn
 ;;         (enlarge-frame my-large-enlarge-vertical-amount)
@@ -908,21 +871,20 @@ User buffers are those not starting with *."
 ;;              (setq cur-enlrg-vert-amount my-very-small-enlarge-vertical-amount))
 ;;              )))));end outside if
 ;;        ;
-;;       (sit-for .001)) 
+;;       (sit-for .001))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-enlarge-frame-test ()
  "INTERESTING"
  (interactive)
 ;
-   (if (eq last-command 'my-shrink-frame-test) 
+   (if (eq last-command 'my-shrink-frame-test)
       ;T shrink by 1/2 of what it was just enlarged
       ;no counting on the result of 0/2
       (if (>= cur-shrink-vert-amount 2)
-        (setq cur-enlrg-vert-amount ( / cur-shrink-vert-amount 2))   
-        (setq cur-enlrg-vert-amount cur-shrink-vert-amount ))   
+        (setq cur-enlrg-vert-amount ( / cur-shrink-vert-amount 2))
+        (setq cur-enlrg-vert-amount cur-shrink-vert-amount ))
       ;
       ;F
       (if  (<  (frame-height) (- max-vertical-frame-size 2) )
@@ -939,7 +901,7 @@ User buffers are those not starting with *."
       ;
    ;always do this
    (enlarge-frame cur-enlrg-vert-amount ))
-;   
+;
   ;used to move the frame boundry where it is needed in less key presses
   (setq max-vertical-frame-size-hurry (/ (* max-vertical-frame-size 5  ) 4))
 ;
@@ -947,12 +909,12 @@ User buffers are those not starting with *."
  "INTERESTING"
  (interactive)
 ;
-   (if (eq last-command 'my-enlarge-frame-test) 
+   (if (eq last-command 'my-enlarge-frame-test)
       ;T shrink by 1/2 of what it was just enlarged
       ;no counting on the result of 0/2
       (if (>= cur-enlrg-vert-amount 2)
-        (setq cur-shrink-vert-amount ( / cur-enlrg-vert-amount 2))   
-        (setq cur-shrink-vert-amount cur-enlrg-vert-amount ))   
+        (setq cur-shrink-vert-amount ( / cur-enlrg-vert-amount 2))
+        (setq cur-shrink-vert-amount cur-enlrg-vert-amount ))
       ;
       ;F
       (setq cur-shrink-vert-amount  (/  (frame-height)  2))
@@ -960,13 +922,12 @@ User buffers are those not starting with *."
       (shrink-frame cur-shrink-vert-amount ))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-enlarge-frame-horizontal ()
  "Enlarge frame to 7/8 full size, unless it's already near full size,
   in that case enlarge only s"
  (interactive)
-   (setq frame-size-before (frame-width)) 
+   (setq frame-size-before (frame-width))
    ; if the frame is much smaller than the max size then...
    (if  (<  (frame-width) (- max-horizontal-frame-size 4) )
    (progn
@@ -974,10 +935,10 @@ User buffers are those not starting with *."
       ; use 7/8 (.875) of the distance to the edge as the increase factor
       (setq distance-to-max-7-8   (round (* distance-to-max .875)))
       (setq cur-enlarge-horizontal-amount distance-to-max-7-8))
-   ;F  
+   ;F
    ;if near the max size enlarge a tiny bit
    (setq cur-enlarge-horizontal-amount  1)) ;here
-   ;  
+   ;
    ; This is where the enlarge actually occurs.
    (enlarge-frame-horizontally cur-enlarge-horizontal-amount )
    ;
@@ -986,34 +947,33 @@ User buffers are those not starting with *."
    (setq debug-frame-messages-verbose nil)
    ;(setq debug-frame-messages-verbose t)
    (if debug-frame-messages-verbose
-   (message "Before=%s, after =%s,max =%s, to max =%s,7/8 =%s "  
-     frame-size-before 
-       frame-size-after 
-         max-horizontal-frame-size 
+   (message "Before=%s, after =%s,max =%s, to max =%s,7/8 =%s "
+     frame-size-before
+       frame-size-after
+         max-horizontal-frame-size
            distance-to-max
              distance-to-max-7-8)))
 ;
   ;used to move the frame boundry where it is needed in less key presses
-  ; max hurry = (max h size*40)/32 
+  ; max hurry = (max h size*40)/32
   (setq max-horiz-frame-size-hurry (/ (* max-horizontal-frame-size 40  ) 32) )
 ;
 (defun my-shrink-frame-horizontal-test ()
  "INTERESTING"
  (interactive)
 ;
-   (if (eq last-command 'my-enlarge-frame-horizontal) 
+   (if (eq last-command 'my-enlarge-frame-horizontal)
       ;T shrink by 1/2 of what it was just enlarged
       ;no counting on the result of 0/2
       (if (>= cur-enlarge-horizontal-amount 2)
-        (setq cur-shrink-horizontal-amount ( / cur-enlarge-horizontal-amount 2))   
-        (setq cur-shrink-horizontal-amount cur-enlarge-horizontal-amount ))   
+        (setq cur-shrink-horizontal-amount ( / cur-enlarge-horizontal-amount 2))
+        (setq cur-shrink-horizontal-amount cur-enlarge-horizontal-amount ))
       ;
       ;F
       (setq cur-shrink-horizontal-amount  (/  (frame-width)  2))
    )
       (shrink-frame-horizontally cur-shrink-horizontal-amount ))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (if (eq home-work 'work)
@@ -1028,23 +988,23 @@ User buffers are those not starting with *."
 (defun my-enlarge-window-horizontally ()
    (interactive)
    (if
-     (or 
+     (or
      (string-equal  (win-resize-left-or-right) "mid")
      (string-equal  (win-resize-left-or-right) "left"))
        (progn
-       ;(message "left") 
+       ;(message "left")
        (enlarge-window-horizontally enlarge-window-horizontally-amount))
        (enlarge-window-horizontally enlarge-window-horizontally-amount-minus)))
 ;
 ;
 (defun my-shrink-window-horizontally ()
    (interactive)
-   (if 
-     (or 
+   (if
+     (or
      (string-equal  (win-resize-left-or-right) "mid")
      (string-equal  (win-resize-left-or-right) "left"))
        (progn
-       ;(message "left") 
+       ;(message "left")
        (enlarge-window-horizontally enlarge-window-horizontally-amount-minus))
        (enlarge-window-horizontally enlarge-window-horizontally-amount)))
 ;
@@ -1071,12 +1031,11 @@ middle"
 	 (fr-width (frame-width)))
     (cond
      ((eq 0 this-window-x-min) "left")
-     ((eq (+ fr-width 0) this-window-x-max) "right");0 is dffret from internet 
+     ((eq (+ fr-width 0) this-window-x-max) "right");0 is dffret from internet
      (t "mid"))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-toggle-dired-same-frame ()
  "if dired is not open in a left window open it
   if dired is open in a left window delete the window"
@@ -1094,20 +1053,19 @@ middle"
  (interactive)
   "return the major mode of the buffer in the left most window"
   ;
-  ;(with-current-buffer BUFFER-OR-NAME &rest BODY)  
+  ;(with-current-buffer BUFFER-OR-NAME &rest BODY)
   ;Execute the forms in BODY with BUFFER-OR-NAME temporarily current.
   (with-current-buffer
       ;Return the buffer displayed in window WINDOW
       (window-buffer
          ;Return the topmost, leftmost live window on FRAME-OR-WINDOW
-         (frame-first-window)) major-mode) ) 
+         (frame-first-window)) major-mode) )
 ;
 (defun my-delete-leftmost-window ()
  (interactive)
  "DWIK"
  (delete-window (frame-first-window)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;might want to play with this one day (does not play nice with oneonone
@@ -1119,7 +1077,7 @@ middle"
   (if (eq window-system 'w32)
      (progn
        (require 'cl)
-       (defvar top-step 30        
+       (defvar top-step 30
           "The increment for top in default-frame-alist.")
        (defvar left-step 30
           "The increment for left in default-frame-alist.")
@@ -1144,17 +1102,15 @@ middle"
                        (setf (cdr top) top-step)))
                (push (append '(top) top-step) default-frame-alist)))))
        (message "Cascading frames loaded!")))
- )       
+ )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun my-make-buffer-utf8 () 
+(defun my-make-buffer-utf8 ()
  "Make me one char taller, might want to call this after fit-frame. How?"
  (interactive)
  (set-buffer-file-coding-system 'utf-8))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-make-frame-one-char-taller ()
@@ -1164,17 +1120,15 @@ middle"
   (modify-frame-parameters nil `((height . ,my-temp-frame-height))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-move-framer ()
   "Make me one char taller, might want to call this after fit-frame. How?"
   (interactive)
-  
+
   (setq my-temp-height  (+ (frame-parameter nil 'height) 1))
   ;
   (modify-frame-parameters nil `((height . ,my-temp-frame-height))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun temp-test ()
@@ -1185,7 +1139,6 @@ middle"
   (modify-frame-parameters nil `((top . ,temp))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun move-frame-top (&optional arg)
   (interactive)
@@ -1195,7 +1148,6 @@ middle"
     (setq temp-top 100))
   (modify-frame-parameters nil `((top . ,temp-top)))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun move-frame-top-left (&optional arg-top arg-left)
@@ -1212,27 +1164,23 @@ middle"
   (modify-frame-parameters nil `((top . ,temp-top)))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun call-move-frame-top ()
   (interactive)
-  (move-frame-top 200))  
+  (move-frame-top 200))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun call-move-frame-top-left ()
   (interactive)
-  (move-frame-top-left 40 40))  
+  (move-frame-top-left 40 40))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;instrumentation
-  (frame-parameter (selected-frame) 'top) 
+  (frame-parameter (selected-frame) 'top)
   (modify-frame-parameters nil `((top . ,100)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-move-frame ()
@@ -1244,14 +1192,13 @@ middle"
   (modify-frame-parameters nil `((left . ,my-temp-new-left))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;frame switching
 ;; (defun my-other-frame (&optional arg)
 ;;  "Change other-frame behavior if one or more frames thumified"
 ;;   (interactive "p")
 ;;   ;
-;;   (cond 
+;;   (cond
 ;;     ;choose\w completion
 ;;     ((eq arg 4) (message "arg 4") (icicle-select-frame))
 ;;     ;
@@ -1259,7 +1206,7 @@ middle"
 ;;     ((eq arg 16)
 ;;      ;; (setq myjunk (select-frame-by-name "SUNRISE"))
 ;;      (if (select-frame-by-name "SUNRISE")
-;;          (message "Selecting Frame Sunrise") 
+;;          (message "Selecting Frame Sunrise")
 ;;          (message "No SUNRISE"))
 ;;     )
 ;;     ;
@@ -1268,22 +1215,22 @@ middle"
 ;;     ;
 ;;     ;
 ;;     (t
-;;       (deiconify-everything) 
+;;       (deiconify-everything)
 ;;       (my-frame-switch-for-thums)
-;;       (message "Switching to frame: %s" (buffer-name)) 
+;;       (message "Switching to frame: %s" (buffer-name))
 ;;      )
 ;;   ;
 ;;   );end cond
 ;;  )
 ;
-; 
+;
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; use this one if the more complex one has trouble, I think it did but
 ; dont' remember exactly what.
 (defun my-other-frame ()
  (interactive)
- ;; (next-frame (selected-frame)) 
+ ;; (next-frame (selected-frame))
  (other-frame 1)
  (message "Switching to frame: %s" (get-frame-name)))
 ;
@@ -1299,18 +1246,17 @@ middle"
   good."
   (interactive "P")
   (cond   ;
-     ((atom arg) 
-        (deiconify-everything)  
-        (my-frame-switch-for-thums) 
+     ((atom arg)
+        (deiconify-everything)
+        (my-frame-switch-for-thums)
         (message "Switching to frame: %s" (buffer-name))) ; no prefix arg or numeric prefix arg
-     ;   
-     ((= 4 (prefix-numeric-value arg)) 
+     ;
+     ((= 4 (prefix-numeric-value arg))
         (icicle-select-frame)) ; plain C-u
      ;
-     ((= 16 (prefix-numeric-value arg)) 
+     ((= 16 (prefix-numeric-value arg))
          (select-frame-by-name "SUNRISE")))) ; C-u C-u
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-frame-switch-for-thums ()
@@ -1320,12 +1266,12 @@ middle"
   ;(if (thumfr-thumbnail-frames)
       ;T
       ;something is thumified
-      (progn 
-        (thumfr-fisheye-next-frame) 
-        (sit-for .00001 t) 
+      (progn
+        (thumfr-fisheye-next-frame)
+        (sit-for .00001 t)
         ;
         ;(fit-frame) ;commented bc this causes funny buisness with Sunrise
-        ;probably the correct thing to do is to fit-frame if not 
+        ;probably the correct thing to do is to fit-frame if not
         ;frame-name *Sunrise* or *eshell*
         ;
         (thumfr-stack-thumbnail-frames)
@@ -1346,10 +1292,9 @@ middle"
     ;  (error "There is no frame named `%s'" name))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defadvice icicle-other-window-or-frame (around  icicle-other-window-or-frame-advice 0 nil activate)
-  (if (highlight-symbol-mode) 
+  (if (highlight-symbol-mode)
    (progn
      (highlight-symbol-remove-all)
      ;
@@ -1359,11 +1304,10 @@ middle"
   ;(set-frame-name (buffer-name)); ARGS: frame FORCE
   )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defadvice other-frame (around  other-frame-advice 0 nil activate)
-  (if (highlight-symbol-mode) 
+  (if (highlight-symbol-mode)
    (progn
      (highlight-symbol-remove-all)
      ;
@@ -1373,7 +1317,6 @@ middle"
   ;(set-frame-name (buffer-name)); ARGS: frame FORCE
   )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun frame-foo ()
@@ -1386,7 +1329,6 @@ middle"
 ;
 ;(frame-parameters)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun frame-foo-2 ()
@@ -1421,7 +1363,6 @@ middle"
 ;(frame-parameters)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DA put these in frama-cmds.el
 ;; (defun deiconify-everything ()
@@ -1444,7 +1385,6 @@ middle"
 ;;          (deiconify-everything))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun lab ()
   "switch to lab or back"
@@ -1454,14 +1394,13 @@ middle"
   (fit-frame))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun multi-lab ()
   "switch to lab or back (actually different screen resolutions"
   (interactive)
   (message "now on %s" (selected-frame))
   ;
-  (if (dont-mess-with-this-frame) 
+  (if (dont-mess-with-this-frame)
     ;T
     (progn
       ;if the frame lhs is <0, move it to 0, without this the other operations
@@ -1478,18 +1417,16 @@ middle"
   (select-frame (next-frame)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun transition-to-from-lab ()
   "Hat it says, come back to the frame user started on"
   (interactive)
   (set-frame-size-according-to-resolution)
   (let ((beg-frame (selected-frame)))
-  (dolist ( x (visible-frame-list)) 
+  (dolist ( x (visible-frame-list))
     (multi-lab))
   (select-frame beg-frame)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun dont-mess-with-this-frame ()
@@ -1498,10 +1435,10 @@ middle"
   (let (
         (local-frame-name (frame-parameter (selected-frame) 'name))
         )
-    (if (or 
-        (equal major-mode "sr-mode") 
-        (equal major-mode "eshell-mode") 
-        (string-equal local-frame-name "*Help*") 
+    (if (or
+        (equal major-mode "sr-mode")
+        (equal major-mode "eshell-mode")
+        (string-equal local-frame-name "*Help*")
         (string-equal local-frame-name "*vc-log*"))
          ;T
          (progn (message "is vc-log or help") t)
@@ -1509,17 +1446,16 @@ middle"
          (progn  nil))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun frame-lhs-manage-lt-zero (&optional move-to-lhs-zero verbose)
-  "Return frame lhs as a number in pixels, if optional arg non-nil then 
-   move the frame lhs to 0. 
-   The call to 
+  "Return frame lhs as a number in pixels, if optional arg non-nil then
+   move the frame lhs to 0.
+   The call to
    (frame-parameter (selected-frame) 'left) )
    produces a number or a list for results >= 0, < 0 respectively"
   (interactive)
-  (let 
-      ((extracted-val) 
+  (let
+      ((extracted-val)
        (temp-left (frame-parameter (selected-frame) 'left) ))
     (if (listp temp-left)
         (progn
@@ -1527,16 +1463,15 @@ middle"
           (setq extracted-val (nth 1 temp-left ))
           (when verbose (message "my ex val %s" extracted-val))
           (when move-to-lhs-zero
-            (if ( < extracted-val 0) 
+            (if ( < extracted-val 0)
                 (modify-frame-parameters nil '((left . 0)))))
           extracted-val)
-        (progn 
+        (progn
           (message "not list")
           temp-left)
     )))
-;(frame-lhs-manage-lt-zero nil t) 
+;(frame-lhs-manage-lt-zero nil t)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;superuser.com/questions/397806/
@@ -1550,12 +1485,10 @@ middle"
  ;; (kill-buffer-and-its-windows (current-buffer)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;simplified example of dolist  
+;simplified example of dolist
 ;(dolist (x '(1 2 )) (insert (number-to-string x))))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;  
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; (setq aa (list "aoeu" "htns"))
@@ -1581,71 +1514,65 @@ middle"
     (listp (setq arg-list (eval-minibuffer "obj:"))))
   ;
   (with-output-to-temp-buffer "*Mikes-list*"
-     ;   
+     ;
     (princ (format "Length of list:%s\n" (length arg-list)))
     (dolist (x-placeholder arg-list)
     (princ (format "%s\n" x-placeholder)))
     (pop-to-buffer "*Mikes-list*"))
     ;these do not seem to have affect of taking the user to the bob
-    (switch-to-buffer "*Mikes-list*") 
+    (switch-to-buffer "*Mikes-list*")
     (sit-for .1 t)
     (maximize-frame-vertically)
     (fit-frame)
     (goto-char 1))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-move-frame-left (arg)
- "Move left or screen left with - arg C-u" 
+ "Move left or screen left with - arg C-u"
  (interactive "p")
  (if (or (< arg 0) (equal arg 4))
  (progn
-   (move-frame-to-screen-left nil)      
+   (move-frame-to-screen-left nil)
    (maximize-frame-vertically)
    (fit-frame))
- (move-frame-left))) 
+ (move-frame-left)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-frame-clean ()
- "Clean up the selected frame by moving it left, and running fit-frame" 
+ "Clean up the selected frame by moving it left, and running fit-frame"
  (interactive)
  (progn
-   (move-frame-to-screen-left nil)      
+   (move-frame-to-screen-left nil)
    (maximize-frame-vertically)
    (fit-frame)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-move-frame-right (arg)
  "Move right or screen right with - arg C-u"
  (interactive "p")
  (if (or (< arg 0) (equal arg 4))
- (move-frame-to-screen-right 10)      
- (move-frame-right))) 
+ (move-frame-to-screen-right 10)
+ (move-frame-right)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun check-env ()
   (interactive)
   (message "the var is %s"(getenv "myenv"))
-  (if  
-    (message "yes") 
+  (if
+    (message "yes")
    (message "no")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; (print-list-to-temp-pop-up master-comp-name-drction-list)
 ;; (print-list-to-temp-pop-up my-cmpnt-alist)
 ;; (print-list-to-temp-pop-up cmpnt-stmnt-ports-list)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;mtf took this from an emacs 24.3 installation

@@ -2,15 +2,15 @@
 ;this format should be maintainable, use sort-lines
 (setq icicle-files-to-download-list (quote (
 "autofit-frame.el"
-"bookmark+-1.el"   
-"bookmark+-bmu.el" 
-"bookmark+-chg.el" 
-"bookmark+-doc.el" 
-"bookmark+-key.el" 
-"bookmark+-lit.el" 
-"bookmark+-mac.el" 
-"bookmark+.el"     
-"buff-menu+.el"     
+"bookmark+-1.el"
+"bookmark+-bmu.el"
+"bookmark+-chg.el"
+"bookmark+-doc.el"
+"bookmark+-key.el"
+"bookmark+-lit.el"
+"bookmark+-mac.el"
+"bookmark+.el"
+"buff-menu+.el"
 "col-highlight.el"
 "crosshairs.el"
 "dired+.el"
@@ -67,29 +67,28 @@
 )))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;Iswitchb
 ;iswitch files in ~/.emacs.d/icicles/ now
-;(add-to-list 'load-path "~/.emacs.d/icicles-iswitchb/")    
+;(add-to-list 'load-path "~/.emacs.d/icicles-iswitchb/")
 ;
 (when (eq load-icicles-iswitchb t)
   (require 'icicles-iswitchb)
-  ;(iswitchb-default-keybindings);had to comment this and 
+  ;(iswitchb-default-keybindings);had to comment this and
 )
 (iswitchb-mode 1);uncomment this for emacs 24
 ;
 ;Have modified errors in this, don't let the download wizard overwrite it!
-(add-to-list 'load-path "~/.emacs.d/iswitchb-highlight/")    
+(add-to-list 'load-path "~/.emacs.d/iswitchb-highlight/")
 (when (eq load-iswitchb-highlight t)
   (require 'iswitchb-highlight))
 ;
 (setq iswitchb-buffer-ignore
-    '("\\` " "^\*Mess" "^\*Back" ".*Completion" "^\*Ido" "^\*trace"  
+    '("\\` " "^\*Mess" "^\*Back" ".*Completion" "^\*Ido" "^\*trace"
  "^\*compilation" "^\*GTAGS" "^\*Help" "^session\.*" "^\*"))
 ;
 (defun iswitchb-local-keys ()
-  (mapc (lambda (K) 
+  (mapc (lambda (K)
       (let* ((key (car K)) (fun (cdr K)))
             (define-key iswitchb-mode-map (edmacro-parse-keys key) fun)))
     '(("<right>" . iswitchb-next-match)
@@ -100,11 +99,10 @@
    (add-hook 'iswitchb-define-mode-map-hook 'iswitchb-local-keys)
 ;
 ;like the ido does not work, come back someday
-;; (defun isw-disable-line-trucation () 
+;; (defun isw-disable-line-trucation ()
 ;;   (set (make-local-variable 'truncate-lines) nil))
 ;;   (add-hook 'iswitchb-minibuffer-setup-hook 'isw-disable-line-trucation)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-erase ()
@@ -113,7 +111,6 @@
   (interactive)
        (icicle-clear-minibuffer))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;http://emacswiki.org/emacs/Icicles_-_Customizing_Key_Bindings#toc4
@@ -138,8 +135,8 @@
        ; perhaps in the icicle top level custom ???(define-key map [(control o)] 'icicle-file)
             ;
             ;binding changed with C-"
-            ;swaps value of 
-       ;   icicle-expand-input-to-common-match with 
+            ;swaps value of
+       ;   icicle-expand-input-to-common-match with
        ;      icicle-expand-input-to-common-match-alt
             (define-key map "\M-\"" 'icicle-toggle-expand-to-common-match)
             (define-key map (kbd "<delete>") 'nil)
@@ -162,25 +159,22 @@
             (define-key map (kbd "C-.") 'xsteve-exchange-slash-and-backslash-4-minibuf) ;
             ;(define-key map (kbd "C-f") 'my-open-dired-on-candidate) ;
             ;
-            ;needs icicle-kbd for some reaseon had a hard time , 
+            ;needs icicle-kbd for some reaseon had a hard time ,
             ;with binding C-~??? Follow up sometime, because this is an
             ;un-healthy dependatcy.
             ;(global-set-key (icicle-kbd "C-~") 'moccur-flush-lines)
             ))))
 ;
 ;NOTE That the binding for icicle-complete-thesaurus-entry was removed
-;because of a conflict with org mode by removing it from 
+;because of a conflict with org mode by removing it from
 ;icicle-top-level-key-bingings with the custom interface
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;make work at minibuffers outside icicles
 ;C-' is quit, C-" is quit recursive
 (global-set-key [(control \")] 'icicle-abort-recursive-edit)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (when (and load-icicles load-icy-mode)
@@ -190,22 +184,19 @@
   (setq icicle-network-drive-means-remote-flag nil))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (when (eq load-help-fns+ t)
   (require 'help-fns+))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;Facemenu Improvement
 (add-to-list 'load-path "~/.emacs.d/icicles/")
 (require 'doremi-frm) ;added at work, bc facemenu+ really wanted it??
 
-(when (eq load-facemenu+ t)    
+(when (eq load-facemenu+ t)
   (require 'facemenu+))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
@@ -248,13 +239,12 @@
 ;; (global-set-key [( shift return)] 'icicle-candidate-action )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;primarily use with icicle find-file
 ;
 (if (eq home-work 'work)
-(defun repeat-clr-insert-minib () 
- "Erase what appears in the minibuffer and replace with 
+(defun repeat-clr-insert-minib ()
+ "Erase what appears in the minibuffer and replace with
  something more interesting"
  (interactive "^")
     (let ((n (seq-times 'repeat-clr-insert-minib 11)))
@@ -280,10 +270,10 @@
             (T (GOTO-CHAR SEQ-START-POINT))))))
 ;
 ; don't know why this code was there bc it's functionality is already defined for
-; work and home keep an eye open for any strange behavior than may be caused by 
+; work and home keep an eye open for any strange behavior than may be caused by
 ; commenting this
-;; (defun repeat-clr-insert-minib () 
-;;  "Erase what appears in the minibuffer and replace with 
+;; (defun repeat-clr-insert-minib ()
+;;  "Erase what appears in the minibuffer and replace with
 ;;  something more interesting"
 ;;  (interactive "^")
 ;;     (let ((n (seq-times 'repeat-clr-insert-minib 10)))
@@ -306,8 +296,8 @@
 ;;             (T (GOTO-CHAR SEQ-START-POINT)))))
 ;
 (if (eq home-work 'home)
-(defun repeat-clr-insert-minib () 
- "Erase what appears in the minibuffer and replace with 
+(defun repeat-clr-insert-minib ()
+ "Erase what appears in the minibuffer and replace with
  something more interesting"
  (interactive "^")
     (let ((n (seq-times 'repeat-clr-insert-minib 10)))
@@ -331,11 +321,10 @@
 ;
  (global-unset-key [( meta T)])
  (global-set-key [( meta T)] 'repeat-clr-insert-minib )
-;emable the sequence: 
+;emable the sequence:
 ;   "my-erase" followed by "repeat-clr-insert-minib"
 ;   M-t -> M-T
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 (defun my-erase-is ()
 "erase the minibuf, during isearch"
@@ -343,10 +332,9 @@
   (setq isearch-string "")
   (isearch-edit-string))
 
-
 (if (eq home-work 'work)
-(defun repeat-clr-insert-minib-is () 
- "Erase what appears in the minibuffer and replace with 
+(defun repeat-clr-insert-minib-is ()
+ "Erase what appears in the minibuffer and replace with
  something more interesting"
  (interactive "^")
     (let ((n (seq-times 'repeat-clr-insert-minib-is 8)))
@@ -365,10 +353,9 @@
             ((= n 8) (icicle-insert-thing my_lisp_beginngng_of_line_word))
             (T (GOTO-CHAR SEQ-START-POINT))))))
 
-
 (if (eq home-work 'home)
-(defun repeat-clr-insert-minib-is () 
- "Erase what appears in the minibuffer and replace with 
+(defun repeat-clr-insert-minib-is ()
+ "Erase what appears in the minibuffer and replace with
  something more interesting"
  (interactive "^")
     (let ((n (seq-times 'repeat-clr-insert-minib-is 8)))
@@ -387,7 +374,6 @@
             ((= n 8 ) (icicle-insert-thing "~/"))
             (T (GOTO-CHAR SEQ-START-POINT))))))
 
-
 ;; (defun my-isearch-del-line ()
 ;;   ""
 ;;   (interactive)
@@ -403,7 +389,6 @@
 ;;   (isearch-push-state)
 ;;   (isearch-update))
 
-
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (defun my-erase-is ()
 ;;    "replacement for icicle-erase-minibuffer-or-history-element
@@ -412,7 +397,6 @@
 ;;   ;(isearch-edit-string)
 ;;   (my-isearch-del-line))
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;To rotate with mouse:
@@ -427,7 +411,6 @@
 ;End Icicleso
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;icicle only bindings
 ;(global-set-key (kbd "C-/") ' doremi-window-width+)
@@ -441,10 +424,9 @@
 ;(global-set-key [(meta f12)] 'my-erase)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;icicle-insert-string-from-variable candidates 
-;C-= inserts icicle.. var defined in custom in minibuf 
+;icicle-insert-string-from-variable candidates
+;C-= inserts icicle.. var defined in custom in minibuf
 ;C-u C-= ... with string vars as completion candidates, use my then tab to complete
 ;
 ;(setq my_home "~/") !!!!JUST USE C-=!!!!
@@ -467,10 +449,10 @@
 ;
 ;first group is leading space, 2nd in word, third is word
 ;use
-     ;old signal ser_cpu_inject_msg_length_errg 
-     ;old signal ser_cpu_inject_msg_length_errg_t 
+     ;old signal ser_cpu_inject_msg_length_errg
+     ;old signal ser_cpu_inject_msg_length_errg_t
      ;Edit replacement string: \1\2 \3_tb
-(setq my_beginngng_of_line_2nd_word  
+(setq my_beginngng_of_line_2nd_word
 "\\(^[ ]+\\)\\(\\<[a-zA-z_0-9]+\\>\\)+[ ]+\\(\\<[a-zA-z_0-9]+\\>\\)")
 ;
 ;first group is beg whitespace and (, second group is a word
@@ -488,20 +470,19 @@
 
 ;use case
 ;to replace arst_out,
-;with       arst_out_tb 
-; 
+;with       arst_out_tb
+;
 ; use \1_tb\3\4
 ;
 ;to replace nil)
-;with       t) 
-; 
+;with       t)
+;
 ; use t\3\4
 ;
 ;worke for delim of ) also
 ;generally works for one of the three , ) ;
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun foo ()
@@ -515,7 +496,6 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (when (eq load-oneonone-params t)
    ; this is in a defvar, rather defcustom
@@ -524,23 +504,21 @@
    (remove-hook 'same-window-buffer-names "*info*")
    (remove-hook 'same-window-regexps "\\`\\*Customiz.*\\*\\'")
    (remove-hook 'same-window-regexps "\\*info\\*\\(\\|<[0-9]+>\\)")
-    
-   ;only 4 oneonone
-   ;
+
+   ;Neeed only 4 oneonone
    (when (or (<  (string-to-number emacs-version) 24.3) t);force it
      (setq special-display-regexps  '("[ ]?[*][^*]+[*]")))
-    
    ;
-   ;don't battle with color theme (let color theme set them)
+   ;Don't battle with color theme (let color theme set them)
    (setq 1on1-color-mode-line-flag nil)
-   ;;2 below only used when 1on1-color-mode-line-flag is t	
+   ;;2 below only used when 1on1-color-mode-line-flag is t
    ;;(setq 1on1-active-mode-line-background "gray80")
    ;;(setq 1on1-inactive-mode-line-background "Gray50")
-    
-   ;not sure this is needed, played with t and nil did not 
+
+   ;not sure this is needed, played with t and nil did not
    ;seem to make a difference
    (setq 1on1-*Help*-frame-flag t)
-   ;; 
+   ;;
    (when (boundp 'my-background)
      (setq 1on1-help-frame-background my-background))
    ;
@@ -550,7 +528,7 @@
    ;make a explicit special frames alist, perhaps control
    ;it from a "color-theme-..."
    ;;(setq 1on1-default-special-frame-foreground "white")
-    					   
+
    ;NOT assigned from an alist, and is used dynamically
    ;to change the color of the minibuffer using something like:
    ;;(select-frame 1on1-minibuffer-frame)
@@ -559,8 +537,7 @@
    (when (boundp 'my-background)
      (setq 1on1-active-minibuffer-frame-background my-background)
      (setq 1on1-inactive-minibuffer-frame-background my-background))
-    	 
-    
+
    ;NOT set from an emacs alist, must set explititly as part
    ;of a configuration.
    (when (boundp 'my-background)
@@ -575,8 +552,8 @@
    ;Note that on the home machine lib "color-theme" seems problematic
    ;with oneonone in emacs 24 with what I was using as "color-theme-tango.
    ;When oneonone is loaded before color theme the default font seems to be
-   ;black  When the other way oround the font is black and the 
-   ;frame has white splotches.  This is with careful setting of 
+   ;black  When the other way oround the font is black and the
+   ;frame has white splotches.  This is with careful setting of
    ;default-frame-alist.  The other dark themes
    ;I was using seem to work with oneonone and the alists above.
    ;Do I need the alists above?  They seem like a good idea, espicailly
@@ -585,14 +562,13 @@
    )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
    ;frame related stuff
-(when (eq load-fit-frame t)   
+(when (eq load-fit-frame t)
    (require 'fit-frame)
    (add-hook 'after-make-frame-functions 'fit-frame))
    ;
-(when (eq load-autofit-frame t)   
+(when (eq load-autofit-frame t)
    (require 'autofit-frame)
    (add-hook 'after-make-frame-functions 'fit-frame))
 ;
@@ -607,7 +583,7 @@
    (when (boundp 'mouse-wheel-up-event) ; Emacs 22+
      (global-set-key (vector (list 'control mouse-wheel-up-event))
              'zoom-out))
-   ;this binding used for rect selection with a mouse
+   ;This binding used for rect selection with a mouse (by me MTF)
    ;(global-set-key [S-mouse-1]    'zoom-in)
    ;(global-set-key [C-S-mouse-1]  'zoom-out)
    ;(global-set-key [S-down-mouse-1] nil)
@@ -615,12 +591,10 @@
 ;zooming
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (when (eq load-frame-cmds t)
    (require 'frame-cmds))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (when (eq load-oneonone t)
@@ -631,19 +605,17 @@
    ;
    (message "-----THE VALUE: %S-----" 1on1-minibuffer-frame-flag)
    ;
-   ; this param did not want to be customized to an intger
-   (setq 1on1-minibuffer-frame-top/bottom -45)
+   ; Older:This param did not want to be customized to an intger
+   ; Now: (emacs 26.1 on Linux it does, therefore remove the setq)
+   ;(setq 1on1-minibuffer-frame-top/bottom -10)
    ;
    (1on1-emacs)
    (toggle-box-cursor-when-idle 1) ; Turn on box cursor when idle.
    (require 'misc-cmds)
    ;
-
-
-
+   ;Don't want em
    (scroll-bar-mode 0) )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
@@ -657,15 +629,13 @@
                                 'kill-buffer-and-its-windows global-map)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq sub-kill-buffer-and-its-windows t);
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;(eval-after-load "menu-bar" '(require 'menu-bar+));menu-bar+ makes a goofy
-;problem where enlarge-frame shrinks rather that enlarges.  
+;problem where enlarge-frame shrinks rather that enlarges.
 ;Grabbed one defun needed from menu-bar+ and put it here with eval-after-load
 ;bc the orginal is in menu-bar.el
 (eval-after-load "menu-bar"
@@ -678,7 +648,6 @@
       (kill-buffer-and-its-windows (current-buffer)) ;`misc-cmds.el'
     (kill-buffer (current-buffer)))))    ; <-- original defn.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (when (eq load-fisheye t)
@@ -700,15 +669,12 @@
    ;(global-set-key [(control ?z)] 'iconify/map-frame)
 )
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (when (eq load-icomplete+ t)
   (icomplete-mode 1)
   (require 'icomplete+)
   (setq icomplete-with-completion-tables  t))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-icicle-recent-file (arg)
@@ -717,37 +683,34 @@
    ;
    ;(let ((icicle-show-Completions-initially-flag t))
       (when (not (equal arg '-))
-        (let ( 
+        (let (
                (current-prefix-arg)
                ; (icicle-sort-comparer  'icicle-2nd-part-string-less-p)
                ; (icicle-show-Completions-initially-flag t)
        	  )
-           ;       
+           ;
            ;(my-icicle-recent-file-sort-by-spf)
            (icicle-recent-file)
            ;(message "%s"  icicle-sort-comparer)
          ))
       ;
-      (when  (equal arg '-) 
-        (let ( 
+      (when  (equal arg '-)
+        (let (
                 (current-prefix-arg  '(-1))
                ; (icicle-sort-comparer  'icicle-2nd-part-string-less-p)
        	  )
-           ;       
+           ;
            (my-icicle-recent-file-sort-by-spf)
            ;(message "%s"  icicle-sort-comparer)
          ))
-       
+
    ;)
  )
 ;(global-set-key [(meta f11)] 'my-icicle-recent-file)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;need these for defining an icicle multicommand 
+;need these for defining an icicle multicommand
 ;  (as in my-icicle-recent-file-sort-by-spf below)
 ;eval-when-compile behaves as (progn ...) when not compiling
 (eval-when-compile (require 'recentf)) ;; recentf-mode
@@ -757,8 +720,6 @@
        (error nil))
      (require 'icicles-mac)))           ; Require, so can load separately if not on `load-path'.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (icicle-define-command my-icicle-recent-file-sort-by-spf ; Command name
@@ -847,7 +808,6 @@ Ido-like behavior."                     ; Doc string
   nil                                   ; Undo code
   (icicle-unbind-file-candidate-keys))  ; Last code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (icicle-define-command my-icicle-recent-file-sort-by-mod-time ; Command name
@@ -938,7 +898,6 @@ Ido-like behavior."                     ; Doc string
   (icicle-unbind-file-candidate-keys))  ; Last code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (icicle-define-command
    sw-to-dired-buffer                      ; Command name
@@ -948,11 +907,11 @@ Ido-like behavior."                     ; Doc string
    (mapcar (lambda (buf) (list (buffer-name buf))) (buffer-list)) ; Completions
    (lambda (bufcons) (save-excursion      ; Predicate: Dired mode?
                        (set-buffer (car bufcons))
-                       (or 
+                       (or
                           (equal major-mode 'dired-mode)
                           ;
                           ;; (equal major-mode 'sr-mode) ;don't know if I like it
-                              
+
                           ;
                           )))
    t)                                     ; Existing buffers only
@@ -969,13 +928,11 @@ Ido-like behavior."                     ; Doc string
 ;;     (icicle-find-file-or-expand-dir)))
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;info+
 (when load-info+
 (eval-after-load "info" '(require 'info+)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;info mode not really info+ but related topically
@@ -984,7 +941,6 @@ Ido-like behavior."                     ; Doc string
    (define-key Info-mode-map (kbd "M-n") 'nil)
    (scroll-bar-mode 0)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (message "reached before load-elisp-format")
@@ -1016,15 +972,11 @@ Ido-like behavior."                     ; Doc string
 ;(set-face-attribute 'isearchp-lazy-odd-regexp-groups nil
 ; :background "blue")
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "Reached the end of my-icicle-setup.el")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'my-icicle-setup)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
 

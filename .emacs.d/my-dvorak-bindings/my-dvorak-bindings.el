@@ -181,7 +181,7 @@
 (global-set-key [(control shift s )] 'isearch-backward)
 
 (global-set-key [f12] 'write-file)
-(global-set-key [M-f4] 'save-buffers-kill-emacs)
+(global-set-key [M-f4] 'save-buffers-kill-terminal)
 ;isearch
 
 (global-set-key [(meta f12)] 'block-right)
@@ -1057,8 +1057,14 @@
 (global-set-key (kbd "M-H") 'smart-backward)
 (global-set-key (kbd "M-N") 'smart-forward)
 
-;buffer stack
-(global-set-key (kbd "C-S-<tab>") 'buffer-stack-up) ; 
+; -----------------------------------------------------------------------------
+; buffer stack
+;  This goofy binding is suddenly needed for the
+;  work-linux setup 2/28/2019.  Don't know why?
+;  Found some answers here www.emacswiki.org/emacs/ShiftedKeys
+; -----------------------------------------------------------------------------
+(global-set-key (kbd "C-S-<iso-lefttab>") 'buffer-stack-up)
+;(global-set-key (kbd "C-S-<tab>") 'buffer-stack-up) ; 
 (global-set-key (kbd "C-<tab>") 'buffer-stack-down) ; 
 
 ;Rectangles
