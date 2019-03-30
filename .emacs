@@ -40,7 +40,8 @@
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Control of poped up frames
-;  https://github.com/wasamasa/shackle                                       ;
+;  https://github.com/wasamasa/shackle                      
+                 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -288,7 +289,7 @@
 ;
 (setq load-ido nil)
 ;
-(setq load-icicles  t)
+(setq load-icicles  nil)
 (setq load-icy-mode t)
 (setq load-icicles_helpers_1 t)
 (setq load-icicles_helpers_2 t)
@@ -397,7 +398,7 @@
 (setq load-icomplete+                   (and t load-icicles_helpers_2))
 ; To get rid of the stand-alone minibufer, remove minibuffer from
 ; default-frame-alist in custom.
-(setq load-oneonone                     (and t load-icicles_helpers_1))
+(setq load-oneonone                     (and nil load-icicles_helpers_1))
 ;
 ; Older comment:Make this nil for light themes
 ; 7/19/2018: This sets special-display-regexps which is absolutly necessary for oneonone
