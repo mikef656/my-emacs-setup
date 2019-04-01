@@ -604,7 +604,7 @@
   ;; )
 ;;
 ;; MTF I don't always want this stuff, its usually more trouble than it's worth
-(when t
+(when nil
   (require 'package) ;; You might already have this line
    ;
   (when (< emacs-major-version 24)
@@ -624,7 +624,8 @@
   ;(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
   ;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
   ;
-  ;
+  ;As of emacs 26.1, (package-initialize) had to be first of these 3, otherwise
+  ;some wierd error happened at emacs startup.
   (package-initialize)
   (package-refresh-contents)
   (package-install 'use-package)
@@ -662,9 +663,13 @@
     ;
     (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
     ;
+    ; start the package system
     (package-initialize)
     ;
     (unless (package-installed-p 'use-package)
+      ;(package-refresh-contents)
+      ;  Download descriptions of all configured ELPA packages.
+      ;  For each archive configured in the variable ‘package-archives’, 
       (package-refresh-contents)
       (package-install 'use-package))
     ;
