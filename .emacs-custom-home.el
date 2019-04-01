@@ -526,7 +526,6 @@
  '(log-edit-hook
    (quote
     (log-edit-insert-cvs-template log-edit-insert-changelog)))
- '(minibuffer-auto-raise t)
  '(moccur-grep-default-word-near-point t)
  '(moccur-split-word nil)
  '(mouse-1-click-follows-link t)
