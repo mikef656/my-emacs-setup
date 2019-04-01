@@ -530,6 +530,7 @@
  '(isearchp-set-region-flag nil)
  '(iswitchb-default-method (quote maybe-frame))
  '(iswitchb-use-virtual-buffers t nil (recentf))
+ '(magit-section-initial-visibility-alist (quote ((untracked . hide))))
  '(max-lisp-eval-depth 600)
  '(menu-bar-mode nil)
  '(minibuffer-auto-raise t)
