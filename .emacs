@@ -399,7 +399,7 @@
 (setq load-icomplete+                   (and t load-icicles_helpers_2))
 ; To get rid of the stand-alone minibufer, remove minibuffer from
 ; default-frame-alist in custom.
-(setq load-oneonone                     (and nil load-icicles_helpers_1))
+(setq load-oneonone                     (and t load-icicles_helpers_1))
 ;
 ; Older comment:Make this nil for light themes
 ; 7/19/2018: This sets special-display-regexps which is absolutly necessary for oneonone
@@ -625,9 +625,9 @@
   ;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
   ;
   ;
-  ;(package-refresh-contents)
-  ;(package-install 'use-package)
-  ;(package-initialize)
+  (package-initialize)
+  (package-refresh-contents)
+  (package-install 'use-package)
   )
   ;
 ;(unless (package-installed-p 'use-package)
