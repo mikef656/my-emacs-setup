@@ -533,7 +533,6 @@
  '(magit-section-initial-visibility-alist (quote ((untracked . hide) (stashes . hide))))
  '(max-lisp-eval-depth 600)
  '(menu-bar-mode nil)
- '(minibuffer-auto-raise t)
  '(moccur-grep-default-word-near-point t)
  '(moccur-split-word nil)
  '(mouse-1-click-follows-link t)
