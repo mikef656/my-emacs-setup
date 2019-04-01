@@ -663,7 +663,8 @@
 ;bol, eol
 (global-set-key   (kbd "M-r")	'smart-end-of-line)
 (global-set-key   (kbd "M-R")	'smart-end-of-line-select)
-(global-set-key   (kbd "M-g")	'smart-beginning-of-line)
+;; (global-set-key   (kbd "M-g")	'smart-beginning-of-line)
+(global-set-key   (kbd "M-g")	'xah-beginning-of-line-or-block)
 (global-set-key   (kbd "M-G")	'smart-beginning-of-line-select)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -1085,7 +1086,8 @@
 ;Use  bindings for meta keys in the minibuffer
 (define-key minibuffer-local-map [(meta r)] 'nil)
 (define-key minibuffer-local-map [(meta r)] 'smart-end-of-line)
-(define-key minibuffer-local-map [(meta g)] 'smart-beginning-of-line)
+;; (define-key minibuffer-local-map [(meta g)] 'smart-beginning-of-line)
+(define-key minibuffer-local-map [(meta g)] 'xah-beginning-of-line-or-block)
 (define-key minibuffer-local-map [(meta n)] 'forward-char)
 (define-key minibuffer-local-map [(meta h)] 'backward-char)
 (define-key minibuffer-local-map [(meta shift p)] 'next-history-element)
