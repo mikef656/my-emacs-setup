@@ -1,5 +1,6 @@
 ﻿
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; consider using hideshow mode with verilog begin,end
 ; this might be helpful
@@ -289,8 +290,8 @@
 ;
 (setq load-ido nil)
 ;
-(setq load-icicles  nil)
-(setq load-icy-mode t)
+(setq load-icicles  t)
+(setq load-icy-mode (and load-icicles t) )
 (setq load-icicles_helpers_1 t)
 (setq load-icicles_helpers_2 t)
 (setq load-icicles_helpers_3 t)
@@ -403,7 +404,7 @@
 ; Older comment:Make this nil for light themes
 ; 7/19/2018: This sets special-display-regexps which is absolutly necessary for oneonone
 ;            Maybe seperate out the color changes from the setting of special-display-regexps
-(setq load-oneonone-params              (and t load-icicles_helpers_1));fix bad backgrounds in light themes
+(setq load-oneonone-params              (and load-oneonone (and t load-icicles_helpers_1)));fix bad backgrounds in light themes
 ;
 
 (setq load-icicles-iswitchb             (and t load-icicles_helpers_2));
