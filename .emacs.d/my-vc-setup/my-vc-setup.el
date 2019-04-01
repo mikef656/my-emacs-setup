@@ -1070,6 +1070,7 @@ PROMPT is as for `y-or-n-p'."
 (eval-after-load "vc-hooks"
          '(define-key vc-prefix-map "=" 'ediff-revision))
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;https://stackoverflow.com/questions/29502484/can-i-delete-files-from-the-vc-dir-buffer
 ; adds the binding k to remove (git rm) markde files
