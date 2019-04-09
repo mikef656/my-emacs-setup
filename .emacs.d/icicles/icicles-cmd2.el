@@ -4,11 +4,11 @@
 ;; Description: Top-level commands for Icicles
 ;; Author: Drew Adams
 ;; Maintainer: Drew Adams (concat "drew.adams" "@" "oracle" ".com")
-;; Copyright (C) 1996-2018, Drew Adams, all rights reserved.
+;; Copyright (C) 1996-2019, Drew Adams, all rights reserved.
 ;; Created: Thu May 21 13:31:43 2009 (-0700)
-;; Last-Updated: Mon Jan  1 13:59:20 2018 (-0800)
+;; Last-Updated: Sat Jan 12 11:29:58 2019 (-0800)
 ;;           By: dradams
-;;     Update #: 7444
+;;     Update #: 7456
 ;; URL: https://www.emacswiki.org/emacs/download/icicles-cmd2.el
 ;; Doc URL: https://www.emacswiki.org/emacs/Icicles
 ;; Keywords: extensions, help, abbrev, local, minibuffer,
@@ -2862,7 +2862,7 @@ From Lisp code:
   (if (and (string= nodename "..")  (Info-check-pointer "up"))
       (Info-up)
     (if (> emacs-major-version 20)
-        (icicle-ORIG-Info-goto-node nodename (natnump arg))
+        (icicle-ORIG-Info-goto-node nodename (and arg  (natnump (prefix-numeric-value arg))))
       (icicle-ORIG-Info-goto-node nodename))))
 
 (defun icicle-Info-read-node-name (prompt &optional include-file-p)
@@ -3967,7 +3967,7 @@ See also commands `icicle-goto-any-marker' and
 (defun icicle-goto-any-marker ()        ; Bound to `C-0 C-@', `C-0 C-SPC'.
   "Like `icicle-goto-marker', but lets you visit markers in all buffers.
 If user option `icicle-show-multi-completion-flag' is non-nil, then
-each completion candidate is has two parts, the first of which is the
+each completion candidate has two parts, the first of which is the
 name of the marker's buffer, and the second of which is the text from
 the marker's line.
 
@@ -8285,11 +8285,13 @@ filtering:
               (icompletep                              (and (featurep 'icomplete)  icomplete-mode))
               (icicle-must-pass-after-match-predicate  icicle-buffer-predicate)
               (icicle-require-match-flag               icicle-buffer-require-match-flag)
+              (icicle-buffer-completing-p              t)
               (icicle-extra-candidates                 icicle-buffer-extras)
-              (icicle-delete-candidate-object          'icicle-kill-a-buffer) ; `S-delete' kills buf
+              (icicle-delete-candidate-object          'icicle-kill-a-buffer) ; `S-delete' kills current buf
               (icicle-transform-function               'icicle-remove-dups-if-extras)
+              (icicle-sort-comparer                    icicle-sort-comparer)
               (icicle--temp-orders
-               (append (list '("by last access") ; Renamed from "turned OFF'.
+               (append (list '("by last display time") ; Renamed from "turned OFF'.
                              '("*...* last" . icicle-buffer-sort-*...*-last)
                              '("by buffer size" . icicle-buffer-smaller-p)
                              '("by major mode name" . icicle-major-mode-name-less-p)
@@ -8297,11 +8299,11 @@ filtering:
                                   '("by mode-line mode name" . icicle-mode-line-name-less-p))
                              '("by file/process name" . icicle-buffer-file/process-name-less-p))
                        (delete '("turned OFF") (copy-sequence icicle-sort-orders-alist))))
-              ;; Put `icicle-buffer-sort' first.  If already in list, move it, else add it, to start.
+              ;; Put `icicle-buffer-sort' first.  If already in the list, move it, else add it, to beginning.
               (icicle-sort-orders-alist
-               (progn (when (and icicle-buffer-sort-first-time-p  icicle-buffer-sort)
-                        (setq icicle-sort-comparer             icicle-buffer-sort
-                              icicle-buffer-sort-first-time-p  nil))
+               (progn (when t ; $$$$ (and icicle-buffer-sort-first-time-p  icicle-buffer-sort)
+                        (setq icicle-sort-comparer  icicle-buffer-sort))
+                      ;; $$$$ (setq icicle-buffer-sort-first-time-p  nil))
                       (if icicle-buffer-sort
                           (let ((already-there  (rassq icicle-buffer-sort icicle--temp-orders)))
                             (if already-there

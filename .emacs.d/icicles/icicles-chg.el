@@ -6,9 +6,9 @@
 ;; Maintainer: Drew Adams (concat "drew.adams" "@" "oracle" ".com")
 ;; Copyright (C) 2007-2018, Drew Adams, all rights reserved.
 ;; Created: Tue Nov 27 07:47:53 2007
-;; Last-Updated: Fri Jun 29 14:57:00 2018 (-0700)
+;; Last-Updated: Wed Oct 17 10:08:59 2018 (-0700)
 ;;           By: dradams
-;;     Update #: 11843
+;;     Update #: 11869
 ;; URL: https://www.emacswiki.org/emacs/download/icicles-chg.el
 ;; Doc URL: https://www.emacswiki.org/emacs/Icicles
 ;; Keywords: extensions, help, abbrev, local, minibuffer,
@@ -85,6 +85,10 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-cmd1.el'")
 ;;
+;; 2018/09/21 dadams
+;;     icicle-bbdb-complete-name, icicle-bookmark-jump-1, icicle-buffer(-no-search)
+;;       icicle-visit-marked-file-of-content-1:
+;;         Use icicle--pop-to-buffer-same-window, not switch-to-buffer.
 ;; 2018/06/29 dadams
 ;;     icicle-pp-eval-expression: Ensure not just (boundp 'lexical-binding) but also Emacs 24+.
 ;; 2018/06/21 dadams
@@ -1206,6 +1210,11 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-cmd2.el'")
 ;;
+;; 2018/10/15 dadams
+;;     icicle-choose-candidate-of-type: Bind icicle-sort-comparer and icicle-buffer-completing-p.
+;;                                      Do not use icicle-buffer-sort-first-time-p.
+;; 2018/09/09 dadams
+;;     icicle-Info-goto-node-1: Test numeric, not raw, prefix arg with natnump.
 ;; 2017/02/01 dadams
 ;;     Added: icicle-woman.
 ;; 2017/01/31 dadams
@@ -2302,6 +2311,9 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-fn.el'")
 ;;
+;; 2018/09/21 dadams
+;;     Added: icicle--pop-to-buffer-same-window.
+;;     icicle-try-switch-buffer: Use icicle--pop-to-buffer-same-window.
 ;; 2018/06/01 dadams
 ;;     icicle-filter-wo-input: Protect against improper default value passed to completing-read.
 ;; 2018/03/03 dadams
@@ -4422,6 +4434,10 @@
 ;;       macros needs to be byte-compiled anew after loading the updated macros.
 ;; ****************************************************************************************************
 ;;
+;; 2018/10/15 dadams
+;;     icicle-buffer-bindings, icicle-file-bindings:
+;;       Always set icicle-sort-comparer to icicle-(buffer|file)-sort.
+;;       Do not use icicle-(buffer|file)-sort-first-time-p.
 ;; 2018/06/01 dadams
 ;;     icicle-(buffer|file)-bindings:
 ;;       Bind icicle-sort-comparer, since set it to icicle-(buffer|file)-sort.
@@ -4687,6 +4703,15 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-mcmd.el'")
 ;;
+;; 2018/10/17 dadams
+;;     icicle-change-sort-order: Last occurrence of ORDER-NAMES should be icicle-sort-orders-alist.
+;; 2018/10/15 dadams
+;;     icicle-change-sort-order:
+;;       Use original icicle-sort-orders-alist (local var ORDERS) for candidates, before changing it.
+;;       Pass ORDERS to icicle-current-sort-functions.
+;;       For completion: Bind icicle-sort-comparer to a string comparison only.
+;;                       Bind icicle-sort-orders-alist to nil - provide no change in sort order.
+;;     icicle-current-sort-functions: Added optional arg ORDERS-ALIST.
 ;; 2018/04/02 dadams
 ;;     icicle-sit-for, 3rd cond clause: do it also if defining-kbd-macro.
 ;;       Thx to Charles Roelli.  Same fix as for Emacs bug#21329.
@@ -8809,6 +8834,8 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-var.el'")
 ;;
+;; 2018/10/15 dadams
+;;     Removed icicle-(buffer|file)-sort-first-time-p.
 ;; 2018/02/13 dadams
 ;;     Removed (Emacs 23-25 only now): icicle-read-char-history.
 ;; 2017/12/10 dadams
@@ -9291,6 +9318,8 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles.el'")
 ;;
+;; 2018/10/15 dadams
+;;     Version 2018.10.15.
 ;; 2018/02/13 dadams
 ;;     Version 2018.02.13.
 ;; 2018/01/15 dadams

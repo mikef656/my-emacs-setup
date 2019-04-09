@@ -4,13 +4,13 @@
 ;; Description: Frame and window commands (interactive functions).
 ;; Author: Drew Adams
 ;; Maintainer: Drew Adams (concat "drew.adams" "@" "oracle" ".com")
-;; Copyright (C) 1996-2018, Drew Adams, all rights reserved.
+;; Copyright (C) 1996-2019, Drew Adams, all rights reserved.
 ;; Created: Tue Mar  5 16:30:45 1996
 ;; Version: 0
 ;; Package-Requires: ((frame-fns "0"))
-;; Last-Updated: Fri Jan  5 14:39:57 2018 (-0800)
+;; Last-Updated: Mon Mar 18 19:49:52 2019 (-0700)
 ;;           By: dradams
-;;     Update #: 3120
+;;     Update #: 3172
 ;; URL: https://www.emacswiki.org/emacs/download/frame-cmds.el
 ;; Doc URL: https://emacswiki.org/emacs/FrameModes
 ;; Doc URL: https://www.emacswiki.org/emacs/OneOnOneEmacs
@@ -20,7 +20,8 @@
 ;;
 ;; Features that might be required by this library:
 ;;
-;;   `avoid', `frame-fns', `misc-fns', `strings', `thingatpt',
+;;   `avoid', `backquote', `bytecomp', `cconv', `cl-lib',
+;;   `frame-fns', `macroexp', `misc-fns', `strings', `thingatpt',
 ;;   `thingatpt+'.
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -68,7 +69,7 @@
 ;;    kinds of frames.  These include: `default-frame-alist',
 ;;    `initial-frame-alist', and `special-display-frame-alist'.  The
 ;;    complete list of such frame alist variables is available using
-;;    function `frame-alist-var-names', defined here.
+;;    function `frcmds-frame-alist-var-names', defined here.
 ;;
 ;;    Example: Suppose you change the background color of a frame and
 ;;    want to make that the default background color for new frames in
@@ -91,15 +92,16 @@
 ;;
 ;;  User options defined here:
 ;;
-;;    `available-screen-pixel-bounds', `enlarge-font-tries',
-;;    `frame-config-register', `frame-parameters-to-exclude',
+;;    `available-screen-pixel-bounds', `clone-frame-parameters',
+;;    `enlarge-font-tries', `frame-config-register',
+;;    `frame-parameters-to-exclude',
 ;;    `move-frame-wrap-within-display-flag'
 ;;    `rename-frame-when-iconify-flag', `show-hide-show-function',
 ;;    `window-mgr-title-bar-pixel-height'.
 ;;
 ;;  Commands defined here:
 ;;
-;;    `create-frame-tiled-horizontally',
+;;    `clone-frame', `create-frame-tiled-horizontally',
 ;;    `create-frame-tiled-vertically', `decrease-frame-transparency'
 ;;    (Emacs 23+), `delete-1-window-frames-on',
 ;;    `delete/iconify-window', `delete/iconify-windows-on',
@@ -126,7 +128,6 @@
 ;;    `show-a-frame-on', `show-buffer-menu', `show-frame',
 ;;    `show-hide', `shrink-frame', `shrink-frame-horizontally',
 ;;    `split-frame-horizontally', `split-frame-vertically',
-;;    `tear-off-window', `tear-off-window-if-not-alone',
 ;;    `tell-customize-var-has-changed', `tile-frames',
 ;;    `tile-frames-horizontally', `tile-frames-side-by-side',
 ;;    `tile-frames-top-to-bottom', `tile-frames-vertically',
@@ -194,10 +195,10 @@
 ;;   (global-set-key [(control meta ?z)]            'show-hide)
 ;;   (global-set-key [vertical-line C-down-mouse-1] 'show-hide)
 ;;   (global-set-key [C-down-mouse-1]               'mouse-show-hide-mark-unmark)
+;;   (substitute-key-definition 'make-frame-command 'clone-frame   global-map)
 ;;   (substitute-key-definition 'delete-window      'remove-window global-map)
 ;;   (define-key ctl-x-map "o"                      'other-window-or-frame)
 ;;   (define-key ctl-x-4-map "1"                    'delete-other-frames)
-;;   (define-key ctl-x-5-map "1"                    'tear-off-window)
 ;;   (define-key ctl-x-5-map "h"                    'show-*Help*-buffer)
 ;;   (substitute-key-definition 'delete-window      'delete-windows-for global-map)
 ;;   (define-key global-map "\C-xt."                'save-frame-config)
@@ -259,7 +260,7 @@
 ;;   (defvar menu-bar-doremi-menu (make-sparse-keymap "Do Re Mi"))
 ;;   (define-key global-map [menu-bar doremi]
 ;;     (cons "Do Re Mi" menu-bar-doremi-menu))
-;;   (define-key menu-bar-doremi-menu [doremi-font+]
+;;   (define-key menu-bar-doremi-menu [doremi-push-current-frame-config]
 ;;     '("Save Frame Configuration" . save-frame-config))
 ;;
 ;;  See also these files for other frame commands:
@@ -283,6 +284,20 @@
 ;;
 ;;; Change Log:
 ;;
+;; 2019/03/18 dadams
+;;     clone-frame: Use frame-geom-value-numeric.
+;; 2019/03/03 dadams
+;;     Added: clone-frame-parameters.
+;;     clone-frame: Always select new frame.  Augment current params with clone-frame-parameters.
+;; 2019/03/02 dadama
+;;     clone-frame: Bind fit-frame-inhibit-fitting-flag to preserve current frame dimensions.
+;;                  Return the new frame.
+;; 2018/09/22 dadams
+;;     Moved to mouse+.el: tear-off-window(-if-not-alone).
+;; 2018/09/21 dadams
+;;     tear-off-window: Use pop-to-buffer-same-window, not switch-to-buffer.
+;; 2018/09/14 dadams
+;;     Added: clone-frame.
 ;; 2018/01/05 dadams
 ;;     frcmds-available-screen-pixel-bounds:
 ;;       Use display-monitor-attributes-list to compute, if option is nil.
@@ -629,6 +644,22 @@ Don't forget to mention your Emacs and library versions."))
           "https://www.emacswiki.org/emacs/FrameModes")
   :link '(emacs-commentary-link :tag "Commentary" "frame-cmds"))
 
+(defcustom clone-frame-parameters (cons 30 30)
+  "Frame parameter settings that override those of the frame to clone.
+The value can be an alist of frame parameters or a cons of two
+integers, (LEFT-OFFSET . TOP-OFFSET).
+
+The latter case sets parameters `left' and `top' of the new frame to
+the `left' and `top' of the selected frame, offset by adding
+LEFT-OFFSET and TOP-OFFSET to them, respectively."
+  :type '(choice
+          (cons :tag "Offset from current frame location"
+                (integer :tag "Left")
+                (integer :tag "Top"))
+          (alist :tag "Parameters to augment/replace those of current frame"
+                 :key-type (symbol :tag "Parameter")))
+  :group 'Frame-Commands)
+
 (defcustom rename-frame-when-iconify-flag t
   "*Non-nil means frames are renamed when iconified.
 The new name is the name of the current buffer."
@@ -648,8 +679,8 @@ Candidates include `jump-to-frame-config-register' and `show-buffer-menu'."
 ;; Use `cond', not `case', for Emacs 20 byte-compiler.
 (defcustom window-mgr-title-bar-pixel-height (cond ((eq window-system 'mac) 22)
                                                    ;; For older versions of OS X, 40 might be better.
-						   ((eq window-system 'ns)  50)
-						   (t  27))
+                                                   ((eq window-system 'ns)  50)
+                                                   (t  27))
   "*Height of frame title bar provided by the window manager, in pixels.
 You might alternatively call this constant the title-bar \"width\" or
 \"thickness\".  There is no way for Emacs to determine this, so you
@@ -843,7 +874,7 @@ With a prefix arg, prompt for a buffer and delete all windows, on any
 
 
 
-;; REPLACES ORIGINAL (built-in):
+;; REPLACES ORIGINAL in `window.el' (built-in prior to Emacs 24.5):
 ;;
 ;; 1) Use `read-buffer' in interactive spec.
 ;; 2) Do not raise an error if BUFFER is a string that does not name a buffer.
@@ -1022,6 +1053,35 @@ Interactively, FRAME is nil, and FRAME-P depends on the prefix arg:
     (setq frame  (if (eq t frame) nil (if (eq nil frame) t frame)))
     (dolist (fr  (frames-on buffer))
       (delete/iconify-window (get-buffer-window buffer frame) frame-p))))
+
+;;;###autoload
+(defun clone-frame (&optional frame no-clone)
+  "Make and select a new frame with the same parameters as FRAME.
+With a prefix arg, don't clone - just call `make-frame-command'.
+Return the new frame.
+
+FRAME defaults to the selected frame.  The frame is created on the
+same terminal as FRAME.  If the terminal is a text-only terminal then
+also select the new frame."
+  (interactive "i\nP")
+  (if no-clone
+      (make-frame-command)
+    (let* ((fit-frame-inhibit-fitting-flag  t)
+           (clone-frame-parameters          (if (and clone-frame-parameters
+                                                     (not (consp (car clone-frame-parameters))))
+                                                `((left . ,(+ (car clone-frame-parameters)
+                                                              (or (frame-geom-value-numeric
+                                                                   'left (frame-parameter frame 'left))
+                                                                  0)))
+                                                  (top  . ,(+ (cdr clone-frame-parameters)
+                                                              (or (frame-geom-value-numeric
+                                                                   'top (frame-parameter frame 'top))
+                                                                  0))))
+                                              clone-frame-parameters))
+           (default-frame-alist             (append clone-frame-parameters (frame-parameters frame)))
+           (new-fr                          (make-frame)))
+      (select-frame new-fr)
+      new-fr)))
 
 ;;;###autoload
 (defun rename-frame (&optional old-name new-name all-named)
@@ -1239,17 +1299,21 @@ In Lisp code:
          (top    . ,new-top)
          (height . ,new-height)
          ;; If we actually changed a parameter, record the old one for restoration.
-         ,(and new-left    (/= (frame-geom-value-numeric 'left orig-left)
-                               (frame-geom-value-numeric 'left new-left))
+         ,(and new-left
+               (/= (frame-geom-value-numeric 'left orig-left)
+                   (frame-geom-value-numeric 'left new-left))
                (cons 'restore-left   orig-left))
-         ,(and new-top     (/= (frame-geom-value-numeric 'top orig-top)
-                               (frame-geom-value-numeric 'top new-top))
+         ,(and new-top
+               (/= (frame-geom-value-numeric 'top orig-top)
+                   (frame-geom-value-numeric 'top new-top))
                (cons 'restore-top    orig-top))
-         ,(and new-width   (/= (frame-geom-value-numeric 'width orig-width)
-                               (frame-geom-value-numeric 'width new-width))
+         ,(and new-width
+               (/= (frame-geom-value-numeric 'width orig-width)
+                   (frame-geom-value-numeric 'width new-width))
                (cons 'restore-width  orig-width))
-         ,(and new-height  (/= (frame-geom-value-numeric 'height orig-height)
-                               (frame-geom-value-numeric 'height new-height))
+         ,(and new-height
+               (/= (frame-geom-value-numeric 'height orig-height)
+                   (frame-geom-value-numeric 'height new-height))
                (cons 'restore-height orig-height)))))
     (show-frame frame)
     (incf fr-origin (if (eq direction 'horizontal) fr-pixel-width fr-pixel-height))))
@@ -1948,9 +2012,9 @@ The CAR of each list item is a string variable name.
 The CDR is nil."
   (let ((vars  ()))
     (mapatoms (lambda (sym) (and (boundp sym)
-                                 (setq sym  (symbol-name sym))
-                                 (string-match "frame-alist$" sym)
-                                 (push (list sym) vars))))
+                            (setq sym  (symbol-name sym))
+                            (string-match "frame-alist$" sym)
+                            (push (list sym) vars))))
     vars))
 
 (defun frcmds-frame-parameter-names ()
@@ -2030,30 +2094,6 @@ VARIABLE is a symbol that names a user option."
   "`other-frame', if `one-window-p'; otherwise, `other-window'."
   (interactive "p")
   (if (one-window-p) (other-frame arg) (other-window arg)))
-
-;;;###autoload
-(defun tear-off-window ()
-  "Create a new frame displaying buffer of window clicked on.
-If window is not the only one in frame, then delete it.
-Otherwise, this command effectively clones the frame and window."
-  (interactive)
-  (let* ((window  (selected-window))
-         (buf     (window-buffer window))
-         (frame   (make-frame)))
-    (select-frame frame)
-    (switch-to-buffer buf)
-    (save-window-excursion (select-window window)
-                           (unless (one-window-p) (delete-window window)))))
-
-;;;###autoload
-(defun tear-off-window-if-not-alone ()
-  "Move selected window to a new frame, unless it is alone in its frame.
-If it is alone, do nothing.  Otherwise, delete it and create a new
-frame showing the same buffer."
-  (interactive)
-  (if (one-window-p 'NOMINI)
-      (message "Sole window in frame")
-    (tear-off-window)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 
