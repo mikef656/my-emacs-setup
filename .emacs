@@ -575,6 +575,7 @@
 (setq load-xah-insert           (and t   load-essentials_5))
 (setq load-avy-zap              (and t   load-essentials_5))
 (setq load-sync-recentf         (and t   load-essentials_5))
+(setq load-eshell-toggle        (and t   load-essentials_5))
 (setq load-start-menu-at-init   (and nil load-essentials_5))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -3299,6 +3300,17 @@
     (require 'sync-recentf)
     t)
   (message "--Error in sync-recenf")))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(message "reached before load eshell-toggle")
+(when  load-eshell-toggle
+  (unless
+    (ignore-errors ;if an error occurs return nil
+    (add-to-list 'load-path "~/.emacs.d/eshell-toggle/")
+    (require 'eshell-toggle)
+    t)
+  (message "--Error in eshell-toggle")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
