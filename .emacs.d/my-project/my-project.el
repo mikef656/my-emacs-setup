@@ -138,7 +138,7 @@
   "project file selection"
   (interactive)
   ;
-  (let ((pop-up-frames t ))
+  ; no oneonone (let ((pop-up-frames t ))
   ;
   ;need code to search up the path to this file
   ;
@@ -162,7 +162,8 @@
   ;
   (setq file-to-open (concat (f-dirname path-to-project-file) parpath-strip))
   ;
-  (find-file file-to-open)))
+  ;; no oneonone (find-file file-to-open)))
+  (find-file file-to-open))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

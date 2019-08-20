@@ -53,6 +53,9 @@ alias ...... 'cd ../../../../../'
 alias ....... 'cd ../../../../../../'
 alias .4 'cd ../../../../'
 alias .5 'cd ../../../../..'
+
+alias n 'cd ..'
+alias nn 'cd ../../'
 ###############################################################################
 
 # display path
@@ -93,8 +96,8 @@ alias dgrepv    'dirs|grep -v --color'
 #grep git config
 alias ggrep    'git config --list |grep  --color'
 alias bgrep    'git branch   |grep  --color'
-alias bagrep   'git branch -a  |grep  --color'
-alias bagrepa  'git branch -a  |grep  --color'
+alias bgrep   'git branch -a  |grep  --color'
+alias bgrepa  'git branch -a  |grep  --color'
 
 #emacs general
 alias ec 'emacsclient \!^ &'
