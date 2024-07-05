@@ -3406,6 +3406,7 @@ Other errors while reverting a buffer are reported only as messages."
         (with-current-buffer buf
           (with-demoted-errors "Error: %S" (revert-buffer t t)))))))
 
+;; MTF
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; final message
 (message "---REACHED END OF THE %s for %s system---" (buffer-name) home-work)
