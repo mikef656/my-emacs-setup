@@ -12,6 +12,3 @@
 (require 'icicles nil t)
 (when (fboundp 'icicle-mode) (icicle-mode 1)) ; Defined in `icicles.el'.
 
-; load ononone
-(require 'oneonone)
-(1on1-emacs)
