@@ -12,3 +12,7 @@
 (require 'icicles nil t)
 (when (fboundp 'icicle-mode) (icicle-mode 1)) ; Defined in `icicles.el'.
 
+(add-to-list 'load-path "~/.emacs.d/my-dvorak-bindings/")
+(require 'my-dvorak-bindings)
+
+(cua-mode 1)
